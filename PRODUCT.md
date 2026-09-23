@@ -17,8 +17,11 @@ engineering, the measurement, and the incentive filing.
 - No stock photos of Academy stores, no Academy logo, no federal agency logos, no 179D
   reference.
 - `<meta name="robots" content="noindex, nofollow">` plus a matching robots.txt.
-- No external scripts. Google Fonts only. All CSS and JS inline. Works as a plain file open
-  and on GitHub Pages.
+- No third-party scripts and no CDN calls. The page loads only same-origin files: its own
+  `assets/site.css`, `assets/site.js`, `assets/fonts/report-fonts.css`, and the two local
+  woff2 files it references. See DESIGN.md for why this page uses Energy Plus's live Field
+  Report system (site.css/site.js from slashyourenergycost.com) rather than the separate
+  navy/champagne token set, per Dan's design review.
 - Mobile first, no horizontal scroll at 375px, 16px+ gutters. Respects
   `prefers-reduced-motion`.
 - Numbers are not invented: the calculator and equation widgets use the engines given in the
