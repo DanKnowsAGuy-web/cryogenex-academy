@@ -36,16 +36,26 @@ engineering, the measurement, and the incentive filing.
 - Whose calendar the "Book the 15 minute fit call" button should point to once a specific
   Academy contact is engaged (currently Dan's own booking link).
 
+## Fleet wide, not Texas specific
+Per Dan's review, this page pitches Academy as a big box fleet story, not a Texas story: it
+covers all 322 stores in 21 states, not a Texas subset. There is no reference anywhere in the
+page to Texas, Houston, Katy, ERCOT, or "4CP" summer peak-setting; demand charges are described
+generically ("a big box's highest fifteen minutes of the month"), and the pilot is "five
+stores," not five Houston stores. The stakes tile "113 stores in Texas" was replaced with
+"1 million kWh per store, per year." The equation and calculator sections default to and model
+the whole 322-store fleet; the calculator's store-count chips are 5 pilot stores / 80 (bottom
+quartile) / 322 (whole fleet, default).
+
 ## Customer-specific strings and where they live
 All of the following are specific to Academy Sports + Outdoors and should be revisited if this
 page is ever reused as a template for another retailer:
 - Header: "Prepared for Academy Sports + Outdoors"
-- Hero kicker, H1, and lead copy (store count, Texas cooling season framing)
-- Stakes section: 322 stores / 113 Texas stores / 70,000 sq ft / 94% purchased electricity,
-  and the 10-K / ESG Supplement footnote
-- Equation section constants: `SALES_PER_STORE`, `TEXAS_STORES`, `FLEET_STORES`
-- Calculator section constants: `TONS`, `SQFT`, store-count chips (5 / 113 / 322), and the
-  124,514 tonne CO2e baseline referenced in the output tiles
-- Offer section: Houston / Katy pilot geography, five-store pilot structure
+- Hero kicker, H1, and lead copy (store count, Sun Belt cooling season framing)
+- Stakes section: 322 stores / 70,000 sq ft / 1 million kWh per store per year / 94% purchased
+  electricity, and the 10-K / ESG Supplement footnote
+- Equation section constant: `FLEET_STORES` (322)
+- Calculator section constants: `TONS`, `SQFT`, store-count chips (5 / 80 / 322, default 322),
+  and the 124,514 tonne CO2e baseline referenced in the output tiles
+- Offer section: five-store pilot structure, bottom-quartile (about eighty stores) rollout
 - CTA band: Daniel Gutierrez contact details, booking link with `?f=academy` query param
 - Footer: "prepared for Academy Sports + Outdoors"
