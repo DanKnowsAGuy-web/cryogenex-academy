@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/brand.css?v=20260924b">
+<link rel="stylesheet" href="assets/brand.css?v=20260924c">
 </head>
 <body>
 
@@ -50,6 +50,15 @@
             <label for="age">Age of the rooftop units: <span class="range-value mono" id="ageValue">12 years</span></label>
             <input type="range" id="age" min="0" max="25" step="1" value="12">
           </div>
+          <div class="range-row">
+            <label for="sqft">Store size: <span class="range-value mono" id="sqftValue">70,000 sq ft</span></label>
+            <input type="range" id="sqft" min="50000" max="80000" step="1000" value="70000">
+            <p class="fine" id="tonsValue" style="margin-top:0.6rem;">about 175 tons of rooftop units</p>
+          </div>
+          <div class="range-row">
+            <label for="rate">Electricity rate: <span class="range-value mono" id="rateValue">10.0 cents per kWh</span></label>
+            <input type="range" id="rate" min="6.0" max="18.0" step="0.5" value="10.0">
+          </div>
           <div class="toggle" role="group" aria-label="Scope">
             <button type="button" id="scopeStore" aria-pressed="true">One store</button>
             <button type="button" id="scopeFleet" aria-pressed="false">All 322 stores</button>
@@ -69,11 +78,11 @@
           </thead>
           <tbody>
             <tr>
-              <td class="bill" data-label="Bill">Electricity<span class="bill-sub">demand and kilowatt hours</span></td>
-              <td class="num" data-label="Today" id="energyToday">$75,640</td>
-              <td class="num" data-label="After" id="energyAfter">$61,855</td>
-              <td class="num money" data-label="Saved each year" id="energyRec">$13,785</td>
-              <td class="conf" data-label="How sure">Measured elsewhere. Measured again in the pilot.</td>
+              <td class="bill" data-label="Bill">Electricity<span class="bill-sub">treatment and solar thermal</span></td>
+              <td class="num" data-label="Today" id="energyToday">$75,522</td>
+              <td class="num" data-label="After" id="energyAfter">$43,223</td>
+              <td class="num money" data-label="Saved each year" id="energyRec">$32,299</td>
+              <td class="conf" data-label="How sure">Treatment measured elsewhere. Solar thermal at its floor. Both measured in the pilot.</td>
             </tr>
             <tr>
               <td class="bill" data-label="Bill">Maintenance<span class="bill-sub">service, repairs, failures</span></td>
@@ -91,18 +100,20 @@
             </tr>
             <tr class="total">
               <td class="bill" data-label="Bill">Total</td>
-              <td class="num" data-label="Today" id="totalToday">$119,140</td>
-              <td class="num" data-label="After" id="totalAfter">$96,690</td>
-              <td class="num money" data-label="Saved each year" id="totalRec">$22,450</td>
+              <td class="num" data-label="Today" id="totalToday">$119,022</td>
+              <td class="num" data-label="After" id="totalAfter">$78,057</td>
+              <td class="num money" data-label="Saved each year" id="totalRec">$40,965</td>
               <td class="conf" data-label="How sure"></td>
             </tr>
           </tbody>
         </table>
 
-        <p class="fine">Demand <span id="demandRec">$4,345</span>. Kilowatt hours <span id="kwhRec">$9,440</span>.</p>
+        <p class="fine">Treatment <span id="treatRec">$13,775</span>.</p>
+        <p class="fine">Solar thermal <span id="solarRec">$18,524</span>.</p>
+        <p class="fine">Of which demand <span id="demandRec">$13,672</span>.</p>
         <p class="fine">Plus <span id="deferred">$240,000</span> of replacement pushed <span id="ext">3.9</span> years out.</p>
 
-        <p class="fine">Estimates from Academy's public filings and industry norms for a 70,000 square foot store. The pilot replaces them with Academy's own numbers.</p>
+        <p class="fine">Estimates for a store of the size and age you set, at the rate you set. Store electricity per square foot comes from Academy's 2021 GHG report. Solar thermal is held at the floor of its measured range. The pilot replaces these with Academy's own numbers.</p>
       </div>
     </div>
   </section>
@@ -113,7 +124,7 @@
       <p class="label">Bill one</p>
       <h2>Electricity. Led by the line no broker can touch.</h2>
       <p>Any broker can shop the price of a kilowatt hour. Nobody can shop the demand charge. It is set by your highest fifteen minutes of the month, when every rooftop unit is running flat out.</p>
-      <p>A fouled unit does not draw less. It runs longer and lands harder on that peak. Restore it and the peak drops, the hours drop, and the credit lasts twelve months.</p>
+      <p>A fouled unit does not draw less. It runs longer and lands harder on that peak. Restore it and the peak drops, the hours drop, and the credit lasts twelve months. Solar thermal on a restored unit takes the rest of the way: at least 30 percent more.</p>
       <p>On units past ten years, the recovery has measured 20 to 24 percent under IPMVP.</p>
       <p class="fine">Electricity is 94 percent of Academy's measured footprint. Academy GHG report, 2021.</p>
     </div>
@@ -144,7 +155,7 @@
     <div class="wrap narrow">
       <p class="label">Mechanism</p>
       <h2>Why one treatment moves all three.</h2>
-      <p>Compressor oil bakes onto the inside of the coil as an insulating film. Heat that should leave stays in the unit. One treatment strips the film and keeps the metal clean. No shutdown. No modification. Warranty intact.</p>
+      <p>Compressor oil bakes onto the inside of the coil as an insulating film. Heat that should leave stays in the unit. One treatment strips the film and keeps the metal clean. No shutdown. No modification. Warranty intact. Solar thermal adds heat on the compressor's discharge side, so a restored unit does the same work with less electricity.</p>
     </div>
     <div class="wrap" style="margin-top:2.5rem;">
       <div class="grid grid--2">
@@ -235,35 +246,43 @@
   var LOSS = [0, 0.03, 0.065, 0.093, 0.118, 0.136, 0.155, 0.175, 0.188, 0.207, 0.216,
     0.226, 0.231, 0.236, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242];
   var STORES = 322;
-  var KWH_STORE = 1000000, RATE = 0.10, COOL_KWH_SHARE = 0.40;
-  var PEAK_KW = 450, DEMAND_RATE = 12, COOL_PEAK_SHARE = 0.55;
+  var KWH_PER_SQFT = 14.3;
+  var HVAC_KWH_SHARE = 0.40;
+  var PEAK_W_PER_SQFT = 6.4;
+  var HVAC_PEAK_SHARE = 0.55;
+  var DEMAND_RATE = 12;
   var DEMAND_MAX = 0.125;
-  var MAINT_TODAY = 27500, MAINT_MAX = 0.20;
-  var ROOF_COST = 240000, LIFE_YEARS = 15, EXT_MAX = 4;
+  var SOLAR = 0.30;
+  var RATE_DEFAULT = 10.0;
+  var MAINT_PER_SQFT = 27500/70000, MAINT_MAX = 0.20;
+  var ROOF_COST_PER_SQFT = 240000/70000, LIFE_YEARS = 15, EXT_MAX = 4;
 
-  function compute(age, stores){
+  function compute(age, sqft, rateCents, stores){
     var loss = LOSS[Math.min(25, Math.max(1, Math.round(age)+1))];
     var f = loss / 0.242;
-    var coolKwh = KWH_STORE * COOL_KWH_SHARE;
-    var coolPeakKw = PEAK_KW * COOL_PEAK_SHARE;
-    var energyToday = coolKwh * RATE + coolPeakKw * DEMAND_RATE * 12;
-    var kwhRec = coolKwh * loss * RATE;
-    var demandRec = coolPeakKw * DEMAND_MAX * f * DEMAND_RATE * 12;
-    var energyRec = kwhRec + demandRec;
-    var maintRec = MAINT_TODAY * MAINT_MAX * f;
-    var ext = EXT_MAX * f;
-    var lifeToday = ROOF_COST / LIFE_YEARS;
-    var lifeAfter = ROOF_COST / (LIFE_YEARS + ext);
-    var lifeRec = lifeToday - lifeAfter;
+    var rate = rateCents/100;
+    var hvacKwh = sqft * KWH_PER_SQFT * HVAC_KWH_SHARE;
+    var hvacKw  = sqft * PEAK_W_PER_SQFT / 1000 * HVAC_PEAK_SHARE;
+    var energyToday = hvacKwh*rate + hvacKw*DEMAND_RATE*12;
+    var tKwh = hvacKwh*loss;                 var tKw = hvacKw*DEMAND_MAX*f;
+    var sKwh = (hvacKwh - tKwh)*SOLAR;       var sKw = (hvacKw - tKw)*SOLAR;
+    var treatRec = tKwh*rate + tKw*DEMAND_RATE*12;
+    var solarRec = sKwh*rate + sKw*DEMAND_RATE*12;
+    var demandRec = (tKw + sKw)*DEMAND_RATE*12;
+    var kwhRec = (tKwh + sKwh)*rate;
+    var energyRec = treatRec + solarRec;
+    var maintToday = MAINT_PER_SQFT*sqft;    var maintRec = maintToday*MAINT_MAX*f;
+    var roof = ROOF_COST_PER_SQFT*sqft;      var ext = EXT_MAX*f;
+    var lifeToday = roof/LIFE_YEARS;         var lifeAfter = roof/(LIFE_YEARS+ext);  var lifeRec = lifeToday-lifeAfter;
     var s = stores;
     return {
-      loss: loss, ext: ext,
-      energyToday: energyToday*s, energyAfter: (energyToday-energyRec)*s, energyRec: energyRec*s, kwhRec: kwhRec*s, demandRec: demandRec*s,
-      maintToday: MAINT_TODAY*s, maintAfter: (MAINT_TODAY-maintRec)*s, maintRec: maintRec*s,
-      lifeToday: lifeToday*s, lifeAfter: lifeAfter*s, lifeRec: lifeRec*s,
-      deferred: ROOF_COST*s,
-      totalToday: (energyToday+MAINT_TODAY+lifeToday)*s,
-      totalAfter: (energyToday-energyRec + MAINT_TODAY-maintRec + lifeAfter)*s,
+      loss: loss, ext: ext, tons: Math.round(sqft/400/5)*5,
+      energyToday: energyToday*s, energyAfter: (energyToday-energyRec)*s, energyRec: energyRec*s,
+      treatRec: treatRec*s, solarRec: solarRec*s, demandRec: demandRec*s, kwhRec: kwhRec*s,
+      maintToday: maintToday*s, maintAfter: (maintToday-maintRec)*s, maintRec: maintRec*s,
+      lifeToday: lifeToday*s, lifeAfter: lifeAfter*s, lifeRec: lifeRec*s, deferred: roof*s,
+      totalToday: (energyToday+maintToday+lifeToday)*s,
+      totalAfter: (energyToday-energyRec+maintToday-maintRec+lifeAfter)*s,
       totalRec: (energyRec+maintRec+lifeRec)*s
     };
   }
@@ -277,15 +296,30 @@
 
   var ageEl = document.getElementById("age");
   var ageValueEl = document.getElementById("ageValue");
+  var sqftEl = document.getElementById("sqft");
+  var sqftValueEl = document.getElementById("sqftValue");
+  var tonsValueEl = document.getElementById("tonsValue");
+  var rateEl = document.getElementById("rate");
+  var rateValueEl = document.getElementById("rateValue");
   var scopeStoreBtn = document.getElementById("scopeStore");
   var scopeFleetBtn = document.getElementById("scopeFleet");
+
+  rateEl.value = RATE_DEFAULT;
 
   var scope = 1;
 
   function render(){
     var age = parseInt(ageEl.value, 10);
+    var sqft = parseInt(sqftEl.value, 10);
+    var rateCents = parseFloat(rateEl.value);
+
     ageValueEl.textContent = age + (age === 1 ? " year" : " years");
-    var r = compute(age, scope);
+    sqftValueEl.textContent = sqft.toLocaleString("en-US") + " sq ft";
+    rateValueEl.textContent = rateCents.toFixed(1) + " cents per kWh";
+
+    var r = compute(age, sqft, rateCents, scope);
+
+    tonsValueEl.textContent = "about " + r.tons + " tons of rooftop units";
 
     document.getElementById("energyToday").textContent = fmtDollar(r.energyToday);
     document.getElementById("energyAfter").textContent = fmtDollar(r.energyAfter);
@@ -303,14 +337,17 @@
     document.getElementById("totalAfter").textContent = fmtDollar(r.totalAfter);
     document.getElementById("totalRec").textContent = fmtDollar(r.totalRec);
 
+    document.getElementById("treatRec").textContent = fmtDollar(r.treatRec);
+    document.getElementById("solarRec").textContent = fmtDollar(r.solarRec);
     document.getElementById("demandRec").textContent = fmtDollar(r.demandRec);
-    document.getElementById("kwhRec").textContent = fmtDollar(r.kwhRec);
 
     document.getElementById("deferred").textContent = fmtDollar(r.deferred);
     document.getElementById("ext").textContent = r.ext.toFixed(1);
   }
 
   ageEl.addEventListener("input", render);
+  sqftEl.addEventListener("input", render);
+  rateEl.addEventListener("input", render);
 
   scopeStoreBtn.addEventListener("click", function(){
     scope = 1;

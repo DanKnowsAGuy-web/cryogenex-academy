@@ -1,5 +1,57 @@
 # PRODUCT.md — Academy Sports + Outdoors proposal page
 
+## Version 4 (September 2026): three inputs, solar thermal, no price on the page
+Per Dan's direction, the ledger takes three inputs instead of one, and the treatment is
+paired with a solar thermal add-on held at a 30 percent floor. No cost, price, or tax
+credit figure appears anywhere on the page; the output is savings only.
+
+**Controls, in order:** age of the rooftop units (0 to 25 years, default 12); store size
+(50,000 to 80,000 sq ft, step 1,000, default 70,000), which also derives and displays
+rooftop tonnage (`sqft / 400`, rounded to the nearest 5 tons); electricity rate (6.0 to
+18.0 cents per kWh, step 0.5, default `RATE_DEFAULT = 10.0`, a placeholder until Dan sends
+the fleet-weighted rate); then the existing one-store/all-322-stores toggle.
+
+**Engine.** `compute()` was replaced with the version 4 engine given verbatim: per-square-
+foot constants (`KWH_PER_SQFT = 14.3`, `PEAK_W_PER_SQFT = 6.4`, `MAINT_PER_SQFT`,
+`ROOF_COST_PER_SQFT`) replace the fixed per-store figures from version 2 to 3, so the
+ledger scales with the size slider. The rooftop units' share of energy and peak
+(`HVAC_KWH_SHARE = 0.40`, `HVAC_PEAK_SHARE = 0.55`) and the treatment's peak recovery
+(`DEMAND_MAX = 0.125`) are unchanged from version 3. A new `SOLAR = 0.30` constant applies
+solar thermal to whatever energy and peak the treatment alone does not recover, at a
+30 percent floor. `LOSS` is unchanged.
+
+**Verified in node** at the defaults (age 12, 70,000 sq ft, 10.0 cents/kWh):
+- One store: `hvacKwh` 400,400; `hvacKw` 246.4; `energyToday` $75,522; `treatRec` $13,775;
+  `solarRec` $18,524; `energyRec` $32,299; `maintRec` $5,364; `lifeRec` $3,302; `totalToday`
+  $119,022; `totalAfter` $78,057; `totalRec` $40,965.
+- Fleet of 322: `energyRec` about $10.4M; `maintRec` about $1.73M; `lifeRec` about $1.06M;
+  `totalRec` about $13.19M; `deferred` $77.28M.
+These are the code's actual output. The coordinator's spec supplied approximate expected
+figures (treatRec about $13,760, solarRec about $18,520, energyRec about $32,280, totalRec
+about $40,950) that are close to, but not identical to, the code's output; the differences
+are consistent with rounding in the spec's own arithmetic, not a code error, so the
+verbatim engine was kept as given rather than adjusted to match the approximation.
+
+**Ledger display.** The Electricity row's subtitle changed to "treatment and solar
+thermal"; its "how sure" text now reads "Treatment measured elsewhere. Solar thermal at
+its floor. Both measured in the pilot." Three fine-print lines under the table now read
+"Treatment $X", "Solar thermal $X", and "Of which demand $X" (the former "Kilowatt hours
+$X" line was dropped since kWh recovery is now split across the treatment and solar
+lines). The closing fine print now credits the rate and size the reader chose, notes the
+per-square-foot electricity source, and states that solar thermal is held at its measured
+floor.
+
+**Copy.** Two sentences were added, both supplied verbatim: one at the end of bill one's
+second paragraph ("Solar thermal on a restored unit takes the rest of the way: at least
+30 percent more.") and one at the end of the mechanism paragraph in the "why" section
+("Solar thermal adds heat on the compressor's discharge side, so a restored unit does the
+same work with less electricity."). No other copy changed.
+
+**CSS.** `.controls .range-row` (previously `.controls > div:first-child`) now applies the
+260px flex-basis to all three sliders, not just the first, so the new size and rate rows
+size consistently with the age row on desktop and reset to full width identically on
+phones. `assets/brand.css` bumped to `?v=20260924c`.
+
 ## Version 3 (September 2026)
 Three changes from Dan on top of version 2, all copy-and-type, no structural change:
 1. **Type sized for readers 65 and up.** Body text is 1.3rem/1.55, the lead is 1.5rem, labels
@@ -50,11 +102,13 @@ engineering, the measurement, and the incentive filing.
   on click only, the Wistia iframe for the film. Everything else is same-origin
   (`assets/brand.css`, the inline script).
 - Mobile first, no horizontal scroll at 375px. Respects `prefers-reduced-motion`.
-- Numbers are not invented: the roof ledger uses the compute() engine given in the build
-  spec verbatim, with LOSS, STORES, KWH_STORE, RATE, COOL_KWH_SHARE, PEAK_KW, DEMAND_RATE,
-  COOL_PEAK_SHARE, DEMAND_MAX, MAINT_TODAY, MAINT_MAX, ROOF_COST, LIFE_YEARS, and EXT_MAX
-  as the only inputs. All narrative figures (Simon Property Group case, the 94 percent
-  purchased-electricity note, the twelve-units-a-roof estimate) cite the spec's own sourcing.
+- Numbers are not invented: the roof ledger uses the compute() engine given in each version's
+  build spec verbatim. As of version 4 that engine takes age, store size, and electricity
+  rate as inputs, with LOSS, STORES, KWH_PER_SQFT, HVAC_KWH_SHARE, PEAK_W_PER_SQFT,
+  HVAC_PEAK_SHARE, DEMAND_RATE, DEMAND_MAX, SOLAR, MAINT_PER_SQFT, MAINT_MAX,
+  ROOF_COST_PER_SQFT, LIFE_YEARS, and EXT_MAX as its only constants. All narrative figures
+  (Simon Property Group case, the 94 percent purchased-electricity note, the twelve-units-
+  a-roof estimate) cite the spec's own sourcing.
 
 ## The roof ledger and DEMAND_MAX
 The ledger's JavaScript is the compute() function from the build spec, copied verbatim,

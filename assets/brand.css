@@ -273,7 +273,7 @@ input[type="range"]::-moz-range-thumb{
   gap: 1.25rem;
   margin-bottom: 2.25rem;
 }
-.controls > div:first-child{ flex: 1 1 260px; }
+.controls .range-row{ flex: 1 1 260px; }
 
 /* Ledger card */
 .card{
@@ -565,13 +565,13 @@ footer.site p{
 }
 
 @media (max-width: 720px){
-  /* The root cause of the gap between the slider and the toggle: .controls > div:first-child
-     carries `flex: 1 1 260px` for the desktop row layout, where 260px is a flex-basis
-     width. In column direction the same flex-basis becomes a minimum height, forcing the
-     range-row box to about 260px tall even though its label and slider only need about
-     80px, leaving the rest as blank space before the toggle. Reset it to auto here. */
+  /* The root cause of the gap between a slider and the row below it: .range-row carries
+     `flex: 1 1 260px` for the desktop row layout, where 260px is a flex-basis width. In
+     column direction the same flex-basis becomes a minimum height, forcing each range-row
+     box to about 260px tall even though its label and slider only need about 80px, leaving
+     the rest as blank space. Reset every range-row to auto here. */
   .controls{ flex-direction: column; align-items: stretch; gap: 1.25rem; }
-  .controls > div:first-child{ flex: 0 1 auto; }
+  .controls .range-row{ flex: 0 1 auto; }
   .toggle{ display: flex; width: 100%; }
   .toggle button{ flex: 1 1 50%; text-align: center; }
 }
