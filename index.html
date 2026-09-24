@@ -20,8 +20,19 @@
   }
   .hero .label { color: var(--panel-faint); }
 
+  /* type floor: nothing that reads as body copy drops below 1.3rem; labels and
+     fine print (footnote-scale, per the standing rule) stay at 1rem; the hero
+     lead is fixed at 1.5rem; ledger numerals stay 1.5rem/1.6rem. */
+  p, li { font-size: max(var(--step-1), 1.3rem); line-height: 1.5; }
+  .fine, .label { font-size: 1rem; line-height: 1.5; }
+  .hero__lede { font-size: 1.5rem; }
+
+  .textlink {
+    font-size: 1.15rem; min-height: 56px; display: inline-flex; align-items: center;
+  }
+
   main h2 { font-size: var(--step-3); max-width: 24ch; }
-  main .wrap.narrow p:not(.fine) { font-size: var(--step-1); line-height: 1.5; max-width: 66ch; }
+  main .wrap.narrow p:not(.fine) { font-size: max(var(--step-1), 1.3rem); line-height: 1.5; max-width: 66ch; }
   main .wrap.narrow p + p { margin-top: 1rem; }
   main .wrap.narrow h2 + p { margin-top: 1.4rem; }
 
@@ -75,7 +86,7 @@
   .toggle button {
     flex: 1; min-height: 56px; border-radius: var(--r-ctrl); border: 1px solid var(--rule);
     background: var(--card); color: var(--ink); font-family: var(--font-sans); font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.15rem;
   }
   .toggle button[aria-pressed="true"] { background: var(--graphite); color: var(--panel-ink); border-color: var(--graphite); }
 
@@ -85,17 +96,25 @@
   .ledger-table th { text-align: left; font-family: var(--font-mono); font-size: 1rem;
     letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); font-weight: 600;
     border-bottom: 1px solid var(--ink); padding: 0.6rem 0.6rem 0.6rem 0; }
-  .ledger-table td { padding: 0.9rem 0.6rem 0.9rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .ledger-table td {
+    padding: 0.9rem 0.6rem 0.9rem 0; border-bottom: 1px solid var(--rule); vertical-align: top;
+    font-size: max(var(--step-1), 1.3rem); overflow-wrap: anywhere;
+  }
+  .ledger-table th { overflow-wrap: anywhere; }
   .ledger-table .bill { font-weight: 600; color: var(--ink); }
   .ledger-table .bill-sub { display: block; font-family: var(--font-mono); font-weight: 400;
     font-size: 1rem; color: var(--faint); margin-top: 0.2rem; }
   .ledger-table .num { font-family: var(--font-mono); font-size: 1.5rem; color: var(--ink);
     font-variant-numeric: tabular-nums; }
   .ledger-table .num.money { color: var(--amber-ink); font-weight: 600; }
-  .ledger-table .conf { font-size: 1rem; color: var(--faint); max-width: 22ch; }
+  .ledger-table .conf { font-size: max(var(--step-1), 1.3rem); color: var(--faint); max-width: 22ch; }
   .ledger-table .conf .warn { color: var(--amber-ink); font-style: italic; }
   .ledger-table tr.total td { border-top: 2px solid var(--ink); border-bottom: 0; font-weight: 700; }
   .ledger-table tr.total .num { font-size: 1.6rem; }
+
+  @media (min-width: 720px) {
+    .ledger-table { table-layout: fixed; width: 100%; }
+  }
 
   /* ---------- page furniture reused across the bill/why/pilot sections ---------- */
   .grid { display: grid; gap: 1.5rem; }
@@ -104,7 +123,7 @@
 
   .plain-card { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-card);
     padding: clamp(1.25rem, 2.5vw, 1.75rem); }
-  .plain-card p { font-size: var(--step-1); line-height: 1.5; }
+  .plain-card p { font-size: max(var(--step-1), 1.3rem); line-height: 1.5; }
   .plain-card .fine { margin-top: 1rem; }
   .photo img { border-radius: calc(var(--r-card) - 3px); filter: grayscale(1) contrast(1.05); aspect-ratio: 4 / 3; object-fit: cover; }
 
@@ -121,15 +140,15 @@
   .steps > li { border-top: 1px solid var(--rule); padding: 1.5rem 0; }
   .step-num { font-family: var(--font-mono); font-weight: 600; font-size: var(--step-1); color: var(--faint); }
   .steps h3 { font-size: var(--step-1); margin-top: 0.5rem; }
-  .steps p { margin-top: 0.5rem; font-size: 1rem; }
+  .steps p { margin-top: 0.5rem; font-size: max(var(--step-1), 1.3rem); }
 
   .callout { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-card);
     padding: clamp(1.25rem, 2.5vw, 1.75rem); }
-  .callout p { font-size: 1rem; margin-top: 0.5rem; }
+  .callout p { font-size: max(var(--step-1), 1.3rem); margin-top: 0.5rem; }
   .callout h3 { font-size: var(--step-1); }
 
   footer.site { padding-block: 3rem; background: var(--graphite); color: var(--panel-body); }
-  footer.site p { font-size: 1rem; }
+  footer.site p { font-size: max(var(--step-1), 1.3rem); }
 
   /* ---------- hero copy on the store photo ---------- */
   /* .hero is display:grid with a single implicit column; without min-width:0
@@ -146,10 +165,73 @@
     .toggle { flex-basis: 100%; }
   }
 
-  /* ---------- phone layout of the ledger controls ---------- */
+  /* ---------- phone: controls, stacked ledger table, and layout-width safety ---------- */
   @media (max-width: 719.9px) {
     .controls { gap: 1.5rem; }
     .card { padding: 1.25rem; }
+
+    /* the fixed header only ever needs desktop's .wrap width budget; pin it to
+       the viewport explicitly so nothing upstream (an oversized descendant
+       elsewhere on the page) can drag the layout viewport wider than the
+       device and force the browser to zoom the whole page out. */
+    .head, .head__in {
+      width: 100%; max-width: 100%; min-width: 0;
+      padding-left: 16px; padding-right: 16px; box-sizing: border-box;
+    }
+
+    html, body { overflow-x: hidden; max-width: 100%; }
+    img, picture, video { max-width: 100%; height: auto; }
+
+    /* the ledger table becomes a stack of cards: one card per row, three
+       label/value lines for today, after, and saved, then the confidence
+       line. thead is visually hidden (clipped, not display:none, so it
+       still reads to a screen reader) since its labels move into each
+       value row via data-label. */
+    .ledger-table { table-layout: auto; }
+    .ledger-table thead {
+      position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .ledger-table, .ledger-table tbody, .ledger-table tr, .ledger-table td {
+      display: block; width: 100%;
+    }
+    .ledger-table tr {
+      border: 1px solid var(--rule); border-radius: var(--r-card);
+      margin-top: 1rem; overflow: hidden;
+    }
+    .ledger-table tr:first-child { margin-top: 0; }
+    .ledger-table tr.total { border: 2px solid var(--ink); }
+    .ledger-table td {
+      border-bottom: 1px solid var(--rule); padding: 0.9rem 1rem;
+    }
+    .ledger-table tr.total td { border-bottom: 1px solid var(--rule); border-top: 0; }
+    .ledger-table td:last-child { border-bottom: 0; }
+
+    .ledger-table td.bill {
+      font-family: var(--font-sans); font-weight: 700; font-stretch: 112%;
+      font-size: 1.35rem; background: var(--paper-2);
+    }
+    .ledger-table td.bill .bill-sub { font-size: 1rem; margin-top: 0.3rem; }
+
+    .ledger-table td.num {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+      font-size: 1.35rem;
+    }
+    .ledger-table td.num::before {
+      content: attr(data-label); font-family: var(--font-mono); font-size: 1rem;
+      font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint);
+    }
+    .ledger-table td.num > span { white-space: nowrap; }
+
+    .ledger-table td.conf { font-size: 1.15rem; }
+    .ledger-table td.conf::before {
+      content: attr(data-label); display: block; font-family: var(--font-mono); font-size: 1rem;
+      font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint);
+      margin-bottom: 0.4rem;
+    }
+    .ledger-table td.conf:empty { display: none; }
+
+    .ledger-table caption { font-size: 1rem; white-space: normal; }
   }
 </style>
 </head>
@@ -229,30 +311,30 @@
           <tbody>
             <tr>
               <td class="bill" data-label="Bill">Electricity<span class="bill-sub">treatment and solar thermal</span></td>
-              <td class="num" data-label="Today" id="energyToday">$75,922</td>
-              <td class="num" data-label="After" id="energyAfter">$43,437</td>
-              <td class="num money" data-label="Saved each year" id="energyRec">$32,485</td>
+              <td class="num" data-label="Today"><span id="energyToday">$75,922</span></td>
+              <td class="num" data-label="After"><span id="energyAfter">$43,437</span></td>
+              <td class="num money" data-label="Saved each year"><span id="energyRec">$32,485</span></td>
               <td class="conf" data-label="How sure">Treatment measured elsewhere. Solar thermal at its floor. Both measured in the pilot.</td>
             </tr>
             <tr>
               <td class="bill" data-label="Bill">Maintenance<span class="bill-sub">service, repairs, failures</span></td>
-              <td class="num" data-label="Today" id="maintToday">$27,500</td>
-              <td class="num" data-label="After" id="maintAfter">$22,136</td>
-              <td class="num money" data-label="Saved each year" id="maintRec">$5,364</td>
+              <td class="num" data-label="Today"><span id="maintToday">$27,500</span></td>
+              <td class="num" data-label="After"><span id="maintAfter">$22,136</span></td>
+              <td class="num money" data-label="Saved each year"><span id="maintRec">$5,364</span></td>
               <td class="conf" data-label="How sure">A <span class="warn">claim</span>. The service log will decide.</td>
             </tr>
             <tr>
               <td class="bill" data-label="Bill">Replacement<span class="bill-sub">twelve units, fifteen years</span></td>
-              <td class="num" data-label="Today" id="lifeToday">$16,000 a year</td>
-              <td class="num" data-label="After" id="lifeAfter">$12,698 a year</td>
-              <td class="num money" data-label="Saved each year" id="lifeRec">$3,302 a year</td>
+              <td class="num" data-label="Today"><span id="lifeToday">$16,000 a year</span></td>
+              <td class="num" data-label="After"><span id="lifeAfter">$12,698 a year</span></td>
+              <td class="num money" data-label="Saved each year"><span id="lifeRec">$3,302 a year</span></td>
               <td class="conf" data-label="How sure">Engineering. Gauge readings will show it.</td>
             </tr>
             <tr class="total">
               <td class="bill" data-label="Bill">Total</td>
-              <td class="num" data-label="Today" id="totalToday">$119,422</td>
-              <td class="num" data-label="After" id="totalAfter">$78,271</td>
-              <td class="num money" data-label="Saved each year" id="totalRec">$41,151</td>
+              <td class="num" data-label="Today"><span id="totalToday">$119,422</span></td>
+              <td class="num" data-label="After"><span id="totalAfter">$78,271</span></td>
+              <td class="num money" data-label="Saved each year"><span id="totalRec">$41,151</span></td>
               <td class="conf" data-label="How sure"></td>
             </tr>
           </tbody>
