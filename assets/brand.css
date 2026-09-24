@@ -383,24 +383,29 @@ input[type="range"]::-moz-range-thumb{
     margin-bottom: 0.85rem;
   }
   .ledger-table td.num{
-    display: inline-block;
-    vertical-align: top;
-    width: 33%;
-    max-width: 33%;
-    padding-right: 0.4rem;
-    white-space: normal;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.85rem 0;
+    border-top: var(--hairline) solid var(--hair);
+    overflow: visible;
+    white-space: nowrap;
     font-size: var(--size-ledger-num-phone);
   }
   .ledger-table td.num::before{
     content: attr(data-label);
-    display: block;
+    display: inline-block;
     font-family: var(--font-mono);
     font-size: var(--size-label);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--ink-2);
-    margin-bottom: 0.35rem;
     font-weight: 600;
+    white-space: normal;
+    flex-shrink: 1;
   }
   .ledger-table td.conf{
     display: block;
@@ -559,6 +564,14 @@ footer.site p{
   }
 }
 
-@media (max-width: 480px){
+@media (max-width: 720px){
+  /* The root cause of the gap between the slider and the toggle: .controls > div:first-child
+     carries `flex: 1 1 260px` for the desktop row layout, where 260px is a flex-basis
+     width. In column direction the same flex-basis becomes a minimum height, forcing the
+     range-row box to about 260px tall even though its label and slider only need about
+     80px, leaving the rest as blank space before the toggle. Reset it to auto here. */
   .controls{ flex-direction: column; align-items: stretch; gap: 1.25rem; }
+  .controls > div:first-child{ flex: 0 1 auto; }
+  .toggle{ display: flex; width: 100%; }
+  .toggle button{ flex: 1 1 50%; text-align: center; }
 }
