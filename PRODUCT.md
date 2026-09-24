@@ -1,5 +1,68 @@
 # PRODUCT.md — Academy Sports + Outdoors proposal page
 
+## Version 5 (September 2026): live site skin, logo, store photo, phone controls
+Per Dan's direction, the page moved from the version 2 to 4 placeholder skin onto the
+real, live Energy Plus design system, pulled fresh from the root of
+slashyourenergycost.com. The ledger's copy, `compute()` engine, constants, sliders, and
+toggle are byte-for-byte unchanged from version 4; only the skin, header, hero, and the
+phone layout of the ledger controls changed. See DESIGN.md for the asset sources,
+Last-Modified dates, and the CSS approach.
+
+**Header.** Trimmed to the logo only, using the root's own `.head`/`.head__mark`
+structure and the live `assets/img/energy-plus-logo.png`. The nav links and book button
+from the root header were dropped since this is a single-page proposal, not the
+marketing site. The "Prepared for Academy Sports + Outdoors" and "In partnership with
+Cryogenex" lines that lived in the old header are gone; "In partnership with Cryogenex"
+stays in the footer only, where it always was.
+
+**Hero.** Rebuilt on the root's `.hero` class (the same one the root's own hero and the
+hotels page's photo hero both use), with a real photo behind it: a public-domain,
+CC0-equivalent Academy Sports + Outdoors storefront photo (Wikimedia Commons, see
+DESIGN.md for the license note and source), cropped to a 16:9 desktop frame and a 4:5
+mobile frame that both keep the storefront centered. Because `.hero__media img` and
+`.hero__scrim` are already defined in site.css (grayscale/contrast/brightness filter on
+the photo, a graphite gradient scrim over it) and used exactly this way on the hotels
+page, no new overlay CSS was needed; the same shared classes gave the same "teal panel
+with the building showing through" treatment described in the brief. The mobile crop
+swaps in below 720px via a `<picture>` source, not a CSS media query. Hero copy is
+unchanged: the September 2026 label, "Three bills. One fix.", the lede, and the two
+buttons (now the root's `.btn`/`.textlink` classes instead of the old `.btn--solid`/
+`.btn--ghost`).
+
+**A one-line grid fix.** `.hero` is `display: grid` with no explicit
+`grid-template-columns`, so its single child sits in an implicit auto-sized column. The
+root always avoids this by wrapping hero content in `.hero__grid`, which sets
+`min-width: 0` on its children; our hero has no second column (no bill graphic), so it
+skips `.hero__grid` and needed the same `min-width: 0` rule applied directly to
+`.hero__in` to stop the child from refusing to shrink below its own content width on
+narrow viewports.
+
+**Phone layout of the ledger controls.** Each slider's `<label>` already held both the
+label text and a `.range-value` span; making `.range-value` a block element was enough
+to stack "label / big value" without changing the markup. A `.range-minmax` line was
+added under each track printing the slider's min and max in mono. Order (age, size,
+rate, then the store/fleet toggle), the 1.5rem gap between blocks, and a hairline under
+each block on phones come from the inline `<style>` block, all keyed to site.css
+variables: `--rule` for the 10px track, `--graphite` for the 36px round thumb with a 2px
+white ring, `--faint` for the mono 1rem labels and min/max, `--ink` for the 1.6rem
+Archivo value. Desktop keeps the three-slider row from version 4 (`.controls .range-row`
+at a 260px flex-basis, min-width 720px) with the same thumb and track styling.
+
+**Buttons and page furniture.** Buttons throughout the page (hero, pilot ask) now use
+the root's own `.btn`/`.btn--lg`/`.textlink` classes instead of the old
+`.btn--solid`/`.btn--ghost`, since site.css already styles those correctly for both
+light and dark (on-hero) backgrounds. Everything else — the ledger card, the range
+sliders and toggle, the bill/callout/step cards, the film facade — is this page's own
+widget, not something the root design system defines a class for, so it's restyled in a
+small inline `<style>` block that draws every color, font, and spacing value from a
+`var(--...)` in site.css. No hex color or literal `font-family` appears outside that
+one `/* This page's own widgets only */` comment marking the block.
+
+**Type.** Body copy runs at `--step-1` (about 21px at this viewport range). Labels, fine
+print, and the ledger's confidence column never drop below 1rem. Ledger numerals run
+1.5rem mono on both today/after columns and the totals row bumps to 1.6rem. Buttons and
+the scope toggle stay at the version 3 rule: 56px minimum height.
+
 ## Version 4 (September 2026): three inputs, solar thermal, no price on the page
 Per Dan's direction, the ledger takes three inputs instead of one, and the treatment is
 paired with a solar thermal add-on held at a 30 percent floor. No cost, price, or tax

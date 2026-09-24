@@ -6,40 +6,187 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Energy Plus proposal for Academy Sports + Outdoors, prepared in partnership with Cryogenex.">
 <title>Energy Plus · Prepared for Academy Sports + Outdoors</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/brand.css?v=20260924c">
+<link rel="stylesheet" href="assets/fonts/report-fonts.css">
+<link rel="stylesheet" href="assets/site.css?v=20260924d">
+<style>
+  /* This page's own widgets only: the roof ledger, its sliders, and the small
+     furniture (bands, cards, toggle, steps, callouts) that assets/site.css does
+     not define. Every value below is a var(--...) from site.css. No literal
+     color or font-family appears past this point. */
+
+  .label {
+    font-family: var(--font-mono); font-size: 1rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint);
+  }
+  .hero .label { color: var(--panel-faint); }
+
+  main h2 { font-size: var(--step-3); max-width: 24ch; }
+  main .wrap.narrow p:not(.fine) { font-size: var(--step-1); line-height: 1.5; max-width: 66ch; }
+  main .wrap.narrow p + p { margin-top: 1rem; }
+  main .wrap.narrow h2 + p { margin-top: 1.4rem; }
+
+  .wrap.narrow { max-width: calc(var(--narrow) + 2 * clamp(1.25rem, 4vw, 2.5rem)); }
+
+  .band { padding-block: var(--beat-pad); background: var(--paper); }
+  .band--alt { background: var(--card); border-block: 1px solid var(--rule-soft); }
+
+  .fine { font-family: var(--font-mono); font-size: 1rem; color: var(--faint); margin-top: 0.9rem; }
+  .fine .warn { color: var(--faint); font-style: italic; }
+
+  .btns { display: flex; flex-wrap: wrap; gap: 1.1rem; margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+
+  /* ---------- the ledger card ---------- */
+  .card {
+    background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-card);
+    box-shadow: var(--shadow-card); padding: clamp(1.5rem, 3vw, 2.5rem); margin-top: 2rem;
+  }
+
+  .controls { display: flex; flex-direction: column; gap: 1.5rem; }
+  .controls .range-row label {
+    display: block; font-family: var(--font-mono); font-size: 1rem; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--faint);
+  }
+  .controls .range-row { border-bottom: 1px solid var(--rule); padding-bottom: 1.5rem; }
+  .range-value { display: block; font-family: var(--font-sans); font-weight: 700; font-stretch: 112%;
+    font-size: 1.6rem; color: var(--ink); margin-top: 0.35rem; letter-spacing: -0.01em; }
+  .range-value.mono { font-family: var(--font-sans); }
+
+  input[type="range"] {
+    -webkit-appearance: none; appearance: none; width: 100%; height: 10px;
+    border-radius: 999px; background: var(--rule); margin-top: 1rem; outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 36px; height: 36px; border-radius: 50%;
+    background: var(--graphite); border: 2px solid var(--panel-ink);
+    box-shadow: 0 1px 0 rgb(16 20 22 / 0.15), 0 6px 16px -6px rgb(16 20 22 / 0.4);
+    cursor: pointer;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--graphite);
+    border: 2px solid var(--panel-ink); box-shadow: 0 1px 0 rgb(16 20 22 / 0.15), 0 6px 16px -6px rgb(16 20 22 / 0.4);
+    cursor: pointer;
+  }
+  input[type="range"]::-moz-range-track { height: 10px; border-radius: 999px; background: var(--rule); }
+
+  .range-minmax { display: flex; justify-content: space-between; font-family: var(--font-mono);
+    font-size: 1rem; color: var(--faint); margin-top: 0.6rem; }
+
+  .toggle { display: flex; gap: 0.75rem; }
+  .toggle button {
+    flex: 1; min-height: 56px; border-radius: var(--r-ctrl); border: 1px solid var(--rule);
+    background: var(--card); color: var(--ink); font-family: var(--font-sans); font-weight: 600;
+    font-size: 1rem;
+  }
+  .toggle button[aria-pressed="true"] { background: var(--graphite); color: var(--panel-ink); border-color: var(--graphite); }
+
+  .ledger-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+  .ledger-table caption { text-align: left; font-family: var(--font-mono); font-size: 1rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 0.8rem; }
+  .ledger-table th { text-align: left; font-family: var(--font-mono); font-size: 1rem;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); font-weight: 600;
+    border-bottom: 1px solid var(--ink); padding: 0.6rem 0.6rem 0.6rem 0; }
+  .ledger-table td { padding: 0.9rem 0.6rem 0.9rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .ledger-table .bill { font-weight: 600; color: var(--ink); }
+  .ledger-table .bill-sub { display: block; font-family: var(--font-mono); font-weight: 400;
+    font-size: 1rem; color: var(--faint); margin-top: 0.2rem; }
+  .ledger-table .num { font-family: var(--font-mono); font-size: 1.5rem; color: var(--ink);
+    font-variant-numeric: tabular-nums; }
+  .ledger-table .num.money { color: var(--amber-ink); font-weight: 600; }
+  .ledger-table .conf { font-size: 1rem; color: var(--faint); max-width: 22ch; }
+  .ledger-table .conf .warn { color: var(--amber-ink); font-style: italic; }
+  .ledger-table tr.total td { border-top: 2px solid var(--ink); border-bottom: 0; font-weight: 700; }
+  .ledger-table tr.total .num { font-size: 1.6rem; }
+
+  /* ---------- page furniture reused across the bill/why/pilot sections ---------- */
+  .grid { display: grid; gap: 1.5rem; }
+  .grid--2 { grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .grid--2 { grid-template-columns: 1fr 1fr; } }
+
+  .plain-card { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-card);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem); }
+  .plain-card p { font-size: var(--step-1); line-height: 1.5; }
+  .plain-card .fine { margin-top: 1rem; }
+  .photo img { border-radius: calc(var(--r-card) - 3px); filter: grayscale(1) contrast(1.05); aspect-ratio: 4 / 3; object-fit: cover; }
+
+  .film { position: relative; border-radius: var(--r-card); overflow: hidden; cursor: pointer; }
+  .film img { aspect-ratio: 16 / 9; object-fit: cover; filter: grayscale(1) contrast(1.05); }
+  .film .play { position: absolute; inset: 0; display: grid; place-items: center; }
+  .film .play span { display: block; width: 64px; height: 64px; border-radius: 50%;
+    background: var(--panel-ink); position: relative; }
+  .film .play span::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%);
+    border-style: solid; border-width: 12px 0 12px 20px; border-color: transparent transparent transparent var(--graphite); }
+  .film iframe { width: 100%; aspect-ratio: 16 / 9; border-radius: var(--r-card); }
+
+  .steps { list-style: none; margin-top: clamp(1.8rem, 4vw, 3rem); padding: 0; counter-reset: step; }
+  .steps > li { border-top: 1px solid var(--rule); padding: 1.5rem 0; }
+  .step-num { font-family: var(--font-mono); font-weight: 600; font-size: var(--step-1); color: var(--faint); }
+  .steps h3 { font-size: var(--step-1); margin-top: 0.5rem; }
+  .steps p { margin-top: 0.5rem; font-size: 1rem; }
+
+  .callout { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-card);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem); }
+  .callout p { font-size: 1rem; margin-top: 0.5rem; }
+  .callout h3 { font-size: var(--step-1); }
+
+  footer.site { padding-block: 3rem; background: var(--graphite); color: var(--panel-body); }
+  footer.site p { font-size: 1rem; }
+
+  /* ---------- hero copy on the store photo ---------- */
+  /* .hero is display:grid with a single implicit column; without min-width:0
+     the child refuses to shrink below its content's intrinsic width and
+     overflows the viewport, the same reason root's own hero always wraps its
+     content in .hero__grid (which sets this same rule on its children). */
+  .hero__in { min-width: 0; }
+  .hero__copy .btns { margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+
+  /* desktop keeps the row layout; same thumb and track styling as phone */
+  @media (min-width: 720px) {
+    .controls { flex-direction: row; flex-wrap: wrap; gap: 2rem; }
+    .controls .range-row { flex: 1 1 260px; border-bottom: 0; padding-bottom: 0; }
+    .toggle { flex-basis: 100%; }
+  }
+
+  /* ---------- phone layout of the ledger controls ---------- */
+  @media (max-width: 719.9px) {
+    .controls { gap: 1.5rem; }
+    .card { padding: 1.25rem; }
+  }
+</style>
 </head>
 <body>
 
-<header class="site">
-  <div class="wrap">
-    <div class="wordmark">ENERGY<span class="plus">+</span></div>
-    <div class="header-meta">
-      <span class="label">Prepared for Academy Sports + Outdoors</span>
-      <span class="label">In partnership with Cryogenex</span>
-    </div>
+<header class="head" id="head">
+  <div class="wrap head__in">
+    <a class="head__mark" href="#top" aria-label="Energy Plus, home"><img src="assets/img/energy-plus-logo.png" alt="Energy Plus" width="104" height="30"></a>
   </div>
 </header>
 
 <main>
 
   <!-- 1. Hero -->
-  <section class="band section" id="hero">
-    <div class="wrap narrow">
-      <p class="label">Academy Sports + Outdoors · September 2026</p>
-      <h1>Three bills. One fix.</h1>
-      <p class="lede">Every Academy store pays for energy three times. The electric bill. The maintenance bill. The replacement bill. One treatment of the rooftop units lowers all three. Proven in five stores before you commit to one more.</p>
-      <div class="btns">
-        <a class="btn btn--solid" href="#ledger">See the numbers</a>
-        <a class="btn btn--ghost" href="#pilot">The pilot</a>
+  <section class="hero" id="top" aria-labelledby="hero-h">
+    <div class="hero__media" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 719px)" srcset="assets/img/hero-store-mobile.jpg">
+        <img src="assets/img/hero-store.jpg" alt="" loading="eager" fetchpriority="high">
+      </picture>
+      <div class="hero__scrim"></div>
+    </div>
+    <div class="wrap hero__in">
+      <div class="hero__copy">
+        <p class="label">Academy Sports + Outdoors · September 2026</p>
+        <h1 id="hero-h">Three bills. One fix.</h1>
+        <p class="hero__lede">Every Academy store pays for energy three times. The electric bill. The maintenance bill. The replacement bill. One treatment of the rooftop units lowers all three. Proven in five stores before you commit to one more.</p>
+        <div class="btns">
+          <a class="btn btn--lg" href="#ledger">See the numbers</a>
+          <a class="textlink" href="#pilot">The pilot</a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- 2. The ledger -->
-  <section class="band--alt section" id="ledger">
+  <section class="band--alt band" id="ledger">
     <div class="wrap">
       <p class="label">The numbers</p>
       <h2>One store. Three bills.</h2>
@@ -47,17 +194,20 @@
       <div class="card">
         <div class="controls">
           <div class="range-row">
-            <label for="age">Age of the rooftop units: <span class="range-value mono" id="ageValue">12 years</span></label>
+            <label for="age">Age of the rooftop units<span class="range-value mono" id="ageValue">12 years</span></label>
             <input type="range" id="age" min="0" max="25" step="1" value="12">
+            <div class="range-minmax"><span>0 years</span><span>25 years</span></div>
           </div>
           <div class="range-row">
-            <label for="sqft">Store size: <span class="range-value mono" id="sqftValue">70,000 sq ft</span></label>
+            <label for="sqft">Store size<span class="range-value mono" id="sqftValue">70,000 sq ft</span></label>
+            <p class="fine" id="tonsValue" style="margin-top:0.2rem;">about 175 tons of rooftop units</p>
             <input type="range" id="sqft" min="50000" max="100000" step="1000" value="70000">
-            <p class="fine" id="tonsValue" style="margin-top:0.6rem;">about 175 tons of rooftop units</p>
+            <div class="range-minmax"><span>50,000 sq ft</span><span>100,000 sq ft</span></div>
           </div>
           <div class="range-row">
-            <label for="rate">Electricity rate: <span class="range-value mono" id="rateValue">10.1 cents per kWh</span></label>
+            <label for="rate">Electricity rate<span class="range-value mono" id="rateValue">10.1 cents per kWh</span></label>
             <input type="range" id="rate" min="6.0" max="16.0" step="0.1" value="10.1">
+            <div class="range-minmax"><span>6.0 cents</span><span>16.0 cents</span></div>
           </div>
           <div class="toggle" role="group" aria-label="Scope">
             <button type="button" id="scopeStore" aria-pressed="true">One store</button>
@@ -119,7 +269,7 @@
   </section>
 
   <!-- 3. Bill one: energy -->
-  <section class="band section" id="energy">
+  <section class="band" id="energy">
     <div class="wrap narrow">
       <p class="label">Bill one</p>
       <h2>Electricity. Led by the line no broker can touch.</h2>
@@ -131,7 +281,7 @@
   </section>
 
   <!-- 4. Bill two: maintenance -->
-  <section class="band--alt section" id="maintenance">
+  <section class="band--alt band" id="maintenance">
     <div class="wrap narrow">
       <p class="label">Bill two</p>
       <h2>Maintenance. Heat kills compressors.</h2>
@@ -141,7 +291,7 @@
   </section>
 
   <!-- 5. Bill three: replacement -->
-  <section class="band section" id="life">
+  <section class="band" id="life">
     <div class="wrap narrow">
       <p class="label">Bill three</p>
       <h2>Replacement. $240,000 a roof. 322 roofs.</h2>
@@ -151,7 +301,7 @@
   </section>
 
   <!-- 6. Why one treatment moves all three -->
-  <section class="band--alt section" id="why">
+  <section class="band--alt band" id="why">
     <div class="wrap narrow">
       <p class="label">Mechanism</p>
       <h2>Why one treatment moves all three.</h2>
@@ -181,7 +331,7 @@
   </section>
 
   <!-- 7. The pilot and the ask -->
-  <section class="band section" id="pilot">
+  <section class="band" id="pilot">
     <div class="wrap narrow">
       <p class="label">The pilot</p>
       <h2>Five stores. Three bills. One season.</h2>
@@ -222,9 +372,9 @@
 
       <h2 style="margin-top:3rem;">One call.</h2>
       <div class="btns">
-        <a class="btn btn--solid" href="https://book.slashyourenergycost.com/?f=academy">Book the 15 minute fit call</a>
-        <a class="btn btn--ghost" href="sms:+18647770688">Text Dan</a>
-        <a class="btn btn--ghost" href="mailto:dan@yourenergyplus.com">Email</a>
+        <a class="btn btn--lg" href="https://book.slashyourenergycost.com/?f=academy">Book the 15 minute fit call</a>
+        <a class="textlink" href="sms:+18647770688">Text Dan</a>
+        <a class="textlink" href="mailto:dan@yourenergyplus.com">Email</a>
       </div>
       <p class="fine" style="margin-top:1.25rem;">Daniel Gutierrez · Energy Plus · (864) 777-0688</p>
       <p>Energy Plus leads. Cryogenex stays in the loop.</p>
