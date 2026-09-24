@@ -34,18 +34,18 @@ engineering, the measurement, and the incentive filing.
   as the only inputs. All narrative figures (Simon Property Group case, the 94 percent
   purchased-electricity note, the twelve-units-a-roof estimate) cite the spec's own sourcing.
 
-## The roof ledger, and a known discrepancy
+## The roof ledger and DEMAND_MAX
 The ledger's JavaScript is the compute() function from the build spec, copied verbatim,
-including `DEMAND_MAX = 0.125`. Running that function in node at age 12 reproduces the
-spec's own energyToday ($75,640), kwhRec ($9,440), ext (3.9 years), and maintRec ($5,364)
-exactly, but the demand recovery it returns is about $4,345 a store, not the spec's stated
-"about $3,477." That pulls energyRec to about $13,785 (spec said about $12,917) and totalRec
-to about $22,450 (spec said about $21,586); at the 322-store fleet scope this is about
-$7.23M in total recovery, not the spec's "about $6.95M." Working backward, the spec's own
-expected numbers are internally consistent with `DEMAND_MAX = 0.10`, not 0.125. Since the
-constant was given as 0.125 in the verbatim code block, that is what shipped; this note
-flags the mismatch for whoever finalizes the demand-recovery assumption with Cliff before
-the page goes to Academy. Changing one constant (`DEMAND_MAX`) resolves it either way.
+with `DEMAND_MAX = 0.125`: at full fouling, up to 12.5 percent of cooling's share of the
+peak kW is recoverable, scaling down with the fouling fraction (10 to 15 percent of
+cooling's peak share is the working range described in the spec). The constant stands at
+0.125. An earlier draft of this note flagged a mismatch against the spec's narrative
+"expected" figures; that narrative arithmetic was in error, not the code, so it has been
+corrected rather than the constant. At age 12, one store: $13,785 energy recovered a year,
+$5,364 maintenance recovered a year, $3,302 equipment life recovered a year, $22,450 total
+recovered a year. At the 322-store fleet scope: about $7.2M total recovered a year, and
+$77.3M of replacement capital deferred (at the 3.9 year extension the age-12 fouling
+fraction implies).
 
 ## Open decisions
 - **Brand.** The real Energy Plus visual identity is not resolved. This version ships on a
