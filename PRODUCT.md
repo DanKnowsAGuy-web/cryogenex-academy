@@ -6,10 +6,26 @@ paired with a solar thermal add-on held at a 30 percent floor. No cost, price, o
 credit figure appears anywhere on the page; the output is savings only.
 
 **Controls, in order:** age of the rooftop units (0 to 25 years, default 12); store size
-(50,000 to 80,000 sq ft, step 1,000, default 70,000), which also derives and displays
-rooftop tonnage (`sqft / 400`, rounded to the nearest 5 tons); electricity rate (6.0 to
-18.0 cents per kWh, step 0.5, default `RATE_DEFAULT = 10.0`, a placeholder until Dan sends
-the fleet-weighted rate); then the existing one-store/all-322-stores toggle.
+(50,000 to 100,000 sq ft, step 1,000, default 70,000 — Academy's stores run 55,000 to a
+130,000 sq ft flagship, clustering at 70,000), which also derives and displays rooftop
+tonnage (`sqft / 400`, rounded to the nearest 5 tons); electricity rate (6.0 to 16.0 cents
+per kWh, step 0.5, default `RATE_DEFAULT = 10.1`); then the existing one-store/all-322-
+stores toggle.
+
+**Electricity rate source.** `RATE_DEFAULT` is set from EIA commercial electricity rates
+weighted by Academy's own store count per state, not a simple average:
+
+| Source | Figure |
+|---|---|
+| EIA Table 4 (2024), commercial rate by state | range 8.6 cents to 13.6 cents |
+| Academy 10-K, store count by state | weights applied to the EIA range above |
+| Simple average across Academy's states | 10.9 cents |
+| **Store-count-weighted average (used as `RATE_DEFAULT`)** | **10.1 cents** |
+
+The page's fine print states the weighted range (8.6 to 13.6 cents) but does not name
+individual states, per the standing hard rule against state or region references (see
+"Hard rules this page follows," below); the coordinator's original draft of that sentence
+named two states specifically, and was edited to drop the names while keeping the range.
 
 **Engine.** `compute()` was replaced with the version 4 engine given verbatim: per-square-
 foot constants (`KWH_PER_SQFT = 14.3`, `PEAK_W_PER_SQFT = 6.4`, `MAINT_PER_SQFT`,
@@ -20,26 +36,31 @@ ledger scales with the size slider. The rooftop units' share of energy and peak
 solar thermal to whatever energy and peak the treatment alone does not recover, at a
 30 percent floor. `LOSS` is unchanged.
 
-**Verified in node** at the defaults (age 12, 70,000 sq ft, 10.0 cents/kWh):
-- One store: `hvacKwh` 400,400; `hvacKw` 246.4; `energyToday` $75,522; `treatRec` $13,775;
-  `solarRec` $18,524; `energyRec` $32,299; `maintRec` $5,364; `lifeRec` $3,302; `totalToday`
-  $119,022; `totalAfter` $78,057; `totalRec` $40,965.
-- Fleet of 322: `energyRec` about $10.4M; `maintRec` about $1.73M; `lifeRec` about $1.06M;
-  `totalRec` about $13.19M; `deferred` $77.28M.
-These are the code's actual output. The coordinator's spec supplied approximate expected
-figures (treatRec about $13,760, solarRec about $18,520, energyRec about $32,280, totalRec
-about $40,950) that are close to, but not identical to, the code's output; the differences
-are consistent with rounding in the spec's own arithmetic, not a code error, so the
-verbatim engine was kept as given rather than adjusted to match the approximation.
+**Verified in node** at the current defaults (age 12, 70,000 sq ft, 10.1 cents/kWh):
+- One store: `hvacKwh` 400,400; `hvacKw` 246.4; `energyToday` $75,922; `treatRec` $13,869;
+  `solarRec` $18,616; `demandRec` $13,672; `energyRec` $32,485; `maintRec` $5,364; `lifeRec`
+  $3,302; `totalToday` $119,422; `totalAfter` $78,271; `totalRec` $41,151.
+- Fleet of 322: `energyToday` $24.4M; `energyRec` about $10.5M; `maintRec` about $1.73M;
+  `lifeRec` about $1.06M; `totalToday` $38.5M; `totalAfter` $25.2M; `totalRec` about
+  $13.25M; `deferred` $77.28M.
+
+At the original 10.0 cent placeholder rate the code returned: one store `treatRec` $13,775,
+`solarRec` $18,524, `energyRec` $32,299, `totalRec` $40,965; fleet `totalRec` about $13.19M.
+The coordinator's original spec supplied approximate expected figures at 10.0 cents
+(treatRec about $13,760, solarRec about $18,520, energyRec about $32,280, totalRec about
+$40,950) that were close to, but not identical to, the code's output; the differences are
+consistent with rounding in the spec's own arithmetic, not a code error, so the verbatim
+engine was kept as given rather than adjusted to match the approximation.
 
 **Ledger display.** The Electricity row's subtitle changed to "treatment and solar
 thermal"; its "how sure" text now reads "Treatment measured elsewhere. Solar thermal at
 its floor. Both measured in the pilot." Three fine-print lines under the table now read
 "Treatment $X", "Solar thermal $X", and "Of which demand $X" (the former "Kilowatt hours
 $X" line was dropped since kWh recovery is now split across the treatment and solar
-lines). The closing fine print now credits the rate and size the reader chose, notes the
-per-square-foot electricity source, and states that solar thermal is held at its measured
-floor.
+lines). The closing fine print now credits the rate and size the reader chose, states that
+the default rate is the store-count-weighted average across Academy's states (8.6 to 13.6
+cents, no states named), notes the per-square-foot electricity source, and states that
+solar thermal is held at its measured floor.
 
 **Copy.** Two sentences were added, both supplied verbatim: one at the end of bill one's
 second paragraph ("Solar thermal on a restored unit takes the rest of the way: at least

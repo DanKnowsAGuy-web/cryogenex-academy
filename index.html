@@ -52,12 +52,12 @@
           </div>
           <div class="range-row">
             <label for="sqft">Store size: <span class="range-value mono" id="sqftValue">70,000 sq ft</span></label>
-            <input type="range" id="sqft" min="50000" max="80000" step="1000" value="70000">
+            <input type="range" id="sqft" min="50000" max="100000" step="1000" value="70000">
             <p class="fine" id="tonsValue" style="margin-top:0.6rem;">about 175 tons of rooftop units</p>
           </div>
           <div class="range-row">
-            <label for="rate">Electricity rate: <span class="range-value mono" id="rateValue">10.0 cents per kWh</span></label>
-            <input type="range" id="rate" min="6.0" max="18.0" step="0.5" value="10.0">
+            <label for="rate">Electricity rate: <span class="range-value mono" id="rateValue">10.1 cents per kWh</span></label>
+            <input type="range" id="rate" min="6.0" max="16.0" step="0.5" value="10.1">
           </div>
           <div class="toggle" role="group" aria-label="Scope">
             <button type="button" id="scopeStore" aria-pressed="true">One store</button>
@@ -79,9 +79,9 @@
           <tbody>
             <tr>
               <td class="bill" data-label="Bill">Electricity<span class="bill-sub">treatment and solar thermal</span></td>
-              <td class="num" data-label="Today" id="energyToday">$75,522</td>
-              <td class="num" data-label="After" id="energyAfter">$43,223</td>
-              <td class="num money" data-label="Saved each year" id="energyRec">$32,299</td>
+              <td class="num" data-label="Today" id="energyToday">$75,922</td>
+              <td class="num" data-label="After" id="energyAfter">$43,437</td>
+              <td class="num money" data-label="Saved each year" id="energyRec">$32,485</td>
               <td class="conf" data-label="How sure">Treatment measured elsewhere. Solar thermal at its floor. Both measured in the pilot.</td>
             </tr>
             <tr>
@@ -100,20 +100,20 @@
             </tr>
             <tr class="total">
               <td class="bill" data-label="Bill">Total</td>
-              <td class="num" data-label="Today" id="totalToday">$119,022</td>
-              <td class="num" data-label="After" id="totalAfter">$78,057</td>
-              <td class="num money" data-label="Saved each year" id="totalRec">$40,965</td>
+              <td class="num" data-label="Today" id="totalToday">$119,422</td>
+              <td class="num" data-label="After" id="totalAfter">$78,271</td>
+              <td class="num money" data-label="Saved each year" id="totalRec">$41,151</td>
               <td class="conf" data-label="How sure"></td>
             </tr>
           </tbody>
         </table>
 
-        <p class="fine">Treatment <span id="treatRec">$13,775</span>.</p>
-        <p class="fine">Solar thermal <span id="solarRec">$18,524</span>.</p>
+        <p class="fine">Treatment <span id="treatRec">$13,869</span>.</p>
+        <p class="fine">Solar thermal <span id="solarRec">$18,616</span>.</p>
         <p class="fine">Of which demand <span id="demandRec">$13,672</span>.</p>
         <p class="fine">Plus <span id="deferred">$240,000</span> of replacement pushed <span id="ext">3.9</span> years out.</p>
 
-        <p class="fine">Estimates for a store of the size and age you set, at the rate you set. Store electricity per square foot comes from Academy's 2021 GHG report. Solar thermal is held at the floor of its measured range. The pilot replaces these with Academy's own numbers.</p>
+        <p class="fine">Estimates for a store of the size and age you set, at the rate you set. The rate defaults to the average across Academy's states, weighted by store count, from 8.6 to 13.6 cents. Store electricity per square foot comes from Academy's 2021 GHG report. Solar thermal is held at the floor of its measured range. The pilot replaces these with Academy's own numbers.</p>
       </div>
     </div>
   </section>
@@ -253,7 +253,7 @@
   var DEMAND_RATE = 12;
   var DEMAND_MAX = 0.125;
   var SOLAR = 0.30;
-  var RATE_DEFAULT = 10.0;
+  var RATE_DEFAULT = 10.1;
   var MAINT_PER_SQFT = 27500/70000, MAINT_MAX = 0.20;
   var ROOF_COST_PER_SQFT = 240000/70000, LIFE_YEARS = 15, EXT_MAX = 4;
 
