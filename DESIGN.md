@@ -54,5 +54,10 @@ autoplays.
 their loader stylesheet), and `assets/img/hvac-dusk.jpg` are deleted. `assets/img/cliff-lab.jpg`
 and `assets/img/film-cover.jpg` are kept; they are the only two photos version 2 uses.
 
+## Cache-busting the stylesheet
+`index.html` links `assets/brand.css?v=20260923c`. Bump the `?v=` query string every time
+`brand.css` changes, so browsers and any CDN in front of GitHub Pages fetch the new file
+instead of serving a cached copy.
+
 ## The no-dash rule
 Unchanged: ranges are written "20 to 24 percent," never with an en dash or em dash.
