@@ -1,517 +1,350 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Energy Plus &middot; Prepared for Academy Sports + Outdoors</title>
-<meta name="description" content="A store pilot proposal for Academy Sports + Outdoors. Prepared by Energy Plus in partnership with Cryogenex.">
-<meta name="color-scheme" content="light">
-<link rel="stylesheet" href="assets/fonts/report-fonts.css">
-<link rel="stylesheet" href="assets/site.css">
-<style>
-  /* Small, additive rules only. No new colors: every value below is one of
-     site.css's own custom properties (--paper, --card, --ink, --graphite,
-     --amber, --rule, --faint, --font-sans, --font-mono, --r-card, --r-ctrl). */
-
-  /* a plain static top bar, not the fixed/hero-clear header the live root
-     uses, since this page's hero carries no nav to fade in and out */
-  .topbar { background: var(--paper); border-bottom: 1px solid var(--rule); }
-  .topbar__in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1rem; flex-wrap: wrap; }
-  .topbar__mark { font-family: var(--font-sans); font-weight: 700; font-stretch: 112%; font-size: 1.25rem; color: var(--ink); letter-spacing: -0.02em; }
-  .topbar__mark span { color: var(--amber); }
-  .topbar__info { text-align: right; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); line-height: 1.6; }
-
-  /* stakes: four tiled figures, same hairline-grid language as .creds */
-  .stat-grid { list-style: none; margin: clamp(1.6rem, 3vw, 2.4rem) 0 0; padding: 0; display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: var(--r-card); overflow: hidden; grid-template-columns: repeat(2, 1fr); }
-  @media (min-width: 640px) { .stat-grid { grid-template-columns: repeat(4, 1fr); } }
-  .stat-grid li { background: var(--card); padding: 1.2rem 1rem; text-align: center; }
-  .stat-grid b { display: block; font-family: var(--font-mono); font-weight: 600; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--graphite); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
-  .stat-grid i { display: block; margin-top: 0.3rem; font-style: normal; font-size: 0.82rem; color: var(--faint); }
-
-  /* equation + calculator: form-solid sliders in the report's own palette */
-  .field { margin-top: clamp(1.4rem, 3vw, 2rem); }
-  .field label { display: block; font-family: var(--font-sans); font-weight: 600; font-size: var(--step--1); color: var(--ink); margin-bottom: 0.5rem; }
-  .field label strong { font-family: var(--font-mono); color: var(--graphite); margin-left: 0.35rem; }
-  input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; max-width: 32rem; height: 2rem; background: transparent; cursor: pointer; display: block; }
-  input[type="range"]::-webkit-slider-runnable-track { height: 6px; background: var(--rule); border-radius: 3px; }
-  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--graphite); border: 2px solid var(--card); margin-top: -7px; box-shadow: var(--shadow-card); }
-  input[type="range"]::-moz-range-track { height: 6px; background: var(--rule); border-radius: 3px; }
-  input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--graphite); border: 2px solid var(--card); }
-  .out { margin-top: clamp(1.4rem, 3vw, 2rem); padding-top: clamp(1.2rem, 2.5vw, 1.6rem); border-top: 1px solid var(--rule); }
-  .out p { font-size: var(--step-0); color: var(--body-c); margin-top: 0.6rem; }
-  .out p:first-child { margin-top: 0; }
-  .out b { font-family: var(--font-mono); color: var(--graphite); font-weight: 600; }
-
-  .chip-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.6rem; }
-  .chip { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 600; padding: 0.55rem 1rem; border: 1px solid var(--rule); border-radius: var(--r-ctrl); background: var(--card); color: var(--body-c); cursor: pointer; transition: background 180ms, color 180ms, border-color 180ms; }
-  .chip.is-active, .chip:hover { background: var(--graphite); color: #fff; border-color: var(--graphite); }
-  .fixed-note { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.78rem; color: var(--faint); }
-  .calc-panel { margin-top: clamp(1.6rem, 3vw, 2.4rem); padding: clamp(1.4rem, 3vw, 2.1rem); border: 1px solid var(--rule); border-radius: var(--r-card); background: var(--card); }
-  .calc-big { display: block; margin: 0.5rem 0; font-family: var(--font-mono); font-weight: 600; font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--graphite); letter-spacing: -0.02em; }
-  .calc-tiles { list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: var(--r-card); overflow: hidden; grid-template-columns: 1fr; }
-  @media (min-width: 640px) { .calc-tiles { grid-template-columns: repeat(3, 1fr); } }
-  .calc-tiles li { background: var(--card); padding: 1rem; text-align: center; }
-  .calc-tiles b { display: block; font-family: var(--font-mono); font-weight: 600; font-size: 1.15rem; color: var(--graphite); }
-  .calc-tiles i { display: block; margin-top: 0.35rem; font-style: normal; font-size: 0.78rem; color: var(--faint); }
-
-  /* bar chart, spread section */
-  .bars { margin-top: clamp(1.6rem, 3vw, 2.4rem); width: 100%; max-width: 40rem; height: auto; }
-
-  /* footer: a plain bar, not the numbered-notes system the live root uses */
-  .foot-simple { padding-block: 2rem; background: var(--paper-2); border-top: 1px solid var(--rule); }
-  .foot-simple p { font-size: 0.85rem; color: var(--faint); line-height: 1.6; max-width: 70ch; }
-</style>
+<meta name="description" content="Energy Plus proposal for Academy Sports + Outdoors, prepared in partnership with Cryogenex.">
+<title>Energy Plus · Prepared for Academy Sports + Outdoors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand.css">
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to content</a>
 
-<header class="topbar">
-  <div class="wrap topbar__in">
-    <div class="topbar__mark">ENERGY<span>+</span></div>
-    <div class="topbar__info">
-      <div>Prepared for Academy Sports + Outdoors</div>
-      <div>In partnership with Cryogenex</div>
+<header class="site">
+  <div class="wrap">
+    <div class="wordmark">ENERGY<span class="plus">+</span></div>
+    <div class="header-meta">
+      <span class="label">Prepared for Academy Sports + Outdoors</span>
+      <span class="label">In partnership with Cryogenex</span>
     </div>
   </div>
 </header>
 
-<main id="main">
+<main>
 
-  <section class="hero" id="top" aria-labelledby="hero-h">
-    <div class="hero__media" aria-hidden="true">
-      <img src="assets/img/hvac-dusk.jpg" alt="" loading="eager">
-      <div class="hero__scrim"></div>
-    </div>
-    <div class="wrap hero__in">
-      <div class="hero__copy" style="max-width:36rem">
-        <p class="hero__kicker" style="font-family:var(--font-mono);font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--panel-faint);margin-bottom:1.1rem">Academy Sports + Outdoors &middot; A Store Pilot &middot; September 2026</p>
-        <h1 id="hero-h">You cannot control the weather your customers shop in. You can control what it costs to keep 322 big box stores <em>cool</em>.</h1>
-        <p class="hero__lede">Every Academy is about an acre and a half under one roof, air conditioned through a long Sun Belt cooling season. This page shows what the older stores are overspending on cooling, how to recover it without a capex program, and how to prove it in five stores before you commit to one more.</p>
-        <div class="cta">
-          <a class="btn btn--lg" href="#calculator">See the number</a>
-          <a class="textlink textlink--dark" href="#offer">The pilot</a>
-        </div>
+  <!-- 1. Hero -->
+  <section class="band section" id="hero">
+    <div class="wrap narrow">
+      <p class="label">Academy Sports + Outdoors · Proposal · September 2026</p>
+      <h1>Every Academy store pays three bills for cooling. One treatment moves all three.</h1>
+      <p class="lede">The energy bill, led by the demand charge no broker can touch. The maintenance bill. The replacement cycle on about twelve rooftop units per store. This page puts a number on each for an average Academy store, multiplies it by 322, and shows how to prove it in five stores before you commit to one more.</p>
+      <div class="btns">
+        <a class="btn btn--solid" href="#ledger">See the roof ledger</a>
+        <a class="btn btn--ghost" href="#pilot">The pilot</a>
       </div>
     </div>
   </section>
 
-  <!-- STAKES -->
-  <section class="beat" id="stakes" aria-labelledby="stakes-h">
-    <div class="wrap beat__narrow">
-      <h2 id="stakes-h">Your own report already says where the money is.</h2>
-      <p class="lead">Academy's greenhouse gas baseline puts purchased electricity at 94 percent of the company's measured footprint. Refrigerants are 3 percent. Natural gas is 2 percent. There is no kitchen and no cold chain to argue about. The bill is lights and rooftop cooling, and the rooftop units run the longest.</p>
-      <p>The same report works out to roughly one million kilowatt hours per store per year. In a big box, 35 to 45 percent of that is cooling. New Academy stores are already built to a higher standard: variable speed rooftop units, LED with daylight harvesting, sensors and timers. The gap is the two hundred and fifty plus stores built before that standard.</p>
-      <ul class="stat-grid" aria-label="Academy Sports + Outdoors, by the numbers">
-        <li><b>322</b><i>stores in 21 states</i></li>
-        <li><b>70,000</b><i>square feet per store</i></li>
-        <li><b>1 million</b><i>kWh per store, per year</i></li>
-        <li><b>94%</b><i>of measured footprint is purchased electricity</i></li>
-      </ul>
-      <p class="quiet">Sources: Academy Sports + Outdoors Form 10-K (fiscal 2024), fiscal 2025 results, and the 2021 GHG Emissions Supplement to the ESG Report. Per store energy is derived from the reported store Scope 2 total across 259 stores.</p>
-    </div>
-  </section>
+  <!-- 2. The roof ledger -->
+  <section class="band--alt section" id="ledger">
+    <div class="wrap">
+      <p class="label">The exhibit</p>
+      <h2>The roof ledger: what cooling costs one store, and what it could cost.</h2>
 
-  <!-- EQUATION -->
-  <section class="beat beat--rule" id="equation" aria-labelledby="equation-h">
-    <div class="wrap beat__narrow">
-      <h2 id="equation-h">A dollar you stop spending is worth about fourteen on the floor.</h2>
-      <p class="lead">Retail runs on thin margins. Energy you never buy drops straight to the bottom line. To match it at the register you have to ring up many times more. Move the sliders. This is an illustration, not a projection.</p>
-
-      <div class="field">
-        <label for="eqMargin">Net margin <strong id="eqMarginVal">7%</strong></label>
-        <input type="range" id="eqMargin" min="3" max="12" step="0.5" value="7">
-      </div>
-      <div class="field">
-        <label for="eqSave">Energy recovered per store, per year <strong id="eqSaveVal">$15,000</strong></label>
-        <input type="range" id="eqSave" min="5000" max="30000" step="1000" value="15000">
-      </div>
-      <div class="out" id="eqOut" aria-live="polite"></div>
-      <p class="quiet">Assumes about twenty million dollars of sales per store, from reported net sales divided by store count. An illustration, not a projection.</p>
-    </div>
-  </section>
-
-  <!-- THE REAL PROBLEM -->
-  <section class="beat beat--rule" id="real-problem" aria-labelledby="real-problem-h">
-    <div class="wrap beat__narrow">
-      <h2 id="real-problem-h">Every wasted kilowatt bills you three times. Recovered, it pays you back three times.</h2>
-      <ul class="creds" aria-label="The meter, the demand charge, and equipment life">
-        <li>
-          <span class="creds__fig">The meter</span>
-          <span class="creds__desc">A rooftop unit that has lost a quarter of its capacity to oil fouling still draws full power. It just runs longer to do the same job. That is the part of the bill you can see.</span>
-        </li>
-        <li>
-          <span class="creds__fig">The demand charge</span>
-          <span class="creds__desc">Every utility bills a big box for its highest fifteen minutes of the month, and in summer that is the afternoon every rooftop unit is running flat out. Units that recover capacity hit the peak lighter, and the demand line drops with the energy line.</span>
-        </li>
-        <li>
-          <span class="creds__fig">Equipment life</span>
-          <span class="creds__desc">Fouled units run hot and long, and they vent. Refrigerant leakage already shows up in Academy's own Scope 1 line. Restore the unit and it runs cooler, cycles less, and the replacement decision moves out on your terms.</span>
-        </li>
-      </ul>
-      <figure class="plate">
-        <div class="plate__frame"><img src="assets/img/hvac-dusk.jpg" alt="A weathered rooftop air conditioning unit at dusk on a flat commercial roof." loading="lazy"></div>
-        <figcaption>Aging rooftop units are recoverable, not just replaceable.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- THE FIX -->
-  <section class="beat beat--rule" id="fix" aria-labelledby="fix-h">
-    <div class="wrap beat__narrow">
-      <h2 id="fix-h">One lever cuts all three.</h2>
-      <p class="lead">None of this is a replacement program. It is a restoration of what the roof already has, applied in a day per store, with no shutdown and no modification, and the equipment warranty stays in place. Five levers, in the order we would pull them on an Academy roof.</p>
-      <ol class="steps">
-        <li>
-          <h3>Restore what age took away</h3>
-          <p>A one time treatment of the refrigerant circuit that strips the insulating oil film off the coil walls. Up to 36 percent of lost efficiency recovered on units past their fifth year, about 10 percent on newer ones. This is the lead lever for a fleet of older big box roofs.</p>
-        </li>
-        <li>
-          <h3>Stop paying for wasted runtime</h3>
-          <p>Compressor intelligence for simple on and off units. The compressor stops once the coil is saturated and restarts only when it must. 15 to 30 percent of HVAC energy on the units it fits.</p>
-        </li>
-        <li>
-          <h3>Flatten the peaks</h3>
-          <p>Stage the rooftop units through the afternoon peak so the store never hits the meter all at once. Demand savings on top of the energy savings.</p>
-        </li>
-        <li>
-          <h3>Condition the power</h3>
-          <p>Cleaner power for the compressors and the LED drivers. Fewer failures, longer life. A later phase.</p>
-        </li>
-        <li>
-          <h3>Replace on your terms</h3>
-          <p>When a unit is truly done, replace it with the best available, folded into the twenty to twenty five stores a year you already build and remodel, with the incentives captured at the right time.</p>
-        </li>
-      </ol>
-      <div class="floor">
-        <h3>The combined recovery</h3>
-        <p>Combined, the first three levers recover 20 to 55 percent of the HVAC and cooling portion of a store's bill. We plan at the floor of that range and let the meter argue for the rest.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROOF -->
-  <section class="beat beat--rule" id="proof" aria-labelledby="proof-h">
-    <div class="wrap beat__narrow">
-      <h2 id="proof-h">Proof, not promises.</h2>
-
-      <div class="dossier">
-        <figure class="dossier__photo plate__frame plate__frame--portrait">
-          <img src="assets/img/cliff-lab.jpg" alt="Cliff Suljak, Chief Technical Engineer, in a materials testing laboratory." loading="lazy">
-          <figcaption class="dossier__cap">Cliff Suljak &middot; Chief Technical Engineer</figcaption>
-        </figure>
-        <div>
-          <p class="dossier__lede">Sole source contractor to Sandia National Laboratories with a twenty two person team across four facilities. Built the quality program for a six hundred million dollar Southwest utility efficiency program. Eight years on ASTM standards committees. He designs the measurement before anyone touches a unit.</p>
-        </div>
-      </div>
-
-      <p class="lead" style="margin-top:clamp(1.8rem,4vw,2.6rem)"><strong>The protocol.</strong> Every pilot is measured under IPMVP, the same protocol utilities use to pay incentives. Treated stores against untouched control stores of the same age and size, through the same summer.</p>
-
-      <p class="lead"><strong>The precedent.</strong> Simon Property Group, The Mills at Jersey Gardens. Nine Trane rooftop units installed in 1998, 520 tons on one retail roof. 21.1 percent energy reduction under IPMVP, 22.2 percent more cooling capacity, $41,473 a year, twelve month payback.</p>
-      <div class="ledger" id="ledger" aria-hidden="true">
-        <div class="ledger__col"></div>
-        <div class="ledger__col"></div>
-        <div class="ledger__col"></div>
-      </div>
-      <p class="quiet">The ledger above is a live sample. Hover to hold it still. <button type="button" class="textlink" id="record-open" aria-haspopup="dialog">See the full record</button></p>
-      <p class="quiet">Vendor case studies are results of the technology, measured by third parties, not Energy Plus projects.</p>
-
-      <p class="lead" style="margin-top:clamp(1.8rem,4vw,2.6rem)"><strong>The money.</strong> Utilities in all 21 Academy states pay for verified kilowatts through commercial programs that fund custom measured projects, many capped around half of project cost. We file the paperwork. Academy keeps the incentive.</p>
-
-      <div class="film-inline">
-        <button type="button" class="film-inline__facade" data-film-inline aria-label="Play the Energy Plus method film">
-          <img src="assets/img/film-cover.jpg" alt="" loading="lazy">
-          <span class="film-inline__scrim" aria-hidden="true"></span>
-          <span class="film-inline__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-          <span class="film-inline__meta" aria-hidden="true">The film</span>
-        </button>
-      </div>
-      <p class="quiet">Shot for commercial buildings. The discipline is identical for a big box.</p>
-    </div>
-  </section>
-
-  <!-- SPREAD -->
-  <section class="beat beat--rule" id="spread" aria-labelledby="spread-h">
-    <div class="wrap beat__narrow">
-      <h2 id="spread-h">Your worst store is hiding in the average.</h2>
-      <p class="lead">Three hundred and twenty two stores of the same format is a gift to measurement. Rank them by kilowatt hours per square foot and the oldest roofs in the hottest markets will sort themselves to the top. Those are the pilot stores. The average store is fine. The bottom quartile is where the first two million dollars a year lives.</p>
-      <svg class="bars" viewBox="0 0 480 200" role="img" aria-label="Illustrative bar chart of stores ranked by energy use per square foot, with the three highest bars highlighted">
-        <rect x="10"  y="140" width="28" height="60" fill="var(--graphite)"></rect>
-        <rect x="48"  y="120" width="28" height="80" fill="var(--graphite)"></rect>
-        <rect x="86"  y="150" width="28" height="50" fill="var(--graphite)"></rect>
-        <rect x="124" y="100" width="28" height="100" fill="var(--graphite)"></rect>
-        <rect x="162" y="160" width="28" height="40" fill="var(--graphite)"></rect>
-        <rect x="200" y="90"  width="28" height="110" fill="var(--graphite)"></rect>
-        <rect x="238" y="130" width="28" height="70" fill="var(--graphite)"></rect>
-        <rect x="276" y="60"  width="28" height="140" fill="var(--amber)"></rect>
-        <rect x="314" y="170" width="28" height="30" fill="var(--graphite)"></rect>
-        <rect x="352" y="35"  width="28" height="165" fill="var(--amber)"></rect>
-        <rect x="390" y="145" width="28" height="55" fill="var(--graphite)"></rect>
-        <rect x="428" y="15"  width="28" height="185" fill="var(--amber)"></rect>
-      </svg>
-      <p class="quiet">Illustrative. Real ranking comes from twelve months of bills.</p>
-    </div>
-  </section>
-
-  <!-- CALCULATOR -->
-  <section class="beat beat--rule" id="calculator" aria-labelledby="calc-h">
-    <div class="wrap beat__narrow">
-      <h2 id="calc-h">Run your own number.</h2>
-      <p class="lead">The engine below is the same one we use on a first bill review. It models capacity lost to age on standard rooftop and split units. It does not include demand charges, which is usually more money on the table.</p>
-
-      <div class="calc-panel">
-        <div class="field">
-          <label>Store count <strong id="cStoresVal">322</strong></label>
-          <div class="chip-row">
-            <button type="button" class="chip" data-stores="5">5 pilot stores</button>
-            <button type="button" class="chip" data-stores="80">Bottom quartile</button>
-            <button type="button" class="chip is-active" data-stores="322">Whole fleet</button>
+      <div class="card">
+        <div class="controls">
+          <div class="range-row">
+            <label for="age">Average age of the rooftop units: <span class="range-value mono" id="ageValue">12 years</span></label>
+            <input type="range" id="age" min="0" max="25" step="1" value="12">
           </div>
-          <input type="range" id="cStores" min="1" max="322" step="1" value="322" style="margin-top:0.8rem">
-        </div>
-
-        <div class="field">
-          <label for="cAge">Average age of the rooftop units <strong id="cAgeVal">12 years</strong></label>
-          <input type="range" id="cAge" min="0" max="25" step="1" value="12">
-        </div>
-
-        <div class="field">
-          <label for="cRate">Electricity rate <strong id="cRateVal">10 cents per kWh</strong></label>
-          <input type="range" id="cRate" min="6" max="16" step="0.5" value="10">
-        </div>
-
-        <div class="field">
-          <label>Hours of operation <strong id="cHoursVal">4,400</strong></label>
-          <div class="chip-row">
-            <button type="button" class="chip is-active" data-hours="4400">Retail hours</button>
-            <button type="button" class="chip" data-hours="5800">Extended</button>
-            <button type="button" class="chip" data-hours="8760">Around the clock</button>
+          <div class="toggle" role="group" aria-label="Scope">
+            <button type="button" id="scopeStore" aria-pressed="true">One store</button>
+            <button type="button" id="scopeFleet" aria-pressed="false">All 322 stores</button>
           </div>
         </div>
 
-        <p class="fixed-note">70,000 sq ft per store &middot; about 400 sq ft per ton &middot; 175 tons per store</p>
+        <table class="ledger-table">
+          <caption class="label">Cooling's share of the bill, before and after</caption>
+          <thead>
+            <tr>
+              <th scope="col">Bill</th>
+              <th scope="col">Today</th>
+              <th scope="col">After</th>
+              <th scope="col">Recovered per year</th>
+              <th scope="col">Confidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bill">Energy: the kWh and the demand peak</td>
+              <td class="num" id="energyToday">$75,640</td>
+              <td class="num" id="energyAfter">$61,855</td>
+              <td class="num money" id="energyRec">$13,785</td>
+              <td class="conf">kWh measured elsewhere under IPMVP. Demand: engineering estimate, measured in the pilot.</td>
+            </tr>
+            <tr>
+              <td class="bill">Maintenance: service, repairs, failures</td>
+              <td class="num" id="maintToday">$27,500</td>
+              <td class="num" id="maintAfter">$22,136</td>
+              <td class="num money" id="maintRec">$5,364</td>
+              <td class="conf"><span class="warn">Claim.</span> Measured in the pilot from the service log.</td>
+            </tr>
+            <tr>
+              <td class="bill">Equipment life: the replacement cycle</td>
+              <td class="num" id="lifeToday">$16,000 a year</td>
+              <td class="num" id="lifeAfter">$12,698 a year</td>
+              <td class="num money" id="lifeRec">$3,302 a year</td>
+              <td class="conf">Engineering argument. Evidenced by unit readings before and after.</td>
+            </tr>
+            <tr class="total">
+              <td class="bill">Total</td>
+              <td class="num" id="totalToday">$119,140</td>
+              <td class="num" id="totalAfter">$96,690</td>
+              <td class="num money" id="totalRec">$22,450</td>
+              <td class="conf"></td>
+            </tr>
+          </tbody>
+        </table>
 
-        <div class="out" id="calcOut" aria-live="polite"></div>
-        <p class="quiet">Typical payback on the restoration lever alone: 12 to 24 months before incentives.</p>
+        <p class="ledger-note">Of which demand: <span id="demandRec">$4,345</span> a year. Of which kWh: <span id="kwhRec">$9,440</span> a year.</p>
+        <p class="ledger-note">Plus <span id="deferred">$240,000</span> of replacement capital pushed <span id="ext">3.9</span> years out.</p>
+
+        <p class="ledger-footnote">Every figure on this ledger is an Energy Plus estimate built from Academy's public filings and industry norms for a 70,000 square foot big box: about one million kWh a year, about 450 kW of peak demand, about twelve rooftop units. The pilot replaces these with Academy's own numbers.</p>
       </div>
-      <p class="quiet">An estimate from your entries and the typical performance loss of cooling equipment at that age. Restoration lever only. Excludes demand and transmission charges and the runtime lever. Covers standard DX rooftop and split units. Replaced by measured data after the pilot.</p>
     </div>
   </section>
 
-  <!-- THE OFFER -->
-  <section class="beat beat--rule" id="offer" aria-labelledby="offer-h">
-    <div class="wrap beat__narrow">
-      <h2 id="offer-h">The pilot: prove it in five stores first.</h2>
-      <p class="lead">Pick the five oldest roofs in your hottest markets. Your own people can walk the pilot.</p>
+  <!-- 3. Bill one: energy -->
+  <section class="band section" id="energy">
+    <div class="wrap narrow">
+      <p class="label">Bill one</p>
+      <h2>The energy bill, led by the line no broker can touch.</h2>
+      <p>Any broker can shop the price of a kilowatt hour. Nobody can shop the demand charge. It is set by the utility from the highest fifteen minutes of the month, and in a big box that is a summer afternoon when every rooftop unit is running flat out.</p>
+      <p>A unit that has lost a quarter of its capacity to oil fouling does not draw less. It runs longer and lands harder on that peak. Restore the heat transfer and two things happen: each compressor draws less power at the same load, and fewer units are stacked at the top of the afternoon. The demand line falls and, on ratcheted tariffs, the credit lasts twelve months.</p>
+      <p>The kilowatt hours fall with it. On units past their tenth year the recovery has measured 20 to 24 percent of cooling energy under IPMVP. That is the part of this page with the most evidence behind it.</p>
+      <p class="mono" style="font-size:0.9rem; color:var(--ink-2);">Academy's 2021 GHG supplement puts purchased electricity at 94 percent of the company's measured footprint.</p>
+    </div>
+  </section>
+
+  <!-- 4. Bill two: maintenance -->
+  <section class="band--alt section" id="maintenance">
+    <div class="wrap narrow">
+      <p class="label">Bill two</p>
+      <h2>The maintenance bill. Heat is what kills compressors.</h2>
+      <p>Fouled coils raise head pressure and discharge temperature. That is the mechanism behind most compressor failures, most refrigerant loss, and most of the emergency calls that land in July. Refrigerant leakage already appears in Academy's own Scope 1 line.</p>
+      <p>Restoring heat transfer drops both readings within 48 hours of runtime, on every unit, and it is visible on a gauge. We estimate 15 to 25 percent fewer repair and failure events on an older roof. That is a claim until a service log proves it, which is exactly what the pilot is for.</p>
+      <p>The number a VP feels is not the invoice. It is the store that is hot on a Saturday in July, and what that does to sales that day.</p>
+    </div>
+  </section>
+
+  <!-- 5. Bill three: equipment life -->
+  <section class="band section" id="life">
+    <div class="wrap narrow">
+      <p class="label">Bill three</p>
+      <h2>The replacement cycle. About $240,000 a roof, 322 roofs.</h2>
+      <p>About twelve rooftop units per store at about $20,000 each installed. Median service life around fifteen years. Across the fleet that is roughly $77 million of replacement exposure, arriving on failure, in summer, one store at a time.</p>
+      <p>A unit that runs cooler and cycles less lasts longer. Three to five added years drops the annualized cost of the roof and, more usefully, moves replacement onto the twenty to twenty five stores a year Academy already builds and remodels, instead of onto the emergency line.</p>
+      <p>This is an engineering argument until a fleet proves it. The evidence it rests on is the same gauge reading from bill two, taken on every treated unit before and after.</p>
+    </div>
+  </section>
+
+  <!-- 6. Why one treatment moves all three -->
+  <section class="band--alt section" id="why">
+    <div class="wrap narrow">
+      <p class="label">Mechanism</p>
+      <h2>Why one treatment moves all three.</h2>
+      <p>Compressor oil migrates into the refrigerant and bakes onto the inside of the coil walls as an insulating film. Heat that should leave the building stays in the unit, so the compressor runs hotter and longer to do the same job. A one time treatment of the refrigerant circuit strips that film and keeps the metal clean, with no shutdown, no modification, and the equipment warranty in place.</p>
+    </div>
+    <div class="wrap" style="margin-top:2.5rem;">
+      <div class="grid grid--2">
+        <div class="plain-card">
+          <p>"Simon Property Group, The Mills at Jersey Gardens. Nine rooftop units installed in 1998, 520 tons on one retail roof. 21.1 percent less cooling energy under IPMVP. 22.2 percent more cooling capacity. $41,473 a year. Twelve month payback."</p>
+          <p class="mono" style="font-size:0.85rem; color:var(--ink-2);">A result of the technology, measured by a third party. Not an Energy Plus project.</p>
+        </div>
+        <div class="plain-card">
+          <div class="photo" style="margin-bottom:1rem;">
+            <img src="assets/img/cliff-lab.jpg" alt="Cliff Suljak in the lab">
+          </div>
+          <p>Cliff Suljak, Chief Technical Engineer. Sole source contractor to Sandia National Laboratories. Built the quality program for a six hundred million dollar utility efficiency program. Eight years on ASTM standards committees. He designs the measurement before anyone touches a unit.</p>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem; max-width: 32rem;">
+        <div class="film" id="filmFacade" role="button" tabindex="0" aria-label="Play the film">
+          <img src="assets/img/film-cover.jpg" alt="The method, on film">
+          <div class="play"><span></span></div>
+        </div>
+        <p class="film-caption">The method, on film. Six minutes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. The pilot and the ask -->
+  <section class="band section" id="pilot">
+    <div class="wrap narrow">
+      <p class="label">The ask</p>
+      <h2>Prove it in five stores. Measured on all three bills.</h2>
+
       <ol class="steps">
         <li>
+          <p class="step-num mono">01</p>
           <h3>Send the folder.</h3>
-          <p>Twelve months of electric bills for the fleet, the rooftop unit nameplate list or photos, and one point person. No site visit needed to start. Cost: nothing.</p>
+          <p>Twelve months of bills with the demand line, the rooftop unit list with ages, and whatever maintenance spend you have per store. One point person. Cost: nothing.</p>
         </li>
         <li>
-          <h3>Pick five stores. We pick two more.</h3>
-          <p>Five stores with the oldest rooftop units, treated in a day each with no shutdown. Two untouched control stores of the same age and size. Measured under IPMVP through the summer peak.</p>
+          <p class="step-num mono">02</p>
+          <h3>Five stores, two controls.</h3>
+          <p>Five stores with the oldest roofs in the hottest markets, treated in a day each. Two untouched stores of the same age and size. Treated before the cooling season, measured through it.</p>
         </li>
         <li>
-          <h3>Thirty days to the findings review.</h3>
-          <p>You see the per store number, the fleet projection, and the utility incentive filings. Then the bottom quartile, about eighty stores, sequenced before the next cooling season. Then the fleet, folded into the twenty to twenty five stores you already build and remodel each year.</p>
+          <p class="step-num mono">03</p>
+          <h3>Three bills, three measurements.</h3>
+          <p>Kilowatt hours and demand from utility interval data against the controls. The service log, twelve months before and during. Discharge temperature, head pressure and amp draw on every treated unit, before and 48 hours after. Space temperature in every pilot store so a hot day is data.</p>
+        </li>
+        <li>
+          <p class="step-num mono">04</p>
+          <h3>Thirty days to the first review, one season to the number.</h3>
+          <p>Then the bottom quartile, about eighty stores, before the next summer. Then the fleet on Academy's own build and remodel cadence.</p>
         </li>
       </ol>
 
-      <div class="floor">
-        <h3>How it is priced</h3>
-        <p>Rollout is priced as a fixed multiple of modeled first year savings, so the payback is written down before the first unit is treated. Utility programs can fund a large share of the project cost on verified projects. Typical payback across the older stores is 12 to 24 months. There is no subscription and nothing to maintain.</p>
+      <div class="grid grid--2" style="margin-top:2.5rem;">
+        <div class="callout">
+          <p class="label">How it is priced</p>
+          <p>Rollout is priced as a fixed multiple of modeled first year savings, so the payback is written down before the first unit is treated. Utility programs in Academy's states fund a large share of verified projects. Typical payback on older roofs is 12 to 24 months. No subscription, nothing to maintain.</p>
+        </div>
+        <div class="callout">
+          <h3>If we cannot prove it, you owe nothing.</h3>
+          <p>The bill review is free. The pilot is measured before anything scales. If the treated stores and the control stores cannot be told apart on the three bills, nothing goes on store six and nothing is owed.</p>
+        </div>
       </div>
 
-      <div class="floor">
-        <h3>If we cannot prove it, you owe nothing</h3>
-        <p>The bill review is free. The pilot is measured before anything scales. If the control stores and the treated stores cannot be told apart, nothing gets installed in store six and nothing is owed.</p>
+      <div class="btns">
+        <a class="btn btn--solid" href="https://book.slashyourenergycost.com/?f=academy">Book the 15 minute fit call</a>
+        <a class="btn btn--ghost" href="sms:+18647770688">Text Dan</a>
+        <a class="btn btn--ghost" href="mailto:dan@yourenergyplus.com">Email</a>
       </div>
-    </div>
-  </section>
-
-  <!-- CHAIN -->
-  <section class="beat beat--rule" id="chain" aria-labelledby="chain-h">
-    <div class="wrap beat__narrow">
-      <h2 id="chain-h">One page for everyone who has to say yes.</h2>
-      <details class="gate">
-        <summary><span class="plus" aria-hidden="true">+</span>For facilities</summary>
-        <div class="gate__body">
-          <p>Applied at the suction or charging port while the unit runs. Fifteen to thirty minutes per unit. No shutdown, no modification, existing equipment warranty preserved. Bonded within 24 to 48 hours of runtime. Works on every refrigerant blend in the fleet including the newest ones.</p>
-        </div>
-      </details>
-      <details class="gate">
-        <summary><span class="plus" aria-hidden="true">+</span>For finance</summary>
-        <div class="gate__body">
-          <p>Savings framed only as the HVAC and cooling portion of the bill. Price set as a multiple of modeled savings, verified under IPMVP, incentives filed by us and kept by Academy. Books as an SG&amp;A reduction, not a capital program. Every dollar recovered is worth about fourteen at the register.</p>
-        </div>
-      </details>
-      <details class="gate">
-        <summary><span class="plus" aria-hidden="true">+</span>For ESG and risk</summary>
-        <div class="gate__body">
-          <p>Academy already reports Scope 1 and 2 against a 2021 baseline. This shows up as a measured Scope 2 reduction per store and a Scope 1 reduction from lower refrigerant loss, in the same units you already publish. Data from the pilot is yours.</p>
-        </div>
-      </details>
-    </div>
-  </section>
-
-  <!-- CLOSE -->
-  <section class="close" aria-labelledby="close-h">
-    <div class="close__media" aria-hidden="true">
-      <img src="assets/img/hvac-dusk.jpg" alt="" loading="lazy">
-      <div class="hero__scrim"></div>
-    </div>
-    <div class="wrap close__in">
-      <h2 id="close-h">One call reaches everyone.</h2>
-      <p class="hero__lede">Energy Plus leads the engineering, the measurement, and the incentive filing. Cryogenex brought this to the table and stays in the loop. One owner, one scoreboard.</p>
-      <div class="cta">
-        <a class="btn btn--lg" href="https://book.slashyourenergycost.com/?f=academy" data-book>Book the 15 minute fit call</a>
-        <button type="button" class="textlink textlink--dark js-sms-toggle" aria-expanded="false">Text Dan directly</button>
-      </div>
-      <div class="sms" role="group" aria-label="Text the founder">
-        <p class="sms__to">To Dan &middot; (864) 777-0688</p>
-        <textarea rows="4" spellcheck="false" aria-label="Message to Dan">Hi Dan, I handle facilities for Academy Sports + Outdoors and I'd like to see what real energy savings could look like across our stores, without the sales song and dance. What does it take to qualify?</textarea>
-        <div class="sms__foot">
-          <span class="sms__hint">Opens in your messages, ready to send.</span>
-          <a class="btn btn--sm js-sms-send" href="#" data-phone="+18647770688">Send message</a>
-        </div>
-      </div>
-      <p class="quiet quiet--dark">Daniel Gutierrez &middot; Energy Plus &middot; (864) 777-0688 &middot; dan@yourenergyplus.com</p>
+      <p class="mono" style="font-size:0.9rem; color:var(--ink-2); margin-top:1.25rem;">Daniel Gutierrez · Energy Plus · (864) 777-0688 · dan@yourenergyplus.com</p>
+      <p>Energy Plus leads the engineering, the measurement, and the incentive filing. Cryogenex brought this to the table and stays in the loop.</p>
     </div>
   </section>
 
 </main>
 
-<footer class="foot-simple">
-  <div class="wrap">
-    <p>Prepared by Energy Plus in partnership with Cryogenex. Private and confidential, prepared for Academy Sports + Outdoors. Figures marked as estimates are derived from public filings and will be replaced by measured pilot data.</p>
+<footer class="site">
+  <div class="wrap narrow">
+    <p>Prepared by Energy Plus in partnership with Cryogenex. Private and confidential, prepared for Academy Sports + Outdoors. All figures are estimates from public filings and industry norms until replaced by measured pilot data.</p>
   </div>
 </footer>
 
-<dialog class="sheet" id="record-sheet" aria-labelledby="record-title">
-  <div class="sheet__bar">
-    <h2 id="record-title">The full record</h2>
-    <button type="button" class="sheet__close" id="record-close" aria-label="Close the full record">&times;</button>
-  </div>
-  <div class="sheet__body" id="record-body">
-    <noscript><p>The full record requires JavaScript. Documentation for all examples is available on request.</p></noscript>
-  </div>
-  <p class="sheet__note">Vendor case studies are results of the technology, measured by third parties, not Energy Plus projects. Every result was measured at the named site under its own conditions; it is not a prediction for any Academy store.</p>
-</dialog>
-
-<script src="assets/site.js"></script>
 <script>
-document.documentElement.classList.add('js');
-function fmtInt(n){ return Math.round(n).toLocaleString('en-US'); }
-function fmtMoney(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
-function fmtDec1(n){ return n.toFixed(1); }
-
-/* equation widget */
 (function(){
-  const SALES_PER_STORE = 20000000, FLEET_STORES = 322;
-  const marginEl = document.getElementById('eqMargin');
-  const saveEl = document.getElementById('eqSave');
-  const marginVal = document.getElementById('eqMarginVal');
-  const saveVal = document.getElementById('eqSaveVal');
-  const out = document.getElementById('eqOut');
-  function render(){
-    const pct = parseFloat(marginEl.value);
-    const save = parseFloat(saveEl.value);
-    marginVal.textContent = pct + '%';
-    saveVal.textContent = '$' + fmtInt(save);
-    const m = pct/100;
-    const sales = Math.round(1/m);
-    const fleet = save * FLEET_STORES;
-    const netPerStore = SALES_PER_STORE * m;
-    const storesFleet = fleet / netPerStore;
-    out.innerHTML =
-      '<p><b>$1 recovered = $' + fmtInt(sales) + '</b> of sales.</p>' +
-      '<p><b>$' + fmtInt(save) + '</b> a store across 322 stores = <b>$' + fmtInt(fleet) + '</b> a year, the net profit of about ' + fmtDec1(storesFleet) + ' stores.</p>';
-  }
-  marginEl.addEventListener('input', render);
-  saveEl.addEventListener('input', render);
-  render();
-})();
+  "use strict";
 
-/* calculator */
-(function(){
-  const LOSS = [0, 0.03, 0.065, 0.093, 0.118, 0.136, 0.155, 0.175, 0.188, 0.207, 0.216,
+  var LOSS = [0, 0.03, 0.065, 0.093, 0.118, 0.136, 0.155, 0.175, 0.188, 0.207, 0.216,
     0.226, 0.231, 0.236, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242];
-  const KW_PER_TON = 1.05, TONS = 175, SQFT = 70000;
-  const CO2_KG_PER_KWH = 0.39;
-  const NET_MARGIN = 0.07, SALES_PER_STORE = 20000000;
+  var STORES = 322;
+  var KWH_STORE = 1000000, RATE = 0.10, COOL_KWH_SHARE = 0.40;
+  var PEAK_KW = 450, DEMAND_RATE = 12, COOL_PEAK_SHARE = 0.55;
+  var DEMAND_MAX = 0.125;
+  var MAINT_TODAY = 27500, MAINT_MAX = 0.20;
+  var ROOF_COST = 240000, LIFE_YEARS = 15, EXT_MAX = 4;
 
-  function compute(stores, age, rateCents, hours){
-    const loss = LOSS[Math.min(25, Math.max(1, Math.round(age)+1))];
-    const kwhStore = TONS * KW_PER_TON * hours;
-    const savedKwhStore = kwhStore * loss;
-    const dollarsStore = savedKwhStore * rateCents / 100;
+  function compute(age, stores){
+    var loss = LOSS[Math.min(25, Math.max(1, Math.round(age)+1))];
+    var f = loss / 0.242;
+    var coolKwh = KWH_STORE * COOL_KWH_SHARE;
+    var coolPeakKw = PEAK_KW * COOL_PEAK_SHARE;
+    var energyToday = coolKwh * RATE + coolPeakKw * DEMAND_RATE * 12;
+    var kwhRec = coolKwh * loss * RATE;
+    var demandRec = coolPeakKw * DEMAND_MAX * f * DEMAND_RATE * 12;
+    var energyRec = kwhRec + demandRec;
+    var maintRec = MAINT_TODAY * MAINT_MAX * f;
+    var ext = EXT_MAX * f;
+    var lifeToday = ROOF_COST / LIFE_YEARS;
+    var lifeAfter = ROOF_COST / (LIFE_YEARS + ext);
+    var lifeRec = lifeToday - lifeAfter;
+    var s = stores;
     return {
-      loss, kwhStore, savedKwhStore, dollarsStore,
-      dollarsFleet: dollarsStore * stores,
-      savedKwhFleet: savedKwhStore * stores,
-      tco2e: savedKwhStore * stores * CO2_KG_PER_KWH / 1000,
-      salesEquivalent: dollarsStore * stores / NET_MARGIN,
-      storesOfProfit: dollarsStore * stores / (SALES_PER_STORE * NET_MARGIN)
+      loss: loss, ext: ext,
+      energyToday: energyToday*s, energyAfter: (energyToday-energyRec)*s, energyRec: energyRec*s, kwhRec: kwhRec*s, demandRec: demandRec*s,
+      maintToday: MAINT_TODAY*s, maintAfter: (MAINT_TODAY-maintRec)*s, maintRec: maintRec*s,
+      lifeToday: lifeToday*s, lifeAfter: lifeAfter*s, lifeRec: lifeRec*s,
+      deferred: ROOF_COST*s,
+      totalToday: (energyToday+MAINT_TODAY+lifeToday)*s,
+      totalAfter: (energyToday-energyRec + MAINT_TODAY-maintRec + lifeAfter)*s,
+      totalRec: (energyRec+maintRec+lifeRec)*s
     };
   }
 
-  const cStores = document.getElementById('cStores');
-  const cAge = document.getElementById('cAge');
-  const cRate = document.getElementById('cRate');
-  const cStoresVal = document.getElementById('cStoresVal');
-  const cAgeVal = document.getElementById('cAgeVal');
-  const cRateVal = document.getElementById('cRateVal');
-  const cHoursVal = document.getElementById('cHoursVal');
-  const out = document.getElementById('calcOut');
-  let hours = 4400;
-
-  function render(){
-    const stores = parseInt(cStores.value, 10);
-    const age = parseFloat(cAge.value);
-    const rate = parseFloat(cRate.value);
-    cStoresVal.textContent = fmtInt(stores);
-    cAgeVal.textContent = Math.round(age) + ' years';
-    cRateVal.textContent = rate + ' cents per kWh';
-    cHoursVal.textContent = fmtInt(hours);
-    const r = compute(stores, age, rate, hours);
-    out.innerHTML =
-      '<p>HVAC energy per store: <b>' + fmtInt(r.kwhStore) + ' kWh a year</b></p>' +
-      '<p>Capacity lost to age: <b>' + (r.loss*100).toFixed(1) + '%</b></p>' +
-      '<span class="calc-big">' + fmtMoney(r.dollarsStore) + ' per store, per year</span>' +
-      '<span class="calc-big">' + fmtMoney(r.dollarsFleet) + ' across ' + fmtInt(stores) + ' stores</span>' +
-      '<ul class="calc-tiles">' +
-        '<li><b>' + fmtInt(r.savedKwhFleet) + '</b><i>kWh a year</i></li>' +
-        '<li><b>' + fmtInt(r.tco2e) + '</b><i>tonnes CO2e a year, against a reported baseline of 124,514 for the stores</i></li>' +
-        '<li><b>' + fmtDec1(r.storesOfProfit) + '</b><i>the net profit of about that many stores</i></li>' +
-      '</ul>';
+  function fmtDollar(n){
+    if (Math.abs(n) >= 1000000){
+      return "$" + (n/1000000).toFixed(1) + "M";
+    }
+    return "$" + Math.round(n).toLocaleString("en-US");
   }
 
-  cStores.addEventListener('input', ()=>{
-    document.querySelectorAll('[data-stores]').forEach(b=>b.classList.remove('is-active'));
+  var ageEl = document.getElementById("age");
+  var ageValueEl = document.getElementById("ageValue");
+  var scopeStoreBtn = document.getElementById("scopeStore");
+  var scopeFleetBtn = document.getElementById("scopeFleet");
+
+  var scope = 1;
+
+  function render(){
+    var age = parseInt(ageEl.value, 10);
+    ageValueEl.textContent = age + (age === 1 ? " year" : " years");
+    var r = compute(age, scope);
+
+    document.getElementById("energyToday").textContent = fmtDollar(r.energyToday);
+    document.getElementById("energyAfter").textContent = fmtDollar(r.energyAfter);
+    document.getElementById("energyRec").textContent = fmtDollar(r.energyRec);
+
+    document.getElementById("maintToday").textContent = fmtDollar(r.maintToday);
+    document.getElementById("maintAfter").textContent = fmtDollar(r.maintAfter);
+    document.getElementById("maintRec").textContent = fmtDollar(r.maintRec);
+
+    document.getElementById("lifeToday").textContent = fmtDollar(r.lifeToday) + " a year";
+    document.getElementById("lifeAfter").textContent = fmtDollar(r.lifeAfter) + " a year";
+    document.getElementById("lifeRec").textContent = fmtDollar(r.lifeRec) + " a year";
+
+    document.getElementById("totalToday").textContent = fmtDollar(r.totalToday);
+    document.getElementById("totalAfter").textContent = fmtDollar(r.totalAfter);
+    document.getElementById("totalRec").textContent = fmtDollar(r.totalRec);
+
+    document.getElementById("demandRec").textContent = fmtDollar(r.demandRec);
+    document.getElementById("kwhRec").textContent = fmtDollar(r.kwhRec);
+
+    document.getElementById("deferred").textContent = fmtDollar(r.deferred);
+    document.getElementById("ext").textContent = r.ext.toFixed(1);
+  }
+
+  ageEl.addEventListener("input", render);
+
+  scopeStoreBtn.addEventListener("click", function(){
+    scope = 1;
+    scopeStoreBtn.setAttribute("aria-pressed", "true");
+    scopeFleetBtn.setAttribute("aria-pressed", "false");
     render();
   });
-  cAge.addEventListener('input', render);
-  cRate.addEventListener('input', render);
-
-  document.querySelectorAll('[data-stores]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('[data-stores]').forEach(b=>b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      cStores.value = btn.dataset.stores;
-      render();
-    });
-  });
-  document.querySelectorAll('[data-hours]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('[data-hours]').forEach(b=>b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      hours = parseInt(btn.dataset.hours, 10);
-      render();
-    });
+  scopeFleetBtn.addEventListener("click", function(){
+    scope = STORES;
+    scopeStoreBtn.setAttribute("aria-pressed", "false");
+    scopeFleetBtn.setAttribute("aria-pressed", "true");
+    render();
   });
 
   render();
+
+  // Film facade
+  var filmFacade = document.getElementById("filmFacade");
+  function playFilm(){
+    var iframe = document.createElement("iframe");
+    iframe.src = "https://fast.wistia.net/embed/iframe/n765rk6v4z?autoPlay=true";
+    iframe.allow = "autoplay; fullscreen";
+    iframe.allowFullscreen = true;
+    iframe.title = "The method, on film";
+    filmFacade.replaceWith(iframe);
+  }
+  filmFacade.addEventListener("click", playFilm);
+  filmFacade.addEventListener("keydown", function(e){
+    if (e.key === "Enter" || e.key === " "){
+      e.preventDefault();
+      playFilm();
+    }
+  });
 })();
 </script>
 

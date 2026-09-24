@@ -1,5 +1,13 @@
 # PRODUCT.md — Academy Sports + Outdoors proposal page
 
+## Version 2 (September 2026)
+Rebuilt around one idea, per Dan's decision: every Academy store pays three bills for
+cooling (energy, led by the demand charge; maintenance; the equipment replacement cycle),
+and one treatment moves all three. The page is one interactive exhibit, the roof ledger,
+plus three short bill sections, a mechanism section, and the pilot ask. Version 1's
+five-lever list, sales equation, spread chart, standalone calculator, and three-audience
+accordion are gone; their content folded into the ledger and the three bill sections.
+
 ## Purpose
 A single-file, Energy Plus branded proposal landing page for Academy Sports + Outdoors. The
 reader is an Academy VP who opens this on a phone, then forwards it to facilities and finance.
@@ -9,53 +17,63 @@ engineering, the measurement, and the incentive filing.
 ## Hard rules this page follows
 - No em dashes or en dashes anywhere in copy. Ranges use "to".
 - No product or vendor names in body copy (no CryoGenX4, HVAC Optimizer, Airco, Tri-S,
-  Frontier). Levers are described by function. The case ledger keeps the customer names it
-  already had (Simon Property Group, etc.). "Cryogenex" appears only in the header and footer
-  partner line, plus the CTA copy.
-- Savings are always framed as a share of the HVAC and cooling portion of the bill, never the
-  whole bill.
-- No stock photos of Academy stores, no Academy logo, no federal agency logos, no 179D
-  reference.
+  Frontier). "Cryogenex" appears only in the header partner line, the CTA copy, and the
+  footer.
+- No Texas, Houston, Katy, ERCOT, 4CP, or "113" anywhere. Savings are framed as cooling's
+  share of the bill for an average store, then multiplied by the 322-store fleet.
+- No stock photos of Academy stores, no Academy logo, no federal agency logos. The only
+  photos on the page are Cliff Suljak (grayscale) and the film cover.
 - `<meta name="robots" content="noindex, nofollow">` plus a matching robots.txt.
-- No third-party scripts and no CDN calls. The page loads only same-origin files: its own
-  `assets/site.css`, `assets/site.js`, `assets/fonts/report-fonts.css`, and the two local
-  woff2 files it references. See DESIGN.md for why this page uses Energy Plus's live Field
-  Report system (site.css/site.js from slashyourenergycost.com) rather than the separate
-  navy/champagne token set, per Dan's design review.
-- Mobile first, no horizontal scroll at 375px, 16px+ gutters. Respects
-  `prefers-reduced-motion`.
-- Numbers are not invented: the calculator and equation widgets use the engines given in the
-  build spec verbatim; the stat tiles and stakes copy cite Academy's own public filings.
+- No third-party scripts. The only external calls are the Google Fonts stylesheet link and,
+  on click only, the Wistia iframe for the film. Everything else is same-origin
+  (`assets/brand.css`, the inline script).
+- Mobile first, no horizontal scroll at 375px. Respects `prefers-reduced-motion`.
+- Numbers are not invented: the roof ledger uses the compute() engine given in the build
+  spec verbatim, with LOSS, STORES, KWH_STORE, RATE, COOL_KWH_SHARE, PEAK_KW, DEMAND_RATE,
+  COOL_PEAK_SHARE, DEMAND_MAX, MAINT_TODAY, MAINT_MAX, ROOF_COST, LIFE_YEARS, and EXT_MAX
+  as the only inputs. All narrative figures (Simon Property Group case, the 94 percent
+  purchased-electricity note, the twelve-units-a-roof estimate) cite the spec's own sourcing.
+
+## The roof ledger, and a known discrepancy
+The ledger's JavaScript is the compute() function from the build spec, copied verbatim,
+including `DEMAND_MAX = 0.125`. Running that function in node at age 12 reproduces the
+spec's own energyToday ($75,640), kwhRec ($9,440), ext (3.9 years), and maintRec ($5,364)
+exactly, but the demand recovery it returns is about $4,345 a store, not the spec's stated
+"about $3,477." That pulls energyRec to about $13,785 (spec said about $12,917) and totalRec
+to about $22,450 (spec said about $21,586); at the 322-store fleet scope this is about
+$7.23M in total recovery, not the spec's "about $6.95M." Working backward, the spec's own
+expected numbers are internally consistent with `DEMAND_MAX = 0.10`, not 0.125. Since the
+constant was given as 0.125 in the verbatim code block, that is what shipped; this note
+flags the mismatch for whoever finalizes the demand-recovery assumption with Cliff before
+the page goes to Academy. Changing one constant (`DEMAND_MAX`) resolves it either way.
 
 ## Open decisions
-- Whether to name the "product" (currently described only by function: restoration,
-  runtime intelligence, demand staging, power conditioning, replacement) or introduce a
-  branded name later in the sales process.
-- Whether Cryogenex stays in the header long term, or moves to a footer-only credit once
-  Energy Plus owns the relationship directly.
+- **Brand.** The real Energy Plus visual identity is not resolved. This version ships on a
+  placeholder skin (see DESIGN.md); reskinning is a single-file swap of `assets/brand.css`.
+- **Product naming.** Still white-labeled; no product name appears anywhere on the page.
+- **VP identity.** Unknown. The page is written to work for facilities, finance, or ESG,
+  since each owns one of the three bills, rather than addressing a named title.
 - Whose calendar the "Book the 15 minute fit call" button should point to once a specific
   Academy contact is engaged (currently Dan's own booking link).
 
 ## Fleet wide, not Texas specific
-Per Dan's review, this page pitches Academy as a big box fleet story, not a Texas story: it
-covers all 322 stores in 21 states, not a Texas subset. There is no reference anywhere in the
-page to Texas, Houston, Katy, ERCOT, or "4CP" summer peak-setting; demand charges are described
-generically ("a big box's highest fifteen minutes of the month"), and the pilot is "five
-stores," not five Houston stores. The stakes tile "113 stores in Texas" was replaced with
-"1 million kWh per store, per year." The equation and calculator sections default to and model
-the whole 322-store fleet; the calculator's store-count chips are 5 pilot stores / 80 (bottom
-quartile) / 322 (whole fleet, default).
+This page pitches Academy as a big box fleet story, not a Texas story: it covers all 322
+stores, not a regional subset. There is no reference anywhere in the page to Texas, Houston,
+Katy, ERCOT, "4CP," or "113"; the demand charge is described generically ("the highest
+fifteen minutes of the month"), and the pilot is "five stores." The ledger's fleet toggle
+covers all 322 stores by default off (one store is the default view).
 
 ## Customer-specific strings and where they live
-All of the following are specific to Academy Sports + Outdoors and should be revisited if this
-page is ever reused as a template for another retailer:
+All of the following are specific to Academy Sports + Outdoors and should be revisited if
+this page is ever reused as a template for another retailer:
 - Header: "Prepared for Academy Sports + Outdoors"
-- Hero kicker, H1, and lead copy (store count, Sun Belt cooling season framing)
-- Stakes section: 322 stores / 70,000 sq ft / 1 million kWh per store per year / 94% purchased
-  electricity, and the 10-K / ESG Supplement footnote
-- Equation section constant: `FLEET_STORES` (322)
-- Calculator section constants: `TONS`, `SQFT`, store-count chips (5 / 80 / 322, default 322),
-  and the 124,514 tonne CO2e baseline referenced in the output tiles
-- Offer section: five-store pilot structure, bottom-quartile (about eighty stores) rollout
+- Hero label, H1, and lead copy (store count, twelve rooftop units per store)
+- The roof ledger: `STORES` (322), `KWH_STORE`, `PEAK_KW`, `MAINT_TODAY`, `ROOF_COST`, and
+  the fine print citing "Academy's public filings and industry norms for a 70,000 square
+  foot big box"
+- Bill one's mono note citing Academy's 2021 GHG supplement (94 percent purchased
+  electricity)
+- Offer section: five-store pilot structure, bottom-quartile (about eighty stores) rollout,
+  Academy's twenty to twenty five store a year build-and-remodel cadence
 - CTA band: Daniel Gutierrez contact details, booking link with `?f=academy` query param
 - Footer: "prepared for Academy Sports + Outdoors"
