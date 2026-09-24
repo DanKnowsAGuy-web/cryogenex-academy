@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/brand.css?v=20260923c">
+<link rel="stylesheet" href="assets/brand.css?v=20260924a">
 </head>
 <body>
 
@@ -28,26 +28,26 @@
   <!-- 1. Hero -->
   <section class="band section" id="hero">
     <div class="wrap narrow">
-      <p class="label">Academy Sports + Outdoors · Proposal · September 2026</p>
-      <h1>Every Academy store pays three bills for cooling. One treatment moves all three.</h1>
-      <p class="lede">The energy bill, led by the demand charge no broker can touch. The maintenance bill. The replacement cycle on about twelve rooftop units per store. This page puts a number on each for an average Academy store, multiplies it by 322, and shows how to prove it in five stores before you commit to one more.</p>
+      <p class="label">Academy Sports + Outdoors · September 2026</p>
+      <h1>Three bills. One fix.</h1>
+      <p class="lede">Every Academy store pays for energy three times. The electric bill. The maintenance bill. The replacement bill. One treatment of the rooftop units lowers all three. Proven in five stores before you commit to one more.</p>
       <div class="btns">
-        <a class="btn btn--solid" href="#ledger">See the roof ledger</a>
+        <a class="btn btn--solid" href="#ledger">See the numbers</a>
         <a class="btn btn--ghost" href="#pilot">The pilot</a>
       </div>
     </div>
   </section>
 
-  <!-- 2. The roof ledger -->
+  <!-- 2. The ledger -->
   <section class="band--alt section" id="ledger">
     <div class="wrap">
-      <p class="label">The exhibit</p>
-      <h2>The roof ledger: what cooling costs one store, and what it could cost.</h2>
+      <p class="label">The numbers</p>
+      <h2>One store. Three bills.</h2>
 
       <div class="card">
         <div class="controls">
           <div class="range-row">
-            <label for="age">Average age of the rooftop units: <span class="range-value mono" id="ageValue">12 years</span></label>
+            <label for="age">Age of the rooftop units: <span class="range-value mono" id="ageValue">12 years</span></label>
             <input type="range" id="age" min="0" max="25" step="1" value="12">
           </div>
           <div class="toggle" role="group" aria-label="Scope">
@@ -57,52 +57,52 @@
         </div>
 
         <table class="ledger-table">
-          <caption class="label">Cooling's share of the bill, before and after</caption>
+          <caption class="label">Before and after, each year.</caption>
           <thead>
             <tr>
               <th scope="col">Bill</th>
               <th scope="col">Today</th>
               <th scope="col">After</th>
-              <th scope="col">Recovered per year</th>
-              <th scope="col">Confidence</th>
+              <th scope="col">Saved each year</th>
+              <th scope="col">How sure</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="bill" data-label="Bill">Energy: the kWh and the demand peak</td>
+              <td class="bill" data-label="Bill">Electricity<span class="bill-sub">demand and kilowatt hours</span></td>
               <td class="num" data-label="Today" id="energyToday">$75,640</td>
               <td class="num" data-label="After" id="energyAfter">$61,855</td>
-              <td class="num money" data-label="Recovered per year" id="energyRec">$13,785</td>
-              <td class="conf" data-label="Confidence">kWh measured elsewhere under IPMVP. Demand: engineering estimate, measured in the pilot.</td>
+              <td class="num money" data-label="Saved each year" id="energyRec">$13,785</td>
+              <td class="conf" data-label="How sure">Measured elsewhere. Measured again in the pilot.</td>
             </tr>
             <tr>
-              <td class="bill" data-label="Bill">Maintenance: service, repairs, failures</td>
+              <td class="bill" data-label="Bill">Maintenance<span class="bill-sub">service, repairs, failures</span></td>
               <td class="num" data-label="Today" id="maintToday">$27,500</td>
               <td class="num" data-label="After" id="maintAfter">$22,136</td>
-              <td class="num money" data-label="Recovered per year" id="maintRec">$5,364</td>
-              <td class="conf" data-label="Confidence"><span class="warn">Claim.</span> Measured in the pilot from the service log.</td>
+              <td class="num money" data-label="Saved each year" id="maintRec">$5,364</td>
+              <td class="conf" data-label="How sure">A <span class="warn">claim</span>. The service log will decide.</td>
             </tr>
             <tr>
-              <td class="bill" data-label="Bill">Equipment life: the replacement cycle</td>
+              <td class="bill" data-label="Bill">Replacement<span class="bill-sub">twelve units, fifteen years</span></td>
               <td class="num" data-label="Today" id="lifeToday">$16,000 a year</td>
               <td class="num" data-label="After" id="lifeAfter">$12,698 a year</td>
-              <td class="num money" data-label="Recovered per year" id="lifeRec">$3,302 a year</td>
-              <td class="conf" data-label="Confidence">Engineering argument. Evidenced by unit readings before and after.</td>
+              <td class="num money" data-label="Saved each year" id="lifeRec">$3,302 a year</td>
+              <td class="conf" data-label="How sure">Engineering. Gauge readings will show it.</td>
             </tr>
             <tr class="total">
               <td class="bill" data-label="Bill">Total</td>
               <td class="num" data-label="Today" id="totalToday">$119,140</td>
               <td class="num" data-label="After" id="totalAfter">$96,690</td>
-              <td class="num money" data-label="Recovered per year" id="totalRec">$22,450</td>
-              <td class="conf" data-label="Confidence"></td>
+              <td class="num money" data-label="Saved each year" id="totalRec">$22,450</td>
+              <td class="conf" data-label="How sure"></td>
             </tr>
           </tbody>
         </table>
 
-        <p class="ledger-note">Of which demand: <span id="demandRec">$4,345</span> a year. Of which kWh: <span id="kwhRec">$9,440</span> a year.</p>
-        <p class="ledger-note">Plus <span id="deferred">$240,000</span> of replacement capital pushed <span id="ext">3.9</span> years out.</p>
+        <p class="fine">Demand <span id="demandRec">$4,345</span>. Kilowatt hours <span id="kwhRec">$9,440</span>.</p>
+        <p class="fine">Plus <span id="deferred">$240,000</span> of replacement pushed <span id="ext">3.9</span> years out.</p>
 
-        <p class="ledger-footnote">Every figure on this ledger is an Energy Plus estimate built from Academy's public filings and industry norms for a 70,000 square foot big box: about one million kWh a year, about 450 kW of peak demand, about twelve rooftop units. The pilot replaces these with Academy's own numbers.</p>
+        <p class="fine">Estimates from Academy's public filings and industry norms for a 70,000 square foot store. The pilot replaces them with Academy's own numbers.</p>
       </div>
     </div>
   </section>
@@ -111,11 +111,11 @@
   <section class="band section" id="energy">
     <div class="wrap narrow">
       <p class="label">Bill one</p>
-      <h2>The energy bill, led by the line no broker can touch.</h2>
-      <p>Any broker can shop the price of a kilowatt hour. Nobody can shop the demand charge. It is set by the utility from the highest fifteen minutes of the month, and in a big box that is a summer afternoon when every rooftop unit is running flat out.</p>
-      <p>A unit that has lost a quarter of its capacity to oil fouling does not draw less. It runs longer and lands harder on that peak. Restore the heat transfer and two things happen: each compressor draws less power at the same load, and fewer units are stacked at the top of the afternoon. The demand line falls and, on ratcheted tariffs, the credit lasts twelve months.</p>
-      <p>The kilowatt hours fall with it. On units past their tenth year the recovery has measured 20 to 24 percent of cooling energy under IPMVP. That is the part of this page with the most evidence behind it.</p>
-      <p class="mono" style="font-size:0.9rem; color:var(--ink-2);">Academy's 2021 GHG supplement puts purchased electricity at 94 percent of the company's measured footprint.</p>
+      <h2>Electricity. Led by the line no broker can touch.</h2>
+      <p>Any broker can shop the price of a kilowatt hour. Nobody can shop the demand charge. It is set by your highest fifteen minutes of the month, when every rooftop unit is running flat out.</p>
+      <p>A fouled unit does not draw less. It runs longer and lands harder on that peak. Restore it and the peak drops, the hours drop, and the credit lasts twelve months.</p>
+      <p>On units past ten years, the recovery has measured 20 to 24 percent under IPMVP.</p>
+      <p class="fine">Electricity is 94 percent of Academy's measured footprint. Academy GHG report, 2021.</p>
     </div>
   </section>
 
@@ -123,21 +123,19 @@
   <section class="band--alt section" id="maintenance">
     <div class="wrap narrow">
       <p class="label">Bill two</p>
-      <h2>The maintenance bill. Heat is what kills compressors.</h2>
-      <p>Fouled coils raise head pressure and discharge temperature. That is the mechanism behind most compressor failures, most refrigerant loss, and most of the emergency calls that land in July. Refrigerant leakage already appears in Academy's own Scope 1 line.</p>
-      <p>Restoring heat transfer drops both readings within 48 hours of runtime, on every unit, and it is visible on a gauge. We estimate 15 to 25 percent fewer repair and failure events on an older roof. That is a claim until a service log proves it, which is exactly what the pilot is for.</p>
-      <p>The number a VP feels is not the invoice. It is the store that is hot on a Saturday in July, and what that does to sales that day.</p>
+      <h2>Maintenance. Heat kills compressors.</h2>
+      <p>Fouled coils run hot. Hot units fail, leak, and call for service in July.</p>
+      <p>Restore the heat transfer and the readings drop within 48 hours. We expect 15 to 25 percent fewer failures. That is a claim until the service log proves it. The pilot logs it.</p>
     </div>
   </section>
 
-  <!-- 5. Bill three: equipment life -->
+  <!-- 5. Bill three: replacement -->
   <section class="band section" id="life">
     <div class="wrap narrow">
       <p class="label">Bill three</p>
-      <h2>The replacement cycle. About $240,000 a roof, 322 roofs.</h2>
-      <p>About twelve rooftop units per store at about $20,000 each installed. Median service life around fifteen years. Across the fleet that is roughly $77 million of replacement exposure, arriving on failure, in summer, one store at a time.</p>
-      <p>A unit that runs cooler and cycles less lasts longer. Three to five added years drops the annualized cost of the roof and, more usefully, moves replacement onto the twenty to twenty five stores a year Academy already builds and remodels, instead of onto the emergency line.</p>
-      <p>This is an engineering argument until a fleet proves it. The evidence it rests on is the same gauge reading from bill two, taken on every treated unit before and after.</p>
+      <h2>Replacement. $240,000 a roof. 322 roofs.</h2>
+      <p>Twelve rooftop units a store. Fifteen years each. About $77 million of replacement across the fleet, arriving on failure, in summer.</p>
+      <p>A unit that runs cooler lasts longer. Three to five added years moves replacement onto your build schedule instead of the emergency line.</p>
     </div>
   </section>
 
@@ -146,27 +144,27 @@
     <div class="wrap narrow">
       <p class="label">Mechanism</p>
       <h2>Why one treatment moves all three.</h2>
-      <p>Compressor oil migrates into the refrigerant and bakes onto the inside of the coil walls as an insulating film. Heat that should leave the building stays in the unit, so the compressor runs hotter and longer to do the same job. A one time treatment of the refrigerant circuit strips that film and keeps the metal clean, with no shutdown, no modification, and the equipment warranty in place.</p>
+      <p>Compressor oil bakes onto the inside of the coil as an insulating film. Heat that should leave stays in the unit. One treatment strips the film and keeps the metal clean. No shutdown. No modification. Warranty intact.</p>
     </div>
     <div class="wrap" style="margin-top:2.5rem;">
       <div class="grid grid--2">
         <div class="plain-card">
-          <p>"Simon Property Group, The Mills at Jersey Gardens. Nine rooftop units installed in 1998, 520 tons on one retail roof. 21.1 percent less cooling energy under IPMVP. 22.2 percent more cooling capacity. $41,473 a year. Twelve month payback."</p>
-          <p class="mono" style="font-size:0.85rem; color:var(--ink-2);">A result of the technology, measured by a third party. Not an Energy Plus project.</p>
+          <p>"Simon Property Group, Jersey Gardens. Nine rooftop units from 1998. 21.1 percent less energy. 22 percent more capacity. Paid back in twelve months."</p>
+          <p class="fine">Measured by a third party under IPMVP. Not an Energy Plus project.</p>
         </div>
         <div class="plain-card">
           <div class="photo" style="margin-bottom:1rem;">
             <img src="assets/img/cliff-lab.jpg" alt="Cliff Suljak in the lab">
           </div>
-          <p>Cliff Suljak, Chief Technical Engineer. Sole source contractor to Sandia National Laboratories. Built the quality program for a six hundred million dollar utility efficiency program. Eight years on ASTM standards committees. He designs the measurement before anyone touches a unit.</p>
+          <p>Cliff Suljak, Chief Technical Engineer. Sandia National Laboratories contractor. Built the quality program for a $600 million utility efficiency program. He designs the measurement before anyone touches a unit.</p>
         </div>
       </div>
       <div style="margin-top:1.5rem; max-width: 32rem;">
         <div class="film" id="filmFacade" role="button" tabindex="0" aria-label="Play the film">
-          <img src="assets/img/film-cover.jpg" alt="The method, on film">
+          <img src="assets/img/film-cover.jpg" alt="Six minutes on film">
           <div class="play"><span></span></div>
         </div>
-        <p class="film-caption">The method, on film. Six minutes.</p>
+        <p class="fine">Six minutes on film.</p>
       </div>
     </div>
   </section>
@@ -174,50 +172,51 @@
   <!-- 7. The pilot and the ask -->
   <section class="band section" id="pilot">
     <div class="wrap narrow">
-      <p class="label">The ask</p>
-      <h2>Prove it in five stores. Measured on all three bills.</h2>
+      <p class="label">The pilot</p>
+      <h2>Five stores. Three bills. One season.</h2>
 
       <ol class="steps">
         <li>
           <p class="step-num mono">01</p>
           <h3>Send the folder.</h3>
-          <p>Twelve months of bills with the demand line, the rooftop unit list with ages, and whatever maintenance spend you have per store. One point person. Cost: nothing.</p>
+          <p>Twelve months of bills, the rooftop unit list, one point person. Free.</p>
         </li>
         <li>
           <p class="step-num mono">02</p>
           <h3>Five stores, two controls.</h3>
-          <p>Five stores with the oldest roofs in the hottest markets, treated in a day each. Two untouched stores of the same age and size. Treated before the cooling season, measured through it.</p>
+          <p>Your oldest roofs in your hottest markets. Treated in a day each, before summer.</p>
         </li>
         <li>
           <p class="step-num mono">03</p>
-          <h3>Three bills, three measurements.</h3>
-          <p>Kilowatt hours and demand from utility interval data against the controls. The service log, twelve months before and during. Discharge temperature, head pressure and amp draw on every treated unit, before and 48 hours after. Space temperature in every pilot store so a hot day is data.</p>
+          <h3>Measure all three.</h3>
+          <p>Interval data for the electric bill. The service log for maintenance. Gauge readings on every unit for life.</p>
         </li>
         <li>
           <p class="step-num mono">04</p>
-          <h3>Thirty days to the first review, one season to the number.</h3>
-          <p>Then the bottom quartile, about eighty stores, before the next summer. Then the fleet on Academy's own build and remodel cadence.</p>
+          <h3>Then the fleet.</h3>
+          <p>First review at thirty days. The bottom quartile before next summer. The fleet on your build schedule.</p>
         </li>
       </ol>
 
       <div class="grid grid--2" style="margin-top:2.5rem;">
         <div class="callout">
-          <p class="label">How it is priced</p>
-          <p>Rollout is priced as a fixed multiple of modeled first year savings, so the payback is written down before the first unit is treated. Utility programs in Academy's states fund a large share of verified projects. Typical payback on older roofs is 12 to 24 months. No subscription, nothing to maintain.</p>
+          <p class="label">Price</p>
+          <p>A fixed multiple of first year savings. Payback written down before the first unit is treated. Typically 12 to 24 months.</p>
         </div>
         <div class="callout">
           <h3>If we cannot prove it, you owe nothing.</h3>
-          <p>The bill review is free. The pilot is measured before anything scales. If the treated stores and the control stores cannot be told apart on the three bills, nothing goes on store six and nothing is owed.</p>
+          <p>The review is free. The pilot is measured. Nothing goes on store six until the numbers say so.</p>
         </div>
       </div>
 
+      <h2 style="margin-top:3rem;">One call.</h2>
       <div class="btns">
         <a class="btn btn--solid" href="https://book.slashyourenergycost.com/?f=academy">Book the 15 minute fit call</a>
         <a class="btn btn--ghost" href="sms:+18647770688">Text Dan</a>
         <a class="btn btn--ghost" href="mailto:dan@yourenergyplus.com">Email</a>
       </div>
-      <p class="mono" style="font-size:0.9rem; color:var(--ink-2); margin-top:1.25rem;">Daniel Gutierrez · Energy Plus · (864) 777-0688 · dan@yourenergyplus.com</p>
-      <p>Energy Plus leads the engineering, the measurement, and the incentive filing. Cryogenex brought this to the table and stays in the loop.</p>
+      <p class="fine" style="margin-top:1.25rem;">Daniel Gutierrez · Energy Plus · (864) 777-0688</p>
+      <p>Energy Plus leads. Cryogenex stays in the loop.</p>
     </div>
   </section>
 
@@ -225,7 +224,7 @@
 
 <footer class="site">
   <div class="wrap narrow">
-    <p>Prepared by Energy Plus in partnership with Cryogenex. Private and confidential, prepared for Academy Sports + Outdoors. All figures are estimates from public filings and industry norms until replaced by measured pilot data.</p>
+    <p>Prepared by Energy Plus in partnership with Cryogenex. Private and confidential. Estimates until measured.</p>
   </div>
 </footer>
 
@@ -335,7 +334,7 @@
     iframe.src = "https://fast.wistia.net/embed/iframe/n765rk6v4z?autoPlay=true";
     iframe.allow = "autoplay; fullscreen";
     iframe.allowFullscreen = true;
-    iframe.title = "The method, on film";
+    iframe.title = "Six minutes on film";
     filmFacade.replaceWith(iframe);
   }
   filmFacade.addEventListener("click", playFilm);

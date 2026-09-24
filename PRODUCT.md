@@ -1,5 +1,24 @@
 # PRODUCT.md — Academy Sports + Outdoors proposal page
 
+## Version 3 (September 2026)
+Three changes from Dan on top of version 2, all copy-and-type, no structural change:
+1. **Type sized for readers 65 and up.** Body text is 1.3rem/1.55, the lead is 1.5rem, labels
+   and fine print never drop below 1rem, ledger numerals run 1.5rem on desktop and 1.35rem on
+   phone, buttons and the scope toggle are 56px minimum height with 1.15rem text, and the
+   range slider has a 32px thumb on a 6px track. `--ink-2` is capped at `#3f4850` so no text
+   on the page renders lighter than that. All of it lives in `assets/brand.css`; see DESIGN.md.
+2. **The word "cooling" is banned.** This is pitched as an energy play, not an HVAC play.
+   Every sentence that referenced cooling, cooling's share, or cooling energy was rewritten to
+   talk about electricity, the demand charge, and kilowatt hours directly. `grep -i cooling
+   index.html` returns zero hits.
+3. **Apple-level concision.** Every sentence on the page was replaced with the shorter version
+   Dan supplied verbatim. Visible body text runs to 691 words end to end (header through
+   footer), under the 700-word target.
+
+The interactive ledger, its compute() engine, the seven-beat structure, brand.css isolation,
+and every hard rule from version 2 (no dashes, no product names, no Texas terms, noindex,
+same-origin only) are unchanged.
+
 ## Version 2 (September 2026)
 Rebuilt around one idea, per Dan's decision: every Academy store pays three bills for
 cooling (energy, led by the demand charge; maintenance; the equipment replacement cycle),
@@ -19,8 +38,11 @@ engineering, the measurement, and the incentive filing.
 - No product or vendor names in body copy (no CryoGenX4, HVAC Optimizer, Airco, Tri-S,
   Frontier). "Cryogenex" appears only in the header partner line, the CTA copy, and the
   footer.
-- No Texas, Houston, Katy, ERCOT, 4CP, or "113" anywhere. Savings are framed as cooling's
-  share of the bill for an average store, then multiplied by the 322-store fleet.
+- No Texas, Houston, Katy, ERCOT, 4CP, or "113" anywhere. Savings are framed as an average
+  store's electric, maintenance, and replacement bills, then multiplied by the 322-store fleet.
+- The word "cooling" does not appear anywhere in the page (version 3, per Dan: this is an
+  energy play, not an HVAC play). Copy talks about electricity, the demand charge, kilowatt
+  hours, and the rooftop units directly instead.
 - No stock photos of Academy stores, no Academy logo, no federal agency logos. The only
   photos on the page are Cliff Suljak (grayscale) and the film cover.
 - `<meta name="robots" content="noindex, nofollow">` plus a matching robots.txt.
