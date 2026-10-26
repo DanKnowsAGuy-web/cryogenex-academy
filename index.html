@@ -7,7 +7,7 @@
 <meta name="description" content="Energy Plus proposal for Academy Sports + Outdoors, prepared in partnership with Cryogenex.">
 <title>Energy Plus · Prepared for Academy Sports + Outdoors</title>
 <link rel="stylesheet" href="assets/fonts/report-fonts.css">
-<link rel="stylesheet" href="assets/site.css?v=20261026a">
+<link rel="stylesheet" href="assets/site.css?v=20261026b">
 <style>
   /* This page's own widgets only: the roof ledger, its sliders, and the small
      furniture (bands, cards, toggle, steps, callouts) that assets/site.css does
@@ -156,6 +156,36 @@
   .callout p { font-size: max(var(--step-1), 1.3rem); margin-top: 0.5rem; }
   .callout h3 { font-size: var(--step-1); }
 
+  /* ---------- the engineer: tiles and swipeable project cards ---------- */
+  .eng-head { display: grid; gap: 1.5rem; align-items: start; }
+  @media (min-width: 900px) { .eng-head { grid-template-columns: 1.4fr 1fr; gap: 3rem; } }
+  .eng-head .photo img { aspect-ratio: 4 / 3; width: 100%; object-position: 50% 20%; }
+  @media (min-width: 900px) { .eng-head .photo img { aspect-ratio: 4 / 5; } }
+  .eng-name { font-family: var(--font-mono); font-size: 1rem; color: var(--faint); margin-top: 0.8rem; }
+  .eng-pull { font-weight: 600; color: var(--ink); }
+
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; }
+  @media (min-width: 900px) { .tiles { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 400px) { .tile { padding: 1rem; } }
+  .tile { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-card);
+    padding: 1.25rem; min-width: 0; }
+  .tile .big { font-family: var(--font-sans); font-weight: 700; font-stretch: 112%;
+    font-size: clamp(1.3rem, 5vw, 2.2rem); line-height: 1.05; color: var(--ink); letter-spacing: -0.01em; }
+  .tile p { font-size: 1.05rem; line-height: 1.45; margin-top: 0.6rem; color: var(--body-c); }
+
+  .reel-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2.5rem; }
+  .reel-nav { display: flex; gap: 0.6rem; }
+  .reel-nav button { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--rule);
+    background: var(--card); color: var(--ink); font-size: 1.3rem; cursor: pointer; }
+  .reel-nav button:disabled { opacity: 0.35; cursor: default; }
+  .reel { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 1rem 0 1.25rem; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+  .reel > article { flex: 0 0 min(85%, 26rem); scroll-snap-align: start; background: var(--card);
+    border: 1px solid var(--rule); border-radius: var(--r-card); padding: 1.5rem; }
+  .reel h3 { font-size: 1.3rem; line-height: 1.25; margin-top: 0.6rem; }
+  .reel p { font-size: 1.1rem; line-height: 1.5; margin-top: 0.7rem; }
+  @media (prefers-reduced-motion: reduce) { .reel { scroll-behavior: auto; } }
+
   footer.site { padding-block: 3rem; background: var(--graphite); color: var(--panel-body); }
   footer.site p { font-size: max(var(--step-1), 1.3rem); }
 
@@ -268,7 +298,7 @@
       <div class="hero__copy">
         <p class="label">Academy Sports + Outdoors</p>
         <h1 id="hero-h">Three bills. One fix.</h1>
-        <p class="hero__lede">Every store pays for its rooftop units three times: electricity, maintenance, and replacement. One treatment lowers all three. Proven in five stores first.</p>
+        <p class="hero__lede">Every store pays for its rooftop units three times: electricity, maintenance, and replacement. One treatment lowers all three. Proven on your own stores first.</p>
         <div class="btns">
           <a class="btn btn--lg" href="#ledger">See the numbers</a>
           <a class="textlink" href="#pilot">The pilot</a>
@@ -361,9 +391,9 @@
   <section class="band" id="energy">
     <div class="wrap narrow">
       <p class="label">Bill one</p>
-      <h2>Electricity. Led by the line no broker can touch.</h2>
-      <p>A broker can shop your rate. No one can shop the demand charge, set by your highest fifteen minutes of the month when every rooftop unit runs flat out.</p>
-      <p>A fouled unit runs longer and hits that peak harder. Restore it and both drop. On units past ten years, recovery has measured 20 to 24 percent. Solar thermal adds at least 30 percent more.</p>
+      <h2>Electricity. Your worst fifteen minutes sets the whole month.</h2>
+      <p>The demand charge is set by one moment: the hottest fifteen minutes of the month, when every rooftop unit on the roof runs flat out at once. You pay for that spike all month, and on many tariffs for a year after.</p>
+      <p>A fouled unit runs longer and hits that peak harder. Restore it and the peak comes down. On units past ten years, recovery has measured 20 to 24 percent. Solar thermal adds at least 30 percent more.</p>
       <p class="fine">Electricity is 94 percent of Academy's measured footprint. Academy GHG report, 2021.</p>
     </div>
   </section>
@@ -401,28 +431,83 @@
           <p>"Simon Property Group, Jersey Gardens. Nine rooftop units from 1998. 21.1 percent less energy. 22 percent more capacity. Paid back in twelve months."</p>
           <p class="fine">Third-party measured under IPMVP.</p>
         </div>
-        <div class="plain-card">
-          <div class="photo" style="margin-bottom:1rem;">
-            <img src="assets/img/cliff-lab.jpg" alt="Cliff Suljak in the lab">
+        <div>
+          <div class="film" id="filmFacade" role="button" tabindex="0" aria-label="Play the film">
+            <img src="assets/img/film-cover.jpg" alt="Six minutes on film">
+            <div class="play"><span></span></div>
           </div>
-          <p>Cliff Suljak, Chief Technical Engineer. Former Sandia National Laboratories contractor. He designs the measurement before anyone touches a unit.</p>
+          <p class="fine">Six minutes on film.</p>
         </div>
-      </div>
-      <div style="margin-top:1.5rem; max-width: 32rem;">
-        <div class="film" id="filmFacade" role="button" tabindex="0" aria-label="Play the film">
-          <img src="assets/img/film-cover.jpg" alt="Six minutes on film">
-          <div class="play"><span></span></div>
-        </div>
-        <p class="fine">Six minutes on film.</p>
       </div>
     </div>
   </section>
 
-  <!-- 7. The pilot and the ask -->
+  <!-- 7. The engineer -->
+  <section class="band" id="engineer">
+    <div class="wrap">
+      <div class="eng-head">
+        <div>
+          <p class="label">Who measures it</p>
+          <h2>The engineer the national labs hired without a bid.</h2>
+          <p>When the Department of Energy and the Department of Defense needed measurements right the first time, Sandia National Laboratories, one of the country's top engineering labs, skipped the bidding. They handed the contract to Cliff Suljak.</p>
+          <p class="eng-pull">He designs the measurement on your stores, on your side of the table, before anyone touches a unit.</p>
+        </div>
+        <div class="photo">
+          <img src="assets/img/cliff-lab.jpg" alt="Cliff Suljak in the lab" loading="lazy">
+          <p class="eng-name">Cliff Suljak · Chief Technical Engineer</p>
+        </div>
+      </div>
+
+      <div class="tiles">
+        <div class="tile"><div class="big">Sole source</div><p>Sandia National Laboratories. 22 engineers across four DOE and DOD sites.</p></div>
+        <div class="tile"><div class="big">$600M</div><p>Built the quality program at Salt River Project. Utilities nationwide copied it.</p></div>
+        <div class="tile"><div class="big">ASTM</div><p>Eight years writing the national test standards other engineers are held to.</p></div>
+        <div class="tile"><div class="big">3 emirates</div><p>Called in to assess the UAE's national power grid.</p></div>
+      </div>
+
+      <div class="reel-bar">
+        <p class="label" style="margin:0;">Selected work</p>
+        <div class="reel-nav">
+          <button type="button" id="reelPrev" aria-label="Previous project">&larr;</button>
+          <button type="button" id="reelNext" aria-label="Next project">&rarr;</button>
+        </div>
+      </div>
+      <div class="reel" id="reel" tabindex="0" aria-label="Selected projects">
+        <article>
+          <p class="label">Sandia National Laboratories · DOE / DOD</p>
+          <h3>Sole source. Five years. Four national facilities.</h3>
+          <p>Sandia awarded the contract directly to Cliff. He built and led a 22-engineer team across Albuquerque, Livermore, Tonopah, and Kauai, completing hundreds of task orders.</p>
+        </article>
+        <article>
+          <p class="label">Salt River Project · Arizona</p>
+          <h3>He built the quality system from scratch. The industry copied it.</h3>
+          <p>As head of materials and quality for one of the Southwest's largest utilities, he created the lab, testing, and failure analysis program behind a $600M build. Utilities across the country adopted it.</p>
+        </article>
+        <article>
+          <p class="label">York International · LA County Courts</p>
+          <h3>After Northridge, he went up against the county's engineers. And won.</h3>
+          <p>Hired sole source to save the world's largest thermal storage system after the earthquake. He ran the seismic analysis, testified, prevailed, then designed and installed the fix.</p>
+        </article>
+        <article>
+          <p class="label">UAE National Grid · Dubai · Abu Dhabi · Sharjah</p>
+          <h3>Three emirates. One grid. He assessed all of it.</h3>
+          <p>A power loss engagement grew into a full reliability assessment of the national grid, consulting directly to the utility authorities in country.</p>
+        </article>
+        <article>
+          <p class="label">ASTM · Standards committee</p>
+          <h3>Eight years writing the tests everyone else must pass.</h3>
+          <p>He helped develop test methods for advanced materials in extreme environments, later adopted as national acceptance criteria for utility procurement.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 8. The pilot and the ask -->
   <section class="band" id="pilot">
     <div class="wrap narrow">
       <p class="label">The pilot</p>
-      <h2>Five stores. Three bills. One season.</h2>
+      <h2>Proof on your own roofs in thirty days.</h2>
 
       <ol class="steps">
         <li>
@@ -432,18 +517,18 @@
         </li>
         <li>
           <p class="step-num mono">02</p>
-          <h3>Five stores, two controls.</h3>
-          <p>Your oldest roofs in your hottest markets. Treated in a day each, before summer.</p>
+          <h3>Pick the stores. As many as you want.</h3>
+          <p>Five is enough for a clean read. Ten or twenty covers more markets. Your oldest roofs first, untreated stores as controls, each store done in a day.</p>
         </li>
         <li>
           <p class="step-num mono">03</p>
-          <h3>Measure all three.</h3>
-          <p>Interval data for the electric bill. The service log for maintenance. Gauge readings on every unit for life.</p>
+          <h3>Readings in 48 hours. The bill in 30 days.</h3>
+          <p>Gauge readings on every unit within two days. The next electric bill shows the peak. The service log tracks maintenance.</p>
         </li>
         <li>
           <p class="step-num mono">04</p>
           <h3>Then the fleet.</h3>
-          <p>First review at thirty days. The bottom quartile before next summer. The fleet on your build schedule.</p>
+          <p>Review at thirty days. Then the oldest roofs next, and the rest on your build schedule.</p>
         </li>
       </ol>
 
@@ -454,7 +539,7 @@
         </div>
         <div class="callout">
           <h3>If we cannot prove it, you owe nothing.</h3>
-          <p>Free review. Measured pilot. No store six until the numbers say so.</p>
+          <p>Free review. Measured pilot. Nothing goes fleet wide until the numbers say so.</p>
         </div>
       </div>
 
@@ -600,6 +685,20 @@
   });
 
   render();
+
+  // Project reel arrows (swipe works without them)
+  var reel = document.getElementById("reel");
+  var prev = document.getElementById("reelPrev"), next = document.getElementById("reelNext");
+  function step(){ var a = reel.querySelector("article"); return a ? a.getBoundingClientRect().width + 16 : 300; }
+  function sync(){
+    prev.disabled = reel.scrollLeft < 4;
+    next.disabled = reel.scrollLeft + reel.clientWidth >= reel.scrollWidth - 4;
+  }
+  prev.addEventListener("click", function(){ reel.scrollBy({ left: -step(), behavior: "smooth" }); });
+  next.addEventListener("click", function(){ reel.scrollBy({ left: step(), behavior: "smooth" }); });
+  reel.addEventListener("scroll", sync, { passive: true });
+  window.addEventListener("resize", sync);
+  sync();
 
   // Film facade
   var filmFacade = document.getElementById("filmFacade");
