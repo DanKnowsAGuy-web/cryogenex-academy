@@ -1,5 +1,16 @@
 # PRODUCT.md — Academy Sports + Outdoors proposal page
 
+## Version 7 (October 2026): peak demand, Cliff's credibility, a faster flexible pilot
+Per Dan: talk only about what we want to talk about.
+- Bill one headline is now about peak demand ("Your worst fifteen minutes sets the whole
+  month."). Broker language removed from the page.
+- Cliff has his own section (#engineer): a headline that pre-frames Sandia for readers who
+  don't know it, four credibility tiles, and five swipeable project cards (arrows on
+  desktop). Claims reused from the approved Hotels site (DanKnowsAGuy-web/hotels).
+- Pilot no longer implies a season or a fixed size. Headline: "Proof on your own roofs in
+  thirty days." Store count is Academy's choice; five is the minimum for a clean read.
+- Verified at nine widths, 360 to 1440px: no mid-word breaks, no horizontal scroll.
+
 ## Version 6 (October 2026): tighter copy, no split words on any screen
 - Copy trimmed throughout per Dan (too verbose). Removed "Not an Energy Plus project,"
   the "Energy Plus leads" line, and the redundant "a year" suffixes in the ledger.
@@ -229,7 +240,7 @@ fraction implies).
 This page pitches Academy as a big box fleet story, not a Texas story: it covers all 322
 stores, not a regional subset. There is no reference anywhere in the page to Texas, Houston,
 Katy, ERCOT, "4CP," or "113"; the demand charge is described generically ("the highest
-fifteen minutes of the month"), and the pilot is "five stores." The ledger's fleet toggle
+fifteen minutes of the month"), and the pilot size is Academy's choice (five minimum). The ledger's fleet toggle
 covers all 322 stores by default off (one store is the default view).
 
 ## Customer-specific strings and where they live
@@ -242,7 +253,7 @@ this page is ever reused as a template for another retailer:
   foot big box"
 - Bill one's mono note citing Academy's 2021 GHG supplement (94 percent purchased
   electricity)
-- Offer section: five-store pilot structure, bottom-quartile (about eighty stores) rollout,
+- Offer section: flexible pilot size (five minimum), bottom-quartile (about eighty stores) rollout,
   Academy's twenty to twenty five store a year build-and-remodel cadence
 - CTA band: Daniel Gutierrez contact details, booking link with `?f=academy` query param
 - Footer: "prepared for Academy Sports + Outdoors"
