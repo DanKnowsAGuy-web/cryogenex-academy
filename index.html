@@ -7,7 +7,7 @@
 <meta name="description" content="Energy Plus proposal for Academy Sports + Outdoors, prepared in partnership with Cryogenex.">
 <title>Energy Plus · Prepared for Academy Sports + Outdoors</title>
 <link rel="stylesheet" href="assets/fonts/report-fonts.css">
-<link rel="stylesheet" href="assets/site.css?v=20260924d">
+<link rel="stylesheet" href="assets/site.css?v=20261026a">
 <style>
   /* This page's own widgets only: the roof ledger, its sliders, and the small
      furniture (bands, cards, toggle, steps, callouts) that assets/site.css does
@@ -98,10 +98,14 @@
     border-bottom: 1px solid var(--ink); padding: 0.6rem 0.6rem 0.6rem 0; }
   .ledger-table td {
     padding: 0.9rem 0.6rem 0.9rem 0; border-bottom: 1px solid var(--rule); vertical-align: top;
-    font-size: max(var(--step-1), 1.3rem); overflow-wrap: anywhere;
+    font-size: max(var(--step-1), 1.3rem);
   }
-  .ledger-table th { overflow-wrap: anywhere; }
-  .ledger-table .bill { font-weight: 600; color: var(--ink); }
+  /* never split a word mid-word at any width */
+  body { overflow-wrap: break-word; hyphens: manual; }
+  h1, h2, h3 { text-wrap: balance; }
+  p, li, td { text-wrap: pretty; }
+  .ledger-table .num, .ledger-table .bill { white-space: nowrap; }
+  .ledger-table .bill { font-weight: 600; color: var(--ink); max-width: none; justify-self: auto; margin: 0; } /* site.css .bill is an unrelated illustration */
   .ledger-table .bill-sub { display: block; font-family: var(--font-mono); font-weight: 400;
     font-size: 1rem; color: var(--faint); margin-top: 0.2rem; }
   .ledger-table .num { font-family: var(--font-mono); font-size: 1.5rem; color: var(--ink);
@@ -112,8 +116,12 @@
   .ledger-table tr.total td { border-top: 2px solid var(--ink); border-bottom: 0; font-weight: 700; }
   .ledger-table tr.total .num { font-size: 1.6rem; }
 
-  @media (min-width: 720px) {
-    .ledger-table { table-layout: fixed; width: 100%; }
+  .ledger-table .bill-sub { white-space: normal; }
+  @media (min-width: 1024px) {
+    .ledger-table { table-layout: auto; width: 100%; }
+    .ledger-table .bill { width: auto; }
+    .ledger-table .num { width: 1%; padding-right: 2rem; }
+    .ledger-table .conf { width: 18rem; max-width: none; font-size: 1.15rem; }
   }
 
   /* ---------- page furniture reused across the bill/why/pilot sections ---------- */
@@ -138,6 +146,7 @@
 
   .steps { list-style: none; margin-top: clamp(1.8rem, 4vw, 3rem); padding: 0; counter-reset: step; }
   .steps > li { border-top: 1px solid var(--rule); padding: 1.5rem 0; }
+  .steps > li::before { content: none; } /* site.css auto-numbers; this page prints its own */
   .step-num { font-family: var(--font-mono); font-weight: 600; font-size: var(--step-1); color: var(--faint); }
   .steps h3 { font-size: var(--step-1); margin-top: 0.5rem; }
   .steps p { margin-top: 0.5rem; font-size: max(var(--step-1), 1.3rem); }
@@ -165,8 +174,8 @@
     .toggle { flex-basis: 100%; }
   }
 
-  /* ---------- phone: controls, stacked ledger table, and layout-width safety ---------- */
-  @media (max-width: 719.9px) {
+  /* ---------- phone and tablet: controls, stacked ledger table, and layout-width safety ---------- */
+  @media (max-width: 1023.9px) {
     .controls { gap: 1.5rem; }
     .card { padding: 1.25rem; }
 
@@ -231,7 +240,8 @@
     }
     .ledger-table td.conf:empty { display: none; }
 
-    .ledger-table caption { font-size: 1rem; white-space: normal; }
+    .ledger-table caption { display: block; width: 100%; font-size: 1rem; white-space: normal; }
+    .ledger-table td.bill { white-space: normal; }
   }
 </style>
 </head>
@@ -256,9 +266,9 @@
     </div>
     <div class="wrap hero__in">
       <div class="hero__copy">
-        <p class="label">Academy Sports + Outdoors · September 2026</p>
+        <p class="label">Academy Sports + Outdoors</p>
         <h1 id="hero-h">Three bills. One fix.</h1>
-        <p class="hero__lede">Every Academy store pays for energy three times. The electric bill. The maintenance bill. The replacement bill. One treatment of the rooftop units lowers all three. Proven in five stores before you commit to one more.</p>
+        <p class="hero__lede">Every store pays for its rooftop units three times: electricity, maintenance, and replacement. One treatment lowers all three. Proven in five stores first.</p>
         <div class="btns">
           <a class="btn btn--lg" href="#ledger">See the numbers</a>
           <a class="textlink" href="#pilot">The pilot</a>
@@ -287,7 +297,7 @@
             <div class="range-minmax"><span>50,000 sq ft</span><span>100,000 sq ft</span></div>
           </div>
           <div class="range-row">
-            <label for="rate">Electricity rate<span class="range-value mono" id="rateValue">10.1 cents per kWh</span></label>
+            <label for="rate">Electricity rate<span class="range-value mono" id="rateValue">10.1 cents / kWh</span></label>
             <input type="range" id="rate" min="6.0" max="16.0" step="0.1" value="10.1">
             <div class="range-minmax"><span>6.0 cents</span><span>16.0 cents</span></div>
           </div>
@@ -310,25 +320,25 @@
           </thead>
           <tbody>
             <tr>
-              <td class="bill" data-label="Bill">Electricity<span class="bill-sub">treatment and solar thermal</span></td>
+              <td class="bill" data-label="Bill">Electricity<span class="bill-sub">treatment + solar thermal</span></td>
               <td class="num" data-label="Today"><span id="energyToday">$75,922</span></td>
               <td class="num" data-label="After"><span id="energyAfter">$43,437</span></td>
               <td class="num money" data-label="Saved each year"><span id="energyRec">$32,485</span></td>
-              <td class="conf" data-label="How sure">Treatment measured elsewhere. Solar thermal at its floor. Both measured in the pilot.</td>
+              <td class="conf" data-label="How sure">Measured elsewhere. Confirmed in the pilot.</td>
             </tr>
             <tr>
               <td class="bill" data-label="Bill">Maintenance<span class="bill-sub">service, repairs, failures</span></td>
               <td class="num" data-label="Today"><span id="maintToday">$27,500</span></td>
               <td class="num" data-label="After"><span id="maintAfter">$22,136</span></td>
               <td class="num money" data-label="Saved each year"><span id="maintRec">$5,364</span></td>
-              <td class="conf" data-label="How sure">A <span class="warn">claim</span>. The service log will decide.</td>
+              <td class="conf" data-label="How sure">An <span class="warn">estimate</span>. The service log decides.</td>
             </tr>
             <tr>
               <td class="bill" data-label="Bill">Replacement<span class="bill-sub">twelve units, fifteen years</span></td>
-              <td class="num" data-label="Today"><span id="lifeToday">$16,000 a year</span></td>
-              <td class="num" data-label="After"><span id="lifeAfter">$12,698 a year</span></td>
-              <td class="num money" data-label="Saved each year"><span id="lifeRec">$3,302 a year</span></td>
-              <td class="conf" data-label="How sure">Engineering. Gauge readings will show it.</td>
+              <td class="num" data-label="Today"><span id="lifeToday">$16,000</span></td>
+              <td class="num" data-label="After"><span id="lifeAfter">$12,698</span></td>
+              <td class="num money" data-label="Saved each year"><span id="lifeRec">$3,302</span></td>
+              <td class="conf" data-label="How sure">Engineering estimate. Gauges confirm.</td>
             </tr>
             <tr class="total">
               <td class="bill" data-label="Bill">Total</td>
@@ -340,12 +350,9 @@
           </tbody>
         </table>
 
-        <p class="fine">Treatment <span id="treatRec">$13,869</span>.</p>
-        <p class="fine">Solar thermal <span id="solarRec">$18,616</span>.</p>
-        <p class="fine">Of which demand <span id="demandRec">$13,672</span>.</p>
-        <p class="fine">Plus <span id="deferred">$240,000</span> of replacement pushed <span id="ext">3.9</span> years out.</p>
+        <p class="fine">Electricity split: treatment <span id="treatRec">$13,869</span>, solar thermal <span id="solarRec">$18,616</span>, of which demand charge <span id="demandRec">$13,672</span>. Plus <span id="deferred">$240,000</span> of replacement pushed <span id="ext">3.9</span> years out.</p>
 
-        <p class="fine">Estimates for a store of the size and age you set, at the rate you set. The rate defaults to the average across Academy's states, weighted by store count, from 8.6 to 13.6 cents. Store electricity per square foot comes from Academy's 2021 GHG report. Solar thermal is held at the floor of its measured range. The pilot replaces these with Academy's own numbers.</p>
+        <p class="fine">Estimates. Default rate is Academy's store-weighted average. Usage from Academy's 2021 GHG report. The pilot replaces these with your own numbers.</p>
       </div>
     </div>
   </section>
@@ -355,9 +362,8 @@
     <div class="wrap narrow">
       <p class="label">Bill one</p>
       <h2>Electricity. Led by the line no broker can touch.</h2>
-      <p>Any broker can shop the price of a kilowatt hour. Nobody can shop the demand charge. It is set by your highest fifteen minutes of the month, when every rooftop unit is running flat out.</p>
-      <p>A fouled unit does not draw less. It runs longer and lands harder on that peak. Restore it and the peak drops, the hours drop, and the credit lasts twelve months. Solar thermal on a restored unit takes the rest of the way: at least 30 percent more.</p>
-      <p>On units past ten years, the recovery has measured 20 to 24 percent under IPMVP.</p>
+      <p>A broker can shop your rate. No one can shop the demand charge, set by your highest fifteen minutes of the month when every rooftop unit runs flat out.</p>
+      <p>A fouled unit runs longer and hits that peak harder. Restore it and both drop. On units past ten years, recovery has measured 20 to 24 percent. Solar thermal adds at least 30 percent more.</p>
       <p class="fine">Electricity is 94 percent of Academy's measured footprint. Academy GHG report, 2021.</p>
     </div>
   </section>
@@ -368,7 +374,7 @@
       <p class="label">Bill two</p>
       <h2>Maintenance. Heat kills compressors.</h2>
       <p>Fouled coils run hot. Hot units fail, leak, and call for service in July.</p>
-      <p>Restore the heat transfer and the readings drop within 48 hours. We expect 15 to 25 percent fewer failures. That is a claim until the service log proves it. The pilot logs it.</p>
+      <p>Restore heat transfer and readings drop within 48 hours. We expect 15 to 25 percent fewer failures. The pilot's service log will confirm it.</p>
     </div>
   </section>
 
@@ -377,8 +383,8 @@
     <div class="wrap narrow">
       <p class="label">Bill three</p>
       <h2>Replacement. $240,000 a roof. 322 roofs.</h2>
-      <p>Twelve rooftop units a store. Fifteen years each. About $77 million of replacement across the fleet, arriving on failure, in summer.</p>
-      <p>A unit that runs cooler lasts longer. Three to five added years moves replacement onto your build schedule instead of the emergency line.</p>
+      <p>Twelve units a store, fifteen years each: about $77 million across the fleet, usually arriving as summer failures.</p>
+      <p>Units that run cooler last three to five years longer, moving replacement onto your build schedule.</p>
     </div>
   </section>
 
@@ -387,19 +393,19 @@
     <div class="wrap narrow">
       <p class="label">Mechanism</p>
       <h2>Why one treatment moves all three.</h2>
-      <p>Compressor oil bakes onto the inside of the coil as an insulating film. Heat that should leave stays in the unit. One treatment strips the film and keeps the metal clean. No shutdown. No modification. Warranty intact. Solar thermal adds heat on the compressor's discharge side, so a restored unit does the same work with less electricity.</p>
+      <p>Compressor oil bakes onto the coil as an insulating film, trapping heat. One treatment strips it and keeps the metal clean. No shutdown, no modification, warranty intact.</p>
     </div>
     <div class="wrap" style="margin-top:2.5rem;">
       <div class="grid grid--2">
         <div class="plain-card">
           <p>"Simon Property Group, Jersey Gardens. Nine rooftop units from 1998. 21.1 percent less energy. 22 percent more capacity. Paid back in twelve months."</p>
-          <p class="fine">Measured by a third party under IPMVP. Not an Energy Plus project.</p>
+          <p class="fine">Third-party measured under IPMVP.</p>
         </div>
         <div class="plain-card">
           <div class="photo" style="margin-bottom:1rem;">
             <img src="assets/img/cliff-lab.jpg" alt="Cliff Suljak in the lab">
           </div>
-          <p>Cliff Suljak, Chief Technical Engineer. Sandia National Laboratories contractor. Built the quality program for a $600 million utility efficiency program. He designs the measurement before anyone touches a unit.</p>
+          <p>Cliff Suljak, Chief Technical Engineer. Former Sandia National Laboratories contractor. He designs the measurement before anyone touches a unit.</p>
         </div>
       </div>
       <div style="margin-top:1.5rem; max-width: 32rem;">
@@ -444,11 +450,11 @@
       <div class="grid grid--2" style="margin-top:2.5rem;">
         <div class="callout">
           <p class="label">Price</p>
-          <p>A fixed multiple of first year savings. Payback written down before the first unit is treated. Typically 12 to 24 months.</p>
+          <p>A fixed multiple of first-year savings. Payback in writing before work starts, typically 12 to 24 months.</p>
         </div>
         <div class="callout">
           <h3>If we cannot prove it, you owe nothing.</h3>
-          <p>The review is free. The pilot is measured. Nothing goes on store six until the numbers say so.</p>
+          <p>Free review. Measured pilot. No store six until the numbers say so.</p>
         </div>
       </div>
 
@@ -459,7 +465,6 @@
         <a class="textlink" href="mailto:dan@yourenergyplus.com">Email</a>
       </div>
       <p class="fine" style="margin-top:1.25rem;">Daniel Gutierrez · Energy Plus · (864) 777-0688</p>
-      <p>Energy Plus leads. Cryogenex stays in the loop.</p>
     </div>
   </section>
 
@@ -467,7 +472,7 @@
 
 <footer class="site">
   <div class="wrap narrow">
-    <p>Prepared by Energy Plus in partnership with Cryogenex. Private and confidential. Estimates until measured.</p>
+    <p>Prepared by Energy Plus with Cryogenex. Confidential.</p>
   </div>
 </footer>
 
@@ -547,7 +552,7 @@
 
     ageValueEl.textContent = age + (age === 1 ? " year" : " years");
     sqftValueEl.textContent = sqft.toLocaleString("en-US") + " sq ft";
-    rateValueEl.textContent = rateCents.toFixed(1) + " cents per kWh";
+    rateValueEl.textContent = rateCents.toFixed(1) + " cents / kWh";
 
     var r = compute(age, sqft, rateCents, scope);
 
@@ -561,9 +566,9 @@
     document.getElementById("maintAfter").textContent = fmtDollar(r.maintAfter);
     document.getElementById("maintRec").textContent = fmtDollar(r.maintRec);
 
-    document.getElementById("lifeToday").textContent = fmtDollar(r.lifeToday) + " a year";
-    document.getElementById("lifeAfter").textContent = fmtDollar(r.lifeAfter) + " a year";
-    document.getElementById("lifeRec").textContent = fmtDollar(r.lifeRec) + " a year";
+    document.getElementById("lifeToday").textContent = fmtDollar(r.lifeToday);
+    document.getElementById("lifeAfter").textContent = fmtDollar(r.lifeAfter);
+    document.getElementById("lifeRec").textContent = fmtDollar(r.lifeRec);
 
     document.getElementById("totalToday").textContent = fmtDollar(r.totalToday);
     document.getElementById("totalAfter").textContent = fmtDollar(r.totalAfter);

@@ -1,5 +1,15 @@
 # PRODUCT.md — Academy Sports + Outdoors proposal page
 
+## Version 6 (October 2026): tighter copy, no split words on any screen
+- Copy trimmed throughout per Dan (too verbose). Removed "Not an Energy Plus project,"
+  the "Energy Plus leads" line, and the redundant "a year" suffixes in the ledger.
+- Ledger stacks as cards on phones and tablets (under 1024px); the five-column table only
+  shows on wide screens, with nowrap on figures and bill names. Words never split mid-word.
+- Fixed two collisions with site.css: its `.bill` illustration class was shrinking the
+  ledger's bill cell, and its auto-numbered `.steps` doubled the pilot step numbers.
+- Verified at 360, 390, 600, 768, 820, 1024, 1180, 1280, 1440px: no mid-word breaks,
+  no horizontal scroll. The compute() engine is unchanged.
+
 ## Version 5 (September 2026): live site skin, logo, store photo, phone controls
 Per Dan's direction, the page moved from the version 2 to 4 placeholder skin onto the
 real, live Energy Plus design system, pulled fresh from the root of
@@ -208,8 +218,7 @@ $77.3M of replacement capital deferred (at the 3.9 year extension the age-12 fou
 fraction implies).
 
 ## Open decisions
-- **Brand.** The real Energy Plus visual identity is not resolved. This version ships on a
-  placeholder skin (see DESIGN.md); reskinning is a single-file swap of `assets/brand.css`.
+- **Brand.** Resolved in version 5: the page uses the live slashyourenergycost.com skin.
 - **Product naming.** Still white-labeled; no product name appears anywhere on the page.
 - **VP identity.** Unknown. The page is written to work for facilities, finance, or ESG,
   since each owns one of the three bills, rather than addressing a named title.
