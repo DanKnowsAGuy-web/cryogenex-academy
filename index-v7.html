@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Energy Plus proposal for Academy Sports + Outdoors, prepared in partnership with Cryogenex.">
+<title>Energy Plus · Prepared for Academy Sports + Outdoors</title>
+<link rel="stylesheet" href="assets/fonts/report-fonts.css">
+<link rel="stylesheet" href="assets/site.css?v=20261026b">
+<style>
+  /* This page's own widgets only: the roof ledger, its sliders, and the small
+     furniture (bands, cards, toggle, steps, callouts) that assets/site.css does
+     not define. Every value below is a var(--...) from site.css. No literal
+     color or font-family appears past this point. */
+
+  .label {
+    font-family: var(--font-mono); font-size: 1rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint);
+  }
+  .hero .label { color: var(--panel-faint); }
+
+  /* type floor: nothing that reads as body copy drops below 1.3rem; labels and
+     fine print (footnote-scale, per the standing rule) stay at 1rem; the hero
+     lead is fixed at 1.5rem; ledger numerals stay 1.5rem/1.6rem. */
+  p, li { font-size: max(var(--step-1), 1.3rem); line-height: 1.5; }
+  .fine, .label { font-size: 1rem; line-height: 1.5; }
+  .hero__lede { font-size: 1.5rem; }
+
+  .textlink {
+    font-size: 1.15rem; min-height: 56px; display: inline-flex; align-items: center;
+  }
+
+  main h2 { font-size: var(--step-3); max-width: 24ch; }
+  main .wrap.narrow p:not(.fine) { font-size: max(var(--step-1), 1.3rem); line-height: 1.5; max-width: 66ch; }
+  main .wrap.narrow p + p { margin-top: 1rem; }
+  main .wrap.narrow h2 + p { margin-top: 1.4rem; }
+
+  .wrap.narrow { max-width: calc(var(--narrow) + 2 * clamp(1.25rem, 4vw, 2.5rem)); }
+
+  .band { padding-block: var(--beat-pad); background: var(--paper); }
+  .band--alt { background: var(--card); border-block: 1px solid var(--rule-soft); }
+
+  .fine { font-family: var(--font-mono); font-size: 1rem; color: var(--faint); margin-top: 0.9rem; }
+  .fine .warn { color: var(--faint); font-style: italic; }
+
+  .btns { display: flex; flex-wrap: wrap; gap: 1.1rem; margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+
+  /* ---------- the ledger card ---------- */
+  .card {
+    background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-card);
+    box-shadow: var(--shadow-card); padding: clamp(1.5rem, 3vw, 2.5rem); margin-top: 2rem;
+  }
+
+  .controls { display: flex; flex-direction: column; gap: 1.5rem; }
+  .controls .range-row label {
+    display: block; font-family: var(--font-mono); font-size: 1rem; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--faint);
+  }
+  .controls .range-row { border-bottom: 1px solid var(--rule); padding-bottom: 1.5rem; }
+  .range-value { display: block; font-family: var(--font-sans); font-weight: 700; font-stretch: 112%;
+    font-size: 1.6rem; color: var(--ink); margin-top: 0.35rem; letter-spacing: -0.01em; }
+  .range-value.mono { font-family: var(--font-sans); }
+
+  input[type="range"] {
+    -webkit-appearance: none; appearance: none; width: 100%; height: 10px;
+    border-radius: 999px; background: var(--rule); margin-top: 1rem; outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 36px; height: 36px; border-radius: 50%;
+    background: var(--graphite); border: 2px solid var(--panel-ink);
+    box-shadow: 0 1px 0 rgb(16 20 22 / 0.15), 0 6px 16px -6px rgb(16 20 22 / 0.4);
+    cursor: pointer;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--graphite);
+    border: 2px solid var(--panel-ink); box-shadow: 0 1px 0 rgb(16 20 22 / 0.15), 0 6px 16px -6px rgb(16 20 22 / 0.4);
+    cursor: pointer;
+  }
+  input[type="range"]::-moz-range-track { height: 10px; border-radius: 999px; background: var(--rule); }
+
+  .range-minmax { display: flex; justify-content: space-between; font-family: var(--font-mono);
+    font-size: 1rem; color: var(--faint); margin-top: 0.6rem; }
+
+  .toggle { display: flex; gap: 0.75rem; }
+  .toggle button {
+    flex: 1; min-height: 56px; border-radius: var(--r-ctrl); border: 1px solid var(--rule);
+    background: var(--card); color: var(--ink); font-family: var(--font-sans); font-weight: 600;
+    font-size: 1.15rem;
+  }
+  .toggle button[aria-pressed="true"] { background: var(--graphite); color: var(--panel-ink); border-color: var(--graphite); }
+
+  .ledger-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+  .ledger-table caption { text-align: left; font-family: var(--font-mono); font-size: 1rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 0.8rem; }
+  .ledger-table th { text-align: left; font-family: var(--font-mono); font-size: 1rem;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); font-weight: 600;
+    border-bottom: 1px solid var(--ink); padding: 0.6rem 0.6rem 0.6rem 0; }
+  .ledger-table td {
+    padding: 0.9rem 0.6rem 0.9rem 0; border-bottom: 1px solid var(--rule); vertical-align: top;
+    font-size: max(var(--step-1), 1.3rem);
+  }
+  /* never split a word mid-word at any width */
+  body { overflow-wrap: break-word; hyphens: manual; }
+  h1, h2, h3 { text-wrap: balance; }
+  p, li, td { text-wrap: pretty; }
+  .ledger-table .num, .ledger-table .bill { white-space: nowrap; }
+  .ledger-table .bill { font-weight: 600; color: var(--ink); max-width: none; justify-self: auto; margin: 0; } /* site.css .bill is an unrelated illustration */
+  .ledger-table .bill-sub { display: block; font-family: var(--font-mono); font-weight: 400;
+    font-size: 1rem; color: var(--faint); margin-top: 0.2rem; }
+  .ledger-table .num { font-family: var(--font-mono); font-size: 1.5rem; color: var(--ink);
+    font-variant-numeric: tabular-nums; }
+  .ledger-table .num.money { color: var(--amber-ink); font-weight: 600; }
+  .ledger-table .conf { font-size: max(var(--step-1), 1.3rem); color: var(--faint); max-width: 22ch; }
+  .ledger-table .conf .warn { color: var(--amber-ink); font-style: italic; }
+  .ledger-table tr.total td { border-top: 2px solid var(--ink); border-bottom: 0; font-weight: 700; }
+  .ledger-table tr.total .num { font-size: 1.6rem; }
+
+  .ledger-table .bill-sub { white-space: normal; }
+  @media (min-width: 1024px) {
+    .ledger-table { table-layout: auto; width: 100%; }
+    .ledger-table .bill { width: auto; }
+    .ledger-table .num { width: 1%; padding-right: 2rem; }
+    .ledger-table .conf { width: 18rem; max-width: none; font-size: 1.15rem; }
+  }
+
+  /* ---------- page furniture reused across the bill/why/pilot sections ---------- */
+  .grid { display: grid; gap: 1.5rem; }
+  .grid--2 { grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .grid--2 { grid-template-columns: 1fr 1fr; } }
+
+  .plain-card { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-card);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem); }
+  .plain-card p { font-size: max(var(--step-1), 1.3rem); line-height: 1.5; }
+  .plain-card .fine { margin-top: 1rem; }
+  .photo img { border-radius: calc(var(--r-card) - 3px); filter: grayscale(1) contrast(1.05); aspect-ratio: 4 / 3; object-fit: cover; }
+
+  .film { position: relative; border-radius: var(--r-card); overflow: hidden; cursor: pointer; }
+  .film img { aspect-ratio: 16 / 9; object-fit: cover; filter: grayscale(1) contrast(1.05); }
+  .film .play { position: absolute; inset: 0; display: grid; place-items: center; }
+  .film .play span { display: block; width: 64px; height: 64px; border-radius: 50%;
+    background: var(--panel-ink); position: relative; }
+  .film .play span::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%);
+    border-style: solid; border-width: 12px 0 12px 20px; border-color: transparent transparent transparent var(--graphite); }
+  .film iframe { width: 100%; aspect-ratio: 16 / 9; border-radius: var(--r-card); }
+
+  .steps { list-style: none; margin-top: clamp(1.8rem, 4vw, 3rem); padding: 0; counter-reset: step; }
+  .steps > li { border-top: 1px solid var(--rule); padding: 1.5rem 0; }
+  .steps > li::before { content: none; } /* site.css auto-numbers; this page prints its own */
+  .step-num { font-family: var(--font-mono); font-weight: 600; font-size: var(--step-1); color: var(--faint); }
+  .steps h3 { font-size: var(--step-1); margin-top: 0.5rem; }
+  .steps p { margin-top: 0.5rem; font-size: max(var(--step-1), 1.3rem); }
+
+  .callout { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-card);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem); }
+  .callout p { font-size: max(var(--step-1), 1.3rem); margin-top: 0.5rem; }
+  .callout h3 { font-size: var(--step-1); }
+
+  /* ---------- the engineer: tiles and swipeable project cards ---------- */
+  .eng-head { display: grid; gap: 1.5rem; align-items: start; }
+  @media (min-width: 900px) { .eng-head { grid-template-columns: 1.4fr 1fr; gap: 3rem; } }
+  .eng-head .photo img { aspect-ratio: 4 / 3; width: 100%; object-position: 50% 20%; }
+  @media (min-width: 900px) { .eng-head .photo img { aspect-ratio: 4 / 5; } }
+  .eng-name { font-family: var(--font-mono); font-size: 1rem; color: var(--faint); margin-top: 0.8rem; }
+  .eng-pull { font-weight: 600; color: var(--ink); }
+
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2.5rem; }
+  @media (min-width: 900px) { .tiles { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 400px) { .tile { padding: 1rem; } }
+  .tile { background: var(--card); border: 1px solid var(--rule); border-radius: var(--r-card);
+    padding: 1.25rem; min-width: 0; }
+  .tile .big { font-family: var(--font-sans); font-weight: 700; font-stretch: 112%;
+    font-size: clamp(1.3rem, 5vw, 2.2rem); line-height: 1.05; color: var(--ink); letter-spacing: -0.01em; }
+  .tile p { font-size: 1.05rem; line-height: 1.45; margin-top: 0.6rem; color: var(--body-c); }
+
+  .reel-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2.5rem; }
+  .reel-nav { display: flex; gap: 0.6rem; }
+  .reel-nav button { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--rule);
+    background: var(--card); color: var(--ink); font-size: 1.3rem; cursor: pointer; }
+  .reel-nav button:disabled { opacity: 0.35; cursor: default; }
+  .reel { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 1rem 0 1.25rem; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+  .reel > article { flex: 0 0 min(85%, 26rem); scroll-snap-align: start; background: var(--card);
+    border: 1px solid var(--rule); border-radius: var(--r-card); padding: 1.5rem; }
+  .reel h3 { font-size: 1.3rem; line-height: 1.25; margin-top: 0.6rem; }
+  .reel p { font-size: 1.1rem; line-height: 1.5; margin-top: 0.7rem; }
+  @media (prefers-reduced-motion: reduce) { .reel { scroll-behavior: auto; } }
+
+  footer.site { padding-block: 3rem; background: var(--graphite); color: var(--panel-body); }
+  footer.site p { font-size: max(var(--step-1), 1.3rem); }
+
+  /* ---------- hero copy on the store photo ---------- */
+  /* .hero is display:grid with a single implicit column; without min-width:0
+     the child refuses to shrink below its content's intrinsic width and
+     overflows the viewport, the same reason root's own hero always wraps its
+     content in .hero__grid (which sets this same rule on its children). */
+  .hero__in { min-width: 0; }
+  .hero__copy .btns { margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+
+  /* desktop keeps the row layout; same thumb and track styling as phone */
+  @media (min-width: 720px) {
+    .controls { flex-direction: row; flex-wrap: wrap; gap: 2rem; }
+    .controls .range-row { flex: 1 1 260px; border-bottom: 0; padding-bottom: 0; }
+    .toggle { flex-basis: 100%; }
+  }
+
+  /* ---------- phone and tablet: controls, stacked ledger table, and layout-width safety ---------- */
+  @media (max-width: 1023.9px) {
+    .controls { gap: 1.5rem; }
+    .card { padding: 1.25rem; }
+
+    /* the fixed header only ever needs desktop's .wrap width budget; pin it to
+       the viewport explicitly so nothing upstream (an oversized descendant
+       elsewhere on the page) can drag the layout viewport wider than the
+       device and force the browser to zoom the whole page out. */
+    .head, .head__in {
+      width: 100%; max-width: 100%; min-width: 0;
+      padding-left: 16px; padding-right: 16px; box-sizing: border-box;
+    }
+
+    html, body { overflow-x: hidden; max-width: 100%; }
+    img, picture, video { max-width: 100%; height: auto; }
+
+    /* the ledger table becomes a stack of cards: one card per row, three
+       label/value lines for today, after, and saved, then the confidence
+       line. thead is visually hidden (clipped, not display:none, so it
+       still reads to a screen reader) since its labels move into each
+       value row via data-label. */
+    .ledger-table { table-layout: auto; }
+    .ledger-table thead {
+      position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .ledger-table, .ledger-table tbody, .ledger-table tr, .ledger-table td {
+      display: block; width: 100%;
+    }
+    .ledger-table tr {
+      border: 1px solid var(--rule); border-radius: var(--r-card);
+      margin-top: 1rem; overflow: hidden;
+    }
+    .ledger-table tr:first-child { margin-top: 0; }
+    .ledger-table tr.total { border: 2px solid var(--ink); }
+    .ledger-table td {
+      border-bottom: 1px solid var(--rule); padding: 0.9rem 1rem;
+    }
+    .ledger-table tr.total td { border-bottom: 1px solid var(--rule); border-top: 0; }
+    .ledger-table td:last-child { border-bottom: 0; }
+
+    .ledger-table td.bill {
+      font-family: var(--font-sans); font-weight: 700; font-stretch: 112%;
+      font-size: 1.35rem; background: var(--paper-2);
+    }
+    .ledger-table td.bill .bill-sub { font-size: 1rem; margin-top: 0.3rem; }
+
+    .ledger-table td.num {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+      font-size: 1.35rem;
+    }
+    .ledger-table td.num::before {
+      content: attr(data-label); font-family: var(--font-mono); font-size: 1rem;
+      font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint);
+    }
+    .ledger-table td.num > span { white-space: nowrap; }
+
+    .ledger-table td.conf { font-size: 1.15rem; }
+    .ledger-table td.conf::before {
+      content: attr(data-label); display: block; font-family: var(--font-mono); font-size: 1rem;
+      font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint);
+      margin-bottom: 0.4rem;
+    }
+    .ledger-table td.conf:empty { display: none; }
+
+    .ledger-table caption { display: block; width: 100%; font-size: 1rem; white-space: normal; }
+    .ledger-table td.bill { white-space: normal; }
+  }
+</style>
+</head>
+<body>
+
+<header class="head" id="head">
+  <div class="wrap head__in">
+    <a class="head__mark" href="#top" aria-label="Energy Plus, home"><img src="assets/img/energy-plus-logo.png" alt="Energy Plus" width="104" height="30"></a>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. Hero -->
+  <section class="hero" id="top" aria-labelledby="hero-h">
+    <div class="hero__media" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 719px)" srcset="assets/img/hero-store-mobile.jpg">
+        <img src="assets/img/hero-store.jpg" alt="" loading="eager" fetchpriority="high">
+      </picture>
+      <div class="hero__scrim"></div>
+    </div>
+    <div class="wrap hero__in">
+      <div class="hero__copy">
+        <p class="label">Academy Sports + Outdoors</p>
+        <h1 id="hero-h">Three bills. One fix.</h1>
+        <p class="hero__lede">Every store pays for its rooftop units three times: electricity, maintenance, and replacement. One treatment lowers all three. Proven on your own stores first.</p>
+        <div class="btns">
+          <a class="btn btn--lg" href="#ledger">See the numbers</a>
+          <a class="textlink" href="#pilot">The pilot</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. The ledger -->
+  <section class="band--alt band" id="ledger">
+    <div class="wrap">
+      <p class="label">The numbers</p>
+      <h2>One store. Three bills.</h2>
+
+      <div class="card">
+        <div class="controls">
+          <div class="range-row">
+            <label for="age">Age of the rooftop units<span class="range-value mono" id="ageValue">12 years</span></label>
+            <input type="range" id="age" min="0" max="25" step="1" value="12">
+            <div class="range-minmax"><span>0 years</span><span>25 years</span></div>
+          </div>
+          <div class="range-row">
+            <label for="sqft">Store size<span class="range-value mono" id="sqftValue">70,000 sq ft</span></label>
+            <p class="fine" id="tonsValue" style="margin-top:0.2rem;">about 175 tons of rooftop units</p>
+            <input type="range" id="sqft" min="50000" max="100000" step="1000" value="70000">
+            <div class="range-minmax"><span>50,000 sq ft</span><span>100,000 sq ft</span></div>
+          </div>
+          <div class="range-row">
+            <label for="rate">Electricity rate<span class="range-value mono" id="rateValue">10.1 cents / kWh</span></label>
+            <input type="range" id="rate" min="6.0" max="16.0" step="0.1" value="10.1">
+            <div class="range-minmax"><span>6.0 cents</span><span>16.0 cents</span></div>
+          </div>
+          <div class="toggle" role="group" aria-label="Scope">
+            <button type="button" id="scopeStore" aria-pressed="true">One store</button>
+            <button type="button" id="scopeFleet" aria-pressed="false">All 322 stores</button>
+          </div>
+        </div>
+
+        <table class="ledger-table">
+          <caption class="label">Before and after, each year.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Bill</th>
+              <th scope="col">Today</th>
+              <th scope="col">After</th>
+              <th scope="col">Saved each year</th>
+              <th scope="col">How sure</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bill" data-label="Bill">Electricity<span class="bill-sub">treatment + solar thermal</span></td>
+              <td class="num" data-label="Today"><span id="energyToday">$75,922</span></td>
+              <td class="num" data-label="After"><span id="energyAfter">$43,437</span></td>
+              <td class="num money" data-label="Saved each year"><span id="energyRec">$32,485</span></td>
+              <td class="conf" data-label="How sure">Measured elsewhere. Confirmed in the pilot.</td>
+            </tr>
+            <tr>
+              <td class="bill" data-label="Bill">Maintenance<span class="bill-sub">service, repairs, failures</span></td>
+              <td class="num" data-label="Today"><span id="maintToday">$27,500</span></td>
+              <td class="num" data-label="After"><span id="maintAfter">$22,136</span></td>
+              <td class="num money" data-label="Saved each year"><span id="maintRec">$5,364</span></td>
+              <td class="conf" data-label="How sure">An <span class="warn">estimate</span>. The service log decides.</td>
+            </tr>
+            <tr>
+              <td class="bill" data-label="Bill">Replacement<span class="bill-sub">twelve units, fifteen years</span></td>
+              <td class="num" data-label="Today"><span id="lifeToday">$16,000</span></td>
+              <td class="num" data-label="After"><span id="lifeAfter">$12,698</span></td>
+              <td class="num money" data-label="Saved each year"><span id="lifeRec">$3,302</span></td>
+              <td class="conf" data-label="How sure">Engineering estimate. Gauges confirm.</td>
+            </tr>
+            <tr class="total">
+              <td class="bill" data-label="Bill">Total</td>
+              <td class="num" data-label="Today"><span id="totalToday">$119,422</span></td>
+              <td class="num" data-label="After"><span id="totalAfter">$78,271</span></td>
+              <td class="num money" data-label="Saved each year"><span id="totalRec">$41,151</span></td>
+              <td class="conf" data-label="How sure"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="fine">Electricity split: treatment <span id="treatRec">$13,869</span>, solar thermal <span id="solarRec">$18,616</span>, of which demand charge <span id="demandRec">$13,672</span>. Plus <span id="deferred">$240,000</span> of replacement pushed <span id="ext">3.9</span> years out.</p>
+
+        <p class="fine">Estimates. Default rate is Academy's store-weighted average. Usage from Academy's 2021 GHG report. The pilot replaces these with your own numbers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Bill one: energy -->
+  <section class="band" id="energy">
+    <div class="wrap narrow">
+      <p class="label">Bill one</p>
+      <h2>Electricity. Your worst fifteen minutes sets the whole month.</h2>
+      <p>The demand charge is set by one moment: the hottest fifteen minutes of the month, when every rooftop unit on the roof runs flat out at once. You pay for that spike all month, and on many tariffs for a year after.</p>
+      <p>A fouled unit runs longer and hits that peak harder. Restore it and the peak comes down. On units past ten years, recovery has measured 20 to 24 percent. Solar thermal adds at least 30 percent more.</p>
+      <p class="fine">Electricity is 94 percent of Academy's measured footprint. Academy GHG report, 2021.</p>
+    </div>
+  </section>
+
+  <!-- 4. Bill two: maintenance -->
+  <section class="band--alt band" id="maintenance">
+    <div class="wrap narrow">
+      <p class="label">Bill two</p>
+      <h2>Maintenance. Heat kills compressors.</h2>
+      <p>Fouled coils run hot. Hot units fail, leak, and call for service in July.</p>
+      <p>Restore heat transfer and readings drop within 48 hours. We expect 15 to 25 percent fewer failures. The pilot's service log will confirm it.</p>
+    </div>
+  </section>
+
+  <!-- 5. Bill three: replacement -->
+  <section class="band" id="life">
+    <div class="wrap narrow">
+      <p class="label">Bill three</p>
+      <h2>Replacement. $240,000 a roof. 322 roofs.</h2>
+      <p>Twelve units a store, fifteen years each: about $77 million across the fleet, usually arriving as summer failures.</p>
+      <p>Units that run cooler last three to five years longer, moving replacement onto your build schedule.</p>
+    </div>
+  </section>
+
+  <!-- 6. Why one treatment moves all three -->
+  <section class="band--alt band" id="why">
+    <div class="wrap narrow">
+      <p class="label">Mechanism</p>
+      <h2>Why one treatment moves all three.</h2>
+      <p>Compressor oil bakes onto the coil as an insulating film, trapping heat. One treatment strips it and keeps the metal clean. No shutdown, no modification, warranty intact.</p>
+    </div>
+    <div class="wrap" style="margin-top:2.5rem;">
+      <div class="grid grid--2">
+        <div class="plain-card">
+          <p>"Simon Property Group, Jersey Gardens. Nine rooftop units from 1998. 21.1 percent less energy. 22 percent more capacity. Paid back in twelve months."</p>
+          <p class="fine">Third-party measured under IPMVP.</p>
+        </div>
+        <div>
+          <div class="film" id="filmFacade" role="button" tabindex="0" aria-label="Play the film">
+            <img src="assets/img/film-cover.jpg" alt="Six minutes on film">
+            <div class="play"><span></span></div>
+          </div>
+          <p class="fine">Six minutes on film.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. The engineer -->
+  <section class="band" id="engineer">
+    <div class="wrap">
+      <div class="eng-head">
+        <div>
+          <p class="label">Who measures it</p>
+          <h2>The engineer the national labs hired without a bid.</h2>
+          <p>When the Department of Energy and the Department of Defense needed measurements right the first time, Sandia National Laboratories, one of the country's top engineering labs, skipped the bidding. They handed the contract to Cliff Suljak.</p>
+          <p class="eng-pull">He designs the measurement on your stores, on your side of the table, before anyone touches a unit.</p>
+        </div>
+        <div class="photo">
+          <img src="assets/img/cliff-lab.jpg" alt="Cliff Suljak in the lab" loading="lazy">
+          <p class="eng-name">Cliff Suljak · Chief Technical Engineer</p>
+        </div>
+      </div>
+
+      <div class="tiles">
+        <div class="tile"><div class="big">Sole source</div><p>Sandia National Laboratories. 22 engineers across four DOE and DOD sites.</p></div>
+        <div class="tile"><div class="big">$600M</div><p>Built the quality program at Salt River Project. Utilities nationwide copied it.</p></div>
+        <div class="tile"><div class="big">ASTM</div><p>Eight years writing the national test standards other engineers are held to.</p></div>
+        <div class="tile"><div class="big">3 emirates</div><p>Called in to assess the UAE's national power grid.</p></div>
+      </div>
+
+      <div class="reel-bar">
+        <p class="label" style="margin:0;">Selected work</p>
+        <div class="reel-nav">
+          <button type="button" id="reelPrev" aria-label="Previous project">&larr;</button>
+          <button type="button" id="reelNext" aria-label="Next project">&rarr;</button>
+        </div>
+      </div>
+      <div class="reel" id="reel" tabindex="0" aria-label="Selected projects">
+        <article>
+          <p class="label">Sandia National Laboratories · DOE / DOD</p>
+          <h3>Sole source. Five years. Four national facilities.</h3>
+          <p>Sandia awarded the contract directly to Cliff. He built and led a 22-engineer team across Albuquerque, Livermore, Tonopah, and Kauai, completing hundreds of task orders.</p>
+        </article>
+        <article>
+          <p class="label">Salt River Project · Arizona</p>
+          <h3>He built the quality system from scratch. The industry copied it.</h3>
+          <p>As head of materials and quality for one of the Southwest's largest utilities, he created the lab, testing, and failure analysis program behind a $600M build. Utilities across the country adopted it.</p>
+        </article>
+        <article>
+          <p class="label">York International · LA County Courts</p>
+          <h3>After Northridge, he went up against the county's engineers. And won.</h3>
+          <p>Hired sole source to save the world's largest thermal storage system after the earthquake. He ran the seismic analysis, testified, prevailed, then designed and installed the fix.</p>
+        </article>
+        <article>
+          <p class="label">UAE National Grid · Dubai · Abu Dhabi · Sharjah</p>
+          <h3>Three emirates. One grid. He assessed all of it.</h3>
+          <p>A power loss engagement grew into a full reliability assessment of the national grid, consulting directly to the utility authorities in country.</p>
+        </article>
+        <article>
+          <p class="label">ASTM · Standards committee</p>
+          <h3>Eight years writing the tests everyone else must pass.</h3>
+          <p>He helped develop test methods for advanced materials in extreme environments, later adopted as national acceptance criteria for utility procurement.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 8. The pilot and the ask -->
+  <section class="band" id="pilot">
+    <div class="wrap narrow">
+      <p class="label">The pilot</p>
+      <h2>Proof on your own roofs in thirty days.</h2>
+
+      <ol class="steps">
+        <li>
+          <p class="step-num mono">01</p>
+          <h3>Send the folder.</h3>
+          <p>Twelve months of bills, the rooftop unit list, one point person. Free.</p>
+        </li>
+        <li>
+          <p class="step-num mono">02</p>
+          <h3>Pick the stores. As many as you want.</h3>
+          <p>Five is enough for a clean read. Ten or twenty covers more markets. Your oldest roofs first, untreated stores as controls, each store done in a day.</p>
+        </li>
+        <li>
+          <p class="step-num mono">03</p>
+          <h3>Readings in 48 hours. The bill in 30 days.</h3>
+          <p>Gauge readings on every unit within two days. The next electric bill shows the peak. The service log tracks maintenance.</p>
+        </li>
+        <li>
+          <p class="step-num mono">04</p>
+          <h3>Then the fleet.</h3>
+          <p>Review at thirty days. Then the oldest roofs next, and the rest on your build schedule.</p>
+        </li>
+      </ol>
+
+      <div class="grid grid--2" style="margin-top:2.5rem;">
+        <div class="callout">
+          <p class="label">Price</p>
+          <p>A fixed multiple of first-year savings. Payback in writing before work starts, typically 12 to 24 months.</p>
+        </div>
+        <div class="callout">
+          <h3>If we cannot prove it, you owe nothing.</h3>
+          <p>Free review. Measured pilot. Nothing goes fleet wide until the numbers say so.</p>
+        </div>
+      </div>
+
+      <h2 style="margin-top:3rem;">One call.</h2>
+      <div class="btns">
+        <a class="btn btn--lg" href="https://book.slashyourenergycost.com/?f=academy">Book the 15 minute fit call</a>
+        <a class="textlink" href="sms:+18647770688">Text Dan</a>
+        <a class="textlink" href="mailto:dan@yourenergyplus.com">Email</a>
+      </div>
+      <p class="fine" style="margin-top:1.25rem;">Daniel Gutierrez · Energy Plus · (864) 777-0688</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap narrow">
+    <p>Prepared by Energy Plus with Cryogenex. Confidential.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var LOSS = [0, 0.03, 0.065, 0.093, 0.118, 0.136, 0.155, 0.175, 0.188, 0.207, 0.216,
+    0.226, 0.231, 0.236, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242, 0.242];
+  var STORES = 322;
+  var KWH_PER_SQFT = 14.3;
+  var HVAC_KWH_SHARE = 0.40;
+  var PEAK_W_PER_SQFT = 6.4;
+  var HVAC_PEAK_SHARE = 0.55;
+  var DEMAND_RATE = 12;
+  var DEMAND_MAX = 0.125;
+  var SOLAR = 0.30;
+  var RATE_DEFAULT = 10.1;
+  var MAINT_PER_SQFT = 27500/70000, MAINT_MAX = 0.20;
+  var ROOF_COST_PER_SQFT = 240000/70000, LIFE_YEARS = 15, EXT_MAX = 4;
+
+  function compute(age, sqft, rateCents, stores){
+    var loss = LOSS[Math.min(25, Math.max(1, Math.round(age)+1))];
+    var f = loss / 0.242;
+    var rate = rateCents/100;
+    var hvacKwh = sqft * KWH_PER_SQFT * HVAC_KWH_SHARE;
+    var hvacKw  = sqft * PEAK_W_PER_SQFT / 1000 * HVAC_PEAK_SHARE;
+    var energyToday = hvacKwh*rate + hvacKw*DEMAND_RATE*12;
+    var tKwh = hvacKwh*loss;                 var tKw = hvacKw*DEMAND_MAX*f;
+    var sKwh = (hvacKwh - tKwh)*SOLAR;       var sKw = (hvacKw - tKw)*SOLAR;
+    var treatRec = tKwh*rate + tKw*DEMAND_RATE*12;
+    var solarRec = sKwh*rate + sKw*DEMAND_RATE*12;
+    var demandRec = (tKw + sKw)*DEMAND_RATE*12;
+    var kwhRec = (tKwh + sKwh)*rate;
+    var energyRec = treatRec + solarRec;
+    var maintToday = MAINT_PER_SQFT*sqft;    var maintRec = maintToday*MAINT_MAX*f;
+    var roof = ROOF_COST_PER_SQFT*sqft;      var ext = EXT_MAX*f;
+    var lifeToday = roof/LIFE_YEARS;         var lifeAfter = roof/(LIFE_YEARS+ext);  var lifeRec = lifeToday-lifeAfter;
+    var s = stores;
+    return {
+      loss: loss, ext: ext, tons: Math.round(sqft/400/5)*5,
+      energyToday: energyToday*s, energyAfter: (energyToday-energyRec)*s, energyRec: energyRec*s,
+      treatRec: treatRec*s, solarRec: solarRec*s, demandRec: demandRec*s, kwhRec: kwhRec*s,
+      maintToday: maintToday*s, maintAfter: (maintToday-maintRec)*s, maintRec: maintRec*s,
+      lifeToday: lifeToday*s, lifeAfter: lifeAfter*s, lifeRec: lifeRec*s, deferred: roof*s,
+      totalToday: (energyToday+maintToday+lifeToday)*s,
+      totalAfter: (energyToday-energyRec+maintToday-maintRec+lifeAfter)*s,
+      totalRec: (energyRec+maintRec+lifeRec)*s
+    };
+  }
+
+  function fmtDollar(n){
+    if (Math.abs(n) >= 1000000){
+      return "$" + (n/1000000).toFixed(1) + "M";
+    }
+    return "$" + Math.round(n).toLocaleString("en-US");
+  }
+
+  var ageEl = document.getElementById("age");
+  var ageValueEl = document.getElementById("ageValue");
+  var sqftEl = document.getElementById("sqft");
+  var sqftValueEl = document.getElementById("sqftValue");
+  var tonsValueEl = document.getElementById("tonsValue");
+  var rateEl = document.getElementById("rate");
+  var rateValueEl = document.getElementById("rateValue");
+  var scopeStoreBtn = document.getElementById("scopeStore");
+  var scopeFleetBtn = document.getElementById("scopeFleet");
+
+  rateEl.value = RATE_DEFAULT;
+
+  var scope = 1;
+
+  function render(){
+    var age = parseInt(ageEl.value, 10);
+    var sqft = parseInt(sqftEl.value, 10);
+    var rateCents = parseFloat(rateEl.value);
+
+    ageValueEl.textContent = age + (age === 1 ? " year" : " years");
+    sqftValueEl.textContent = sqft.toLocaleString("en-US") + " sq ft";
+    rateValueEl.textContent = rateCents.toFixed(1) + " cents / kWh";
+
+    var r = compute(age, sqft, rateCents, scope);
+
+    tonsValueEl.textContent = "about " + r.tons + " tons of rooftop units";
+
+    document.getElementById("energyToday").textContent = fmtDollar(r.energyToday);
+    document.getElementById("energyAfter").textContent = fmtDollar(r.energyAfter);
+    document.getElementById("energyRec").textContent = fmtDollar(r.energyRec);
+
+    document.getElementById("maintToday").textContent = fmtDollar(r.maintToday);
+    document.getElementById("maintAfter").textContent = fmtDollar(r.maintAfter);
+    document.getElementById("maintRec").textContent = fmtDollar(r.maintRec);
+
+    document.getElementById("lifeToday").textContent = fmtDollar(r.lifeToday);
+    document.getElementById("lifeAfter").textContent = fmtDollar(r.lifeAfter);
+    document.getElementById("lifeRec").textContent = fmtDollar(r.lifeRec);
+
+    document.getElementById("totalToday").textContent = fmtDollar(r.totalToday);
+    document.getElementById("totalAfter").textContent = fmtDollar(r.totalAfter);
+    document.getElementById("totalRec").textContent = fmtDollar(r.totalRec);
+
+    document.getElementById("treatRec").textContent = fmtDollar(r.treatRec);
+    document.getElementById("solarRec").textContent = fmtDollar(r.solarRec);
+    document.getElementById("demandRec").textContent = fmtDollar(r.demandRec);
+
+    document.getElementById("deferred").textContent = fmtDollar(r.deferred);
+    document.getElementById("ext").textContent = r.ext.toFixed(1);
+  }
+
+  ageEl.addEventListener("input", render);
+  sqftEl.addEventListener("input", render);
+  rateEl.addEventListener("input", render);
+
+  scopeStoreBtn.addEventListener("click", function(){
+    scope = 1;
+    scopeStoreBtn.setAttribute("aria-pressed", "true");
+    scopeFleetBtn.setAttribute("aria-pressed", "false");
+    render();
+  });
+  scopeFleetBtn.addEventListener("click", function(){
+    scope = STORES;
+    scopeStoreBtn.setAttribute("aria-pressed", "false");
+    scopeFleetBtn.setAttribute("aria-pressed", "true");
+    render();
+  });
+
+  render();
+
+  // Project reel arrows (swipe works without them)
+  var reel = document.getElementById("reel");
+  var prev = document.getElementById("reelPrev"), next = document.getElementById("reelNext");
+  function step(){ var a = reel.querySelector("article"); return a ? a.getBoundingClientRect().width + 16 : 300; }
+  function sync(){
+    prev.disabled = reel.scrollLeft < 4;
+    next.disabled = reel.scrollLeft + reel.clientWidth >= reel.scrollWidth - 4;
+  }
+  prev.addEventListener("click", function(){ reel.scrollBy({ left: -step(), behavior: "smooth" }); });
+  next.addEventListener("click", function(){ reel.scrollBy({ left: step(), behavior: "smooth" }); });
+  reel.addEventListener("scroll", sync, { passive: true });
+  window.addEventListener("resize", sync);
+  sync();
+
+  // Film facade
+  var filmFacade = document.getElementById("filmFacade");
+  function playFilm(){
+    var iframe = document.createElement("iframe");
+    iframe.src = "https://fast.wistia.net/embed/iframe/n765rk6v4z?autoPlay=true";
+    iframe.allow = "autoplay; fullscreen";
+    iframe.allowFullscreen = true;
+    iframe.title = "Six minutes on film";
+    filmFacade.replaceWith(iframe);
+  }
+  filmFacade.addEventListener("click", playFilm);
+  filmFacade.addEventListener("keydown", function(e){
+    if (e.key === "Enter" || e.key === " "){
+      e.preventDefault();
+      playFilm();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

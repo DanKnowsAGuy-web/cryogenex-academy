@@ -1,5 +1,11 @@
 # PRODUCT.md — Academy Sports + Outdoors proposal page
 
+## Live (October 27, 2026): the version 9 page is now the main link
+Per Dan, `index.html` (slashyourenergycost.com/cryogenex-academy/, the link emailed to
+Cryogenex) is now the version 9 page. It is the preview page with paths pointed at
+`assets/` and `preview/rd/` + `preview/vendor/`; keep the two in step. The previous live
+page (version 7) is saved as `index-v7.html`.
+
 ## Version 9 preview (October 2026): rebuilt on the October redesign, at /preview/
 Per Dan, the style reference is the unpublished redesign (DanKnowsAGuy-web/energy-plus,
 branch claude/main-page-design-motion-i9t36a, redesign-lab/lab/redesign-v7), not the
