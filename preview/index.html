@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-book="https://book.slashyourenergycost.com/?f=academy">
+<html lang="en" data-book-url="https://book.slashyourenergycost.com/?f=academy">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,10 +28,6 @@
   @keyframes acSpin { from { transform: rotate(-40deg); opacity: 0.3; } to { transform: rotate(0); opacity: 1; } }
   .v2-static .v2-illust--hours .kwh-roll, .v2-reduced .v2-illust--hours .kwh-roll { transform: translateY(-20px); }
 
-  /* replacement: 15-year life pushed 3 to 5 years (flag from year 15 to year 19) */
-  .ac-life .v2-replace-flag { transform: translateX(188px); }
-  .ac-life.is-in .v2-replace-flag { transform: translateX(232.8px); }
-  .ac-life.is-in .v2-life-segment { width: 44.8px; }
 
   /* two fixes: show the wide cards on every screen size */
   .ac-fixes { display: grid !important; }
@@ -322,12 +318,12 @@
                 <g class="v2-cal-cell"><rect x="12" y="10" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="18" y="23" font-size="9" font-weight="700" fill="#101416">J</text><circle class="v2-cal-dot" cx="63" cy="29" r="6" fill="#c2513f"/></g>
                 <g class="v2-cal-cell" style="--d:140ms"><rect x="89" y="10" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="95" y="23" font-size="9" font-weight="700" fill="#101416">F</text><circle class="v2-cal-dot v2-cal-dot--flip" cx="140" cy="29" r="6" fill="#c2513f"/><path class="v2-cal-check" d="M129 29l6 6 12-13" fill="none" stroke="#174e58" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
                 <g class="v2-cal-cell"><rect x="166" y="10" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="172" y="23" font-size="9" font-weight="700" fill="#101416">M</text><circle class="v2-cal-dot" cx="217" cy="29" r="6" fill="#c2513f"/></g>
-                <g class="v2-cal-cell"><rect x="243" y="10" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="249" y="23" font-size="9" font-weight="700" fill="#101416">A</text><circle class="v2-cal-dot" cx="294" cy="29" r="6" fill="#c2513f"/></g>
+                <g class="v2-cal-cell" style="--d:280ms"><rect x="243" y="10" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="249" y="23" font-size="9" font-weight="700" fill="#101416">A</text><circle class="v2-cal-dot v2-cal-dot--flip" cx="294" cy="29" r="6" fill="#c2513f"/><path class="v2-cal-check" d="M283 29l6 6 12-13" fill="none" stroke="#174e58" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
                 <g class="v2-cal-cell"><rect x="12" y="53" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="18" y="66" font-size="9" font-weight="700" fill="#101416">M</text><circle class="v2-cal-dot" cx="63" cy="72" r="6" fill="#c2513f"/></g>
-                <g class="v2-cal-cell"><rect x="89" y="53" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="95" y="66" font-size="9" font-weight="700" fill="#101416">J</text><circle class="v2-cal-dot" cx="140" cy="72" r="6" fill="#c2513f"/></g>
+                <g class="v2-cal-cell" style="--d:420ms"><rect x="89" y="53" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="95" y="66" font-size="9" font-weight="700" fill="#101416">J</text><circle class="v2-cal-dot v2-cal-dot--flip" cx="140" cy="72" r="6" fill="#c2513f"/><path class="v2-cal-check" d="M129 72l6 6 12-13" fill="none" stroke="#174e58" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
                 <g class="v2-cal-cell"><rect x="166" y="53" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="172" y="66" font-size="9" font-weight="700" fill="#101416">J</text></g>
                 <g class="v2-cal-cell"><rect x="243" y="53" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="249" y="66" font-size="9" font-weight="700" fill="#101416">A</text><circle class="v2-cal-dot" cx="294" cy="72" r="6" fill="#c2513f"/></g>
-                <g class="v2-cal-cell" style="--d:420ms"><rect x="12" y="96" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="18" y="109" font-size="9" font-weight="700" fill="#101416">S</text><circle class="v2-cal-dot v2-cal-dot--flip" cx="63" cy="115" r="6" fill="#c2513f"/><path class="v2-cal-check" d="M52 115l6 6 12-13" fill="none" stroke="#174e58" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+                <g class="v2-cal-cell" style="--d:560ms"><rect x="12" y="96" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="18" y="109" font-size="9" font-weight="700" fill="#101416">S</text><circle class="v2-cal-dot v2-cal-dot--flip" cx="63" cy="115" r="6" fill="#c2513f"/><path class="v2-cal-check" d="M52 115l6 6 12-13" fill="none" stroke="#174e58" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
                 <g class="v2-cal-cell"><rect x="89" y="96" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="95" y="109" font-size="9" font-weight="700" fill="#101416">O</text><circle class="v2-cal-dot" cx="140" cy="115" r="6" fill="#c2513f"/></g>
                 <g class="v2-cal-cell"><rect x="166" y="96" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="172" y="109" font-size="9" font-weight="700" fill="#101416">N</text></g>
                 <g class="v2-cal-cell"><rect x="243" y="96" width="69" height="35" rx="4" fill="#fff" stroke="#174e58" stroke-width="2"/><text x="249" y="109" font-size="9" font-weight="700" fill="#101416">D</text><circle class="v2-cal-dot" cx="294" cy="115" r="6" fill="#c2513f"/></g>
@@ -335,21 +331,21 @@
               <g clip-path="url(#calRollClip)">
                 <rect x="166" y="138" width="146" height="17" fill="#fff"/>
                 <g class="v2-cal-roll">
-                  <text x="166" y="151" font-family="Geist Mono" font-size="11" font-weight="700" fill="#101416">10 &rarr; 8 service calls</text>
-                  <text x="166" y="168" font-family="Geist Mono" font-size="11" font-weight="700" fill="#174e58">10 &rarr; 8 service calls</text>
+                  <text x="166" y="151" font-family="Geist Mono" font-size="11" font-weight="700" fill="#101416">10 &rarr; 6 service calls</text>
+                  <text x="166" y="168" font-family="Geist Mono" font-size="11" font-weight="700" fill="#174e58">10 &rarr; 6 service calls</text>
                 </g>
               </g>
             </svg>
           </div>
           <p class="v2-costcard__label">Maintenance</p>
-          <p class="v2-costcard__stat">15 to <span class="v2-cost-num" data-count-from="15" data-count-to="25" data-suffix="%">15%</span></p>
-          <p class="v2-costcard__unit">fewer failures expected</p>
-          <p class="v2-costcard__line">Hot units fail, leak, and call for service in July. The pilot&rsquo;s service log confirms it.<sup class="v2-fn"><a href="#v2-notes">12</a></sup></p>
+          <p class="v2-costcard__stat">Up to <span class="v2-cost-num" data-count-to="40" data-suffix="%">40%</span></p>
+          <p class="v2-costcard__unit">less maintenance</p>
+          <p class="v2-costcard__line">Hot units fail, leak, and call for service in July. Restored units break down less.<sup class="v2-fn"><a href="#v2-notes">12</a></sup></p>
         </article>
 
         <article class="v2-costcard" data-cost="replacement">
           <div class="v2-costcard__visual" aria-hidden="true">
-            <svg class="v2-viz v2-viz--replacement ac-life" data-viz="replacement" data-x0="188" data-x1="232.8" data-y0="2029" data-y1="2033" viewBox="0 0 320 160" role="img" aria-hidden="true">
+            <svg class="v2-viz v2-viz--replacement" data-viz="replacement" data-y0="2029" data-y1="2039" viewBox="0 0 320 160" role="img" aria-hidden="true">
               <rect x="110" y="15" width="100" height="45" rx="4" fill="#fff" stroke="#174e58" stroke-width="4"/>
               <circle cx="160" cy="37" r="14" fill="none" stroke="#174e58" stroke-width="3"/>
               <path d="M160 23v28M146 37h28" stroke="#174e58" stroke-width="2"/>
@@ -362,19 +358,19 @@
                 <line x1="244" y1="125" x2="244" y2="135" stroke="#101416" stroke-width="3"/><text x="244" y="148" text-anchor="middle">YR 20</text>
                 <line x1="300" y1="125" x2="300" y2="135" stroke="#101416" stroke-width="3"/><text x="300" y="148" text-anchor="middle">YR 25</text>
               </g>
-              <rect class="v2-life-segment" x="188" y="127" width="0" height="6" fill="#e0a21c"/>
-              <text class="v2-life-segment-label" x="210" y="118" text-anchor="middle" font-family="Geist Mono" font-size="9" font-weight="700" fill="#5a3f00">+3 TO 5 YRS</text>
+              <rect class="v2-life-segment" x="154.4" y="127" width="0" height="6" fill="#e0a21c"/>
+              <text class="v2-life-segment-label" x="210" y="118" text-anchor="middle" font-family="Geist Mono" font-size="9" font-weight="700" fill="#5a3f00">+10 TO 15 YRS</text>
               <g class="v2-replace-flag">
                 <line x1="0" y1="80" x2="0" y2="127" stroke="#101416" stroke-width="3"/>
                 <path d="M0 80 L34 88 L0 96 Z" fill="#c2513f"/>
-                <text x="-5" y="74" text-anchor="end" font-family="Geist Mono" font-size="9" font-weight="700" fill="#101416">REPLACE <tspan class="v7-year" fill="#c2513f">2033</tspan></text>
+                <text x="-5" y="74" text-anchor="end" font-family="Geist Mono" font-size="9" font-weight="700" fill="#101416">REPLACE <tspan class="v7-year" fill="#c2513f">2039</tspan></text>
               </g>
             </svg>
           </div>
           <p class="v2-costcard__label">Replacement</p>
-          <p class="v2-costcard__stat">3 to <span class="v2-cost-num" data-count-from="3" data-count-to="5">3</span></p>
-          <p class="v2-costcard__unit">more years of unit life</p>
-          <p class="v2-costcard__line">$240,000 a roof, about $77 million across 322 stores, moved onto your build schedule.<sup class="v2-fn"><a href="#v2-notes">12</a></sup></p>
+          <p class="v2-costcard__stat">10 to <span class="v2-cost-num" data-count-from="10" data-count-to="15">10</span></p>
+          <p class="v2-costcard__unit">more years of equipment life</p>
+          <p class="v2-costcard__line">Units that run cooler last longer, so replacement moves onto your build schedule.<sup class="v2-fn"><a href="#v2-notes">12</a></sup></p>
         </article>
 
       </div>
@@ -390,7 +386,7 @@
       <div class="v5-why__grid">
         <ol class="v5-why__list">
           <li class="v2-reveal"><h3>A wash can&rsquo;t reach it.</h3><p>The film bakes onto the inside of the coil, where no cleaning gets.</p></li>
-          <li class="v2-reveal"><h3>The only answer sold is a new unit.</h3><p>At $240,000 a roof, on the failure&rsquo;s schedule, not yours.</p></li>
+          <li class="v2-reveal"><h3>The only answer sold is a new unit.</h3><p>On the failure&rsquo;s schedule, not yours.</p></li>
           <li class="v2-reveal"><h3>Nobody measures first.</h3><p>So no one sees what the peak is costing each store.</p></li>
         </ol>
         <div class="v5-vendors v2-reveal" aria-hidden="true">
@@ -663,42 +659,35 @@
           </div>
         </div>
         <table class="ledger-table">
-          <caption>Before and after, each year</caption>
+          <caption>Electricity, before and after, each year</caption>
           <thead>
-            <tr><th scope="col">Bill</th><th scope="col">Today</th><th scope="col">After</th><th scope="col">Saved each year</th><th scope="col">How sure</th></tr>
+            <tr><th scope="col">Line</th><th scope="col">Today</th><th scope="col">After</th><th scope="col">Saved each year</th><th scope="col">How sure</th></tr>
           </thead>
           <tbody>
             <tr>
-              <td class="bill" data-label="Bill">Electricity<span class="bill-sub">treatment + solar thermal</span></td>
-              <td class="num" data-label="Today"><span id="energyToday">$75,922</span></td>
-              <td class="num" data-label="After"><span id="energyAfter">$43,437</span></td>
-              <td class="num money" data-label="Saved each year"><span id="energyRec">$32,485</span></td>
+              <td class="bill" data-label="Line">Energy<span class="bill-sub">kilowatt hours used</span></td>
+              <td class="num" data-label="Today"><span id="kwhToday">$40,440</span></td>
+              <td class="num" data-label="After"><span id="kwhAfter">$21,628</span></td>
+              <td class="num money" data-label="Saved each year"><span id="kwhRec">$18,812</span></td>
               <td class="conf" data-label="How sure">Measured elsewhere. Confirmed in the pilot.</td>
             </tr>
             <tr>
-              <td class="bill" data-label="Bill">Maintenance<span class="bill-sub">service, repairs, failures</span></td>
-              <td class="num" data-label="Today"><span id="maintToday">$27,500</span></td>
-              <td class="num" data-label="After"><span id="maintAfter">$22,136</span></td>
-              <td class="num money" data-label="Saved each year"><span id="maintRec">$5,364</span></td>
-              <td class="conf" data-label="How sure">An <em>estimate</em>. The service log decides.</td>
-            </tr>
-            <tr>
-              <td class="bill" data-label="Bill">Replacement<span class="bill-sub">twelve units, fifteen years</span></td>
-              <td class="num" data-label="Today"><span id="lifeToday">$16,000</span></td>
-              <td class="num" data-label="After"><span id="lifeAfter">$12,698</span></td>
-              <td class="num money" data-label="Saved each year"><span id="lifeRec">$3,302</span></td>
-              <td class="conf" data-label="How sure">Engineering estimate. Gauges confirm.</td>
+              <td class="bill" data-label="Line">Demand charge<span class="bill-sub">set by the peak</span></td>
+              <td class="num" data-label="Today"><span id="demandToday">$35,482</span></td>
+              <td class="num" data-label="After"><span id="demandAfter">$21,809</span></td>
+              <td class="num money" data-label="Saved each year"><span id="demandRec">$13,672</span></td>
+              <td class="conf" data-label="How sure">Measured elsewhere. Confirmed in the pilot.</td>
             </tr>
             <tr class="total">
-              <td class="bill" data-label="Bill">Total</td>
-              <td class="num" data-label="Today"><span id="totalToday">$119,422</span></td>
-              <td class="num" data-label="After"><span id="totalAfter">$78,271</span></td>
-              <td class="num money" data-label="Saved each year"><span id="totalRec">$41,151</span></td>
+              <td class="bill" data-label="Line">Total electricity</td>
+              <td class="num" data-label="Today"><span id="energyToday">$75,922</span></td>
+              <td class="num" data-label="After"><span id="energyAfter">$43,437</span></td>
+              <td class="num money" data-label="Saved each year"><span id="energyRec">$32,485</span></td>
               <td class="conf" data-label="How sure"></td>
             </tr>
           </tbody>
         </table>
-        <p class="calc-note">Electricity split: treatment <span id="treatRec">$13,869</span>, solar thermal <span id="solarRec">$18,616</span>, of which demand charge <span id="demandRec">$13,672</span>. Plus <span id="deferred">$240,000</span> of replacement pushed <span id="ext">3.9</span> years out.</p>
+        <p class="calc-note">Plus up to 40% less maintenance and 10 to 15 more years of equipment life. The pilot measures both.</p>
         <p class="calc-note">Estimates. Default rate is Academy&rsquo;s store-weighted average. Usage from Academy&rsquo;s 2021 GHG report. The pilot replaces these with your own numbers.</p>
       </div>
     </div>
@@ -764,7 +753,7 @@
         </details>
         <details>
           <summary>I answer for ESG. How is it measured? <span class="v2-chev" aria-hidden="true">&#9662;</span></summary>
-          <div class="v2-faq-body"><p>Electricity is 94 percent of Academy&rsquo;s measured footprint (2021 GHG report). Every pilot store is measured against untreated controls, witnessed by any third party you choose, under IPMVP on request. Verified kWh you can carry straight into reporting.<sup class="v2-fn"><a href="#v2-notes">8</a></sup></p></div>
+          <div class="v2-faq-body"><p>Every pilot store is measured against untreated controls, witnessed by any third party you choose, under IPMVP on request. Verified kWh you can carry straight into reporting.<sup class="v2-fn"><a href="#v2-notes">8</a></sup></p></div>
         </details>
       </div>
     </div>
@@ -854,6 +843,8 @@
       loss: loss, ext: ext, tons: Math.round(sqft/400/5)*5,
       energyToday: energyToday*s, energyAfter: (energyToday-energyRec)*s, energyRec: energyRec*s,
       treatRec: treatRec*s, solarRec: solarRec*s, demandRec: demandRec*s, kwhRec: kwhRec*s,
+      kwhToday: hvacKwh*rate*s, kwhAfter: (hvacKwh*rate - kwhRec)*s,
+      demandToday: hvacKw*DEMAND_RATE*12*s, demandAfter: (hvacKw*DEMAND_RATE*12 - demandRec)*s,
       maintToday: maintToday*s, maintAfter: (maintToday-maintRec)*s, maintRec: maintRec*s,
       lifeToday: lifeToday*s, lifeAfter: lifeAfter*s, lifeRec: lifeRec*s, deferred: roof*s,
       totalToday: (energyToday+maintToday+lifeToday)*s,
@@ -882,10 +873,8 @@
     $("rateValue").textContent = rateCents.toFixed(1) + " cents / kWh";
     var r = compute(age, sqft, rateCents, scope);
     $("tonsValue").textContent = "about " + r.tons + " tons of rooftop units";
-    ["energyToday","energyAfter","energyRec","maintToday","maintAfter","maintRec",
-     "lifeToday","lifeAfter","lifeRec","totalToday","totalAfter","totalRec",
-     "treatRec","solarRec","demandRec","deferred"].forEach(function(k){ $(k).textContent = fmtDollar(r[k]); });
-    $("ext").textContent = r.ext.toFixed(1);
+    ["energyToday","energyAfter","energyRec","kwhToday","kwhAfter","kwhRec",
+     "demandToday","demandAfter","demandRec"].forEach(function(k){ $(k).textContent = fmtDollar(r[k]); });
   }
   ageEl.addEventListener("input", render);
   sqftEl.addEventListener("input", render);

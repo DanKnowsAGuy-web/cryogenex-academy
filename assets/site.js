@@ -59,7 +59,7 @@
 
 
   /* ---------- booking: every [data-book] goes straight to the scheduler ---------- */
-  const BOOK_URL = document.documentElement.dataset.book || "https://book.slashyourenergycost.com/?f=office";
+  const BOOK_URL = document.documentElement.dataset.bookUrl || "https://book.slashyourenergycost.com/?f=office";
   document.querySelectorAll("[data-book]").forEach((btn) => {
     btn.addEventListener("click", () => { location.href = BOOK_URL; });
   });

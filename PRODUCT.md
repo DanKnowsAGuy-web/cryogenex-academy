@@ -13,6 +13,12 @@ published main page. This replaces the version 8 preview at the same path.
 - The animated isometric building was left out: its steps are about utility rates.
 - Pinned bill card: one store, rooftop units' electricity per year, from the calculator
   defaults: $75,922 (energy $40,440 + demand $35,482) to $43,437; peak 246 to 152 kW.
+- Per Dan (Oct 27): no dollar figures for maintenance or replacement anywhere. Maintenance
+  is "up to 40% less maintenance"; replacement is "10 to 15 more years of equipment life".
+  The calculator now shows electricity only (energy, demand charge, total), with a note
+  for the other two. The 94 percent footprint line was removed as unclear and unverified.
+- The booking link lives in `<html data-book-url>`: `data-book` on <html> made every
+  click on the page open the scheduler, because the scripts treat [data-book] as a button.
 - Calculator compute() and constants unchanged. Verified at nine widths, with motion
   and with ?static=1: no mid-word breaks, no horizontal scroll, no script errors.
 
