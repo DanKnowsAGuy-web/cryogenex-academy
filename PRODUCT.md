@@ -1,5 +1,21 @@
 # PRODUCT.md — Academy Sports + Outdoors proposal page
 
+## Version 9 preview (October 2026): rebuilt on the October redesign, at /preview/
+Per Dan, the style reference is the unpublished redesign (DanKnowsAGuy-web/energy-plus,
+branch claude/main-page-design-motion-i9t36a, redesign-lab/lab/redesign-v7), not the
+published main page. This replaces the version 8 preview at the same path.
+- `preview/rd/` holds copies of that redesign's v2/v5/v6/v7 CSS and v2.js + v7.js;
+  `preview/vendor/` holds its GSAP + ScrollTrigger. Edits to the copies, all opt-in:
+  v2.js reads the booking link from `<html data-book>`, reads bill-card states from
+  `data-bill` on the pinned section (whole dollars, so Academy's yearly numbers drive
+  it), and drops proof-wall rows that name a product or vendor; v7.js reads the
+  replacement-year geometry from `data-x0/x1/y0/y1` and the chips from `window.V7_CHIPS`.
+- The animated isometric building was left out: its steps are about utility rates.
+- Pinned bill card: one store, rooftop units' electricity per year, from the calculator
+  defaults: $75,922 (energy $40,440 + demand $35,482) to $43,437; peak 246 to 152 kW.
+- Calculator compute() and constants unchanged. Verified at nine widths, with motion
+  and with ?static=1: no mid-word breaks, no horizontal scroll, no script errors.
+
 ## Version 8 preview (October 2026): main-site structure, at /preview/
 Per Dan: bring the general SlashYourEnergyCost page's style and design into this one.
 Lives at `preview/index.html`; the live root `index.html` (version 7) is untouched until
