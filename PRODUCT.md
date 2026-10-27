@@ -1,5 +1,21 @@
 # PRODUCT.md — Academy Sports + Outdoors proposal page
 
+## Version 8 preview (October 2026): main-site structure, at /preview/
+Per Dan: bring the general SlashYourEnergyCost page's style and design into this one.
+Lives at `preview/index.html`; the live root `index.html` (version 7) is untouched until
+Dan approves. Uses the main site's own section classes from site.css (.hero exhibit,
+.beat/.beat--rule/.beat--dark, .buckets, .monument, .fig, .readout, .kit, .dossier,
+.workfile, .steps, .floor, .gate, .close, .foot) plus a copy of the main site's
+`assets/site.js` (reveals, SMS panel, workfile carousel, film). site.js reads the booking
+URL from `<html data-book>` so Academy keeps `?f=academy`.
+- Hero exhibit: one modeled store's yearly cost of its rooftop units (matches the
+  calculator defaults: $75,922 + $27,500 + $16,000 = $119,422; x322 = about $38M).
+- Calculator: compute() and constants unchanged, restyled inside a scoped `.calc-card`.
+- New: Fig. 01 peak demand load line, Fig. 02 pilot proof window, dark fix section with
+  the coil drawing and solar thermal, still proof grid (retail and RTU sites only),
+  facilities / P&L / ESG gates, close band with the team, Academy-specific notes.
+- Hard rules still hold: no em or en dashes, no "cooling", no product or vendor names.
+
 ## Version 7 (October 2026): peak demand, Cliff's credibility, a faster flexible pilot
 Per Dan: talk only about what we want to talk about.
 - Bill one headline is now about peak demand ("Your worst fifteen minutes sets the whole
